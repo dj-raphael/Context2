@@ -1,0 +1,122 @@
+
+.item {
+    margin: 0 0.3em;
+}
+.treeview-item {
+    width: 100%
+}
+
+.top-line div {
+    background: rgba(80,80,255,0.001);
+}
+
+.comment-container{
+    height:auto;
+    border-radius: 1em;
+    border-top: 2px solid silver;
+    margin-left:15px;
+    padding-bottom: 5px;
+    overflow: hidden;
+    margin-top: 10px;
+    background: rgba(200,200,200,0.15);
+    transition: 1s;
+}
+
+.message-container{
+    padding: 5px 5px 5px 15px;
+    text-align:left;
+}
+
+.top-line{
+    padding-top: 5px;
+    height: 20px;
+}
+.bottom-line{
+    height: 20px;
+}
+
+.bottom-line a{
+    cursor:pointer;
+    text-decoration:none;        
+    float:left;
+    padding-left: 30px;
+    color:SteelBlue;
+    font-weight:bold;
+           
+}
+.bottom-line a:hover{
+    text-decoration:underline;
+        
+}
+.bottom-line label {
+    color: SteelBlue;
+    font-size: 12px;
+    font-weight: normal;
+}
+.bottom-line input {
+    float:left;
+    padding-left: 30px;
+    font-weight: bold;
+}
+.left{
+    float:left
+}
+
+.right{
+    padding-right: 5px;
+        
+    float:right
+}
+.right2{
+    padding-right: 5px;
+    margin-left: -webkit-calc(100% - 150px);
+}
+
+.right-div-count{
+    margin-top:3px;
+    width:25px;
+    height:15px;
+    color: red;
+    cursor: pointer
+}
+.left-div-count{
+    margin-top:3px;
+    width:25px;
+    height:15px;
+    color: green;
+    cursor: pointer;
+}
+.right label{
+    margin-right:10px;
+    margin-left:10px;
+    
+ }
+.left a{
+    margin-right:10px;
+    margin-left:10px;
+    color: green;
+    font-weight:bold;
+    float:left
+}
+.left label{
+    margin-right:10px;
+    margin-left:10px;
+    font-weight:bold;
+    float:left;
+    font-size: 13px;
+}
+.user-date{
+    height:20px;
+}
+
+.bottom-line input
+{
+    display: none;
+}
+.sl-treeview {
+    margin-right: 15px;
+}
+.is-new {
+    background: rgba(200,255,200,0.5);
+}
+

@@ -1,0 +1,64 @@
+<html ng-csp="">
+<head>
+    <title>Options</title>
+    <script type="text/javascript" src="Scripts/require-config.js"></script>
+    <script type="text/javascript" data-main="options" src="Scripts/lib/require.js"></script>
+    <link rel="stylesheet" href="content/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="content/css/options.css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+</head>
+<body ng-controller="mainCtrl">
+    <header>
+        <div class="row">
+            <div class="col-lg-6">Context Comment</div>
+            <div class="col-lg-5 text-right pull-right" ng-if="user.isAuthenticated">
+                <span>{{user.name}}</span>
+                <button ng-click="signout()">SignOut</button>
+            </div>
+            <div class="col-lg-5 text-right pull-right" ng-if="!user.isAuthenticated">
+                <a href="login.html">SignIn</a>
+            </div>
+        </div>
+    </header>
+    <tabset class="tabbable tabs-left">
+        <tab heading="Options">
+            <div style="max-width: 600px">
+                <div class="row">
+                    <div class="col-lg-12">
+                        Choose your active languages:
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-7">
+                        <div class="clearfix">Avialable:<input ng-model="languageFilter" placeholder="Filter" class="pull-right" /></div>
+                        <div class="language-list">
+                            <table>
+                                <tr ng-repeat="lang in languages | filter: languageFilter | exept: selectedLanguages" ng-click="addSelectedLanguage(lang)">
+                                    <td>{{lang.uniCode}}</td>
+                                    <td>{{lang.Title}}</td>
+                                    <td>{{lang.NativeTitle}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <div>Selected:</div>
+                        <div class="language-list">
+                            <table>
+                                <tr ng-repeat="lang in selectedLanguages" ng-click="removeSelectedLanguage(lang)">
+                                    <td>{{lang.NativeTitle}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </tab>
+        <tab heading="Account" ng-if="user.isAuthenticated">
+            <h3>Registered external logins</h3>
+            <div id="external-login-list"></div>
+        </tab>
+        <tab heading="About">Vertical content 2</tab>
+    </tabset>
+</body>
+</html>

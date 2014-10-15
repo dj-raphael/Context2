@@ -1,0 +1,340 @@
+﻿<!DOCTYPE html>
+<!--<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <h2>It's frame</h2>
+    <div id="recivedData"></div>
+    <script type="text/javascript">
+        var onSendKeywords = function (e) {
+                console.log(e);
+                document.getElementById('recivedData').innerHTML = JSON.stringify(e.data);
+            },
+            eventMethod = window.addEventListener ? "addEventListener" : "attachEvent",
+            eventer = window[eventMethod],
+            messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
+        eventer(messageEvent, onSendKeywords, false);
+        window.onload = function() {
+            parent.postMessage('context2-frameready', '/');
+        }
+    </script>
+</body>
+</html>-->
+
+
+
+
+
+<html ng-csp="">
+<head>
+    <title>ContextInfo - Frame</title>
+    <link rel="stylesheet" href="content/css/select2.css" />
+    <link rel="stylesheet" href="content/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="content/css/frame.css" />
+    <link rel="stylesheet" href="content/css/comments.css" />
+
+    <script type="text/javascript" src="scripts/require-config.js"></script>
+    <script type="text/javascript" data-main="frame" src="scripts/lib/require.js"></script>
+</head>
+    <body ng-controller="mainCtrl">
+        <script type="text/javascript">
+            //var onSendKeywords = function (e) {
+            //    console.log(e);
+            //    document.getElementById('recivedData').innerHTML = JSON.stringify(e.data);
+            //    },
+            //eventMethod = window.addEventListener ? "addEventListener" : "attachEvent",
+            //eventer = window[eventMethod],
+            //messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
+            //eventer(messageEvent, onSendKeywords, false);
+
+
+            //window.onload = function () {
+            //    parent.postMessage('context2-frameready', '/');
+            //}
+        </script>
+        <div id="recivedData"></div>
+        <div class="CI_panel">
+            <div class="CI_panel-buttons">
+                <a href="success.html" target="_blank" class="CI_icon-settings CI_icon"></a>
+                <i class="CI_icon-refresh CI_icon"></i>
+            </div>
+            <div class="CI_thread-selector">
+                <input id="thread_box" type="text" name="thread" ng-model="thread" ng-change="onThreadSelect()" />
+            </div>
+            <div class="CI_language-selector">
+                <input id="language_box" type="text" name="language" ng-model="language" ng-change="onThreadSelect()" />
+            </div>
+        </div>
+        <div class="CI_tabset" ng-controller="TabsCtrl">
+            <ng-include src="threadTemplate"></ng-include>
+        </div>
+
+        <!-- Popup: unauthorized -->
+        <div class="CI_popup popup-authorize" style="display: none">
+            <div class="CI_popup_messagebox">
+                <p><span style="font-size: larger">Внимание!</span> </p>
+                <p>Для совершения данного действия необходима авторизация.</p>
+                <p><a href="login.html" target="_blank" style="font-size: larger" id="CI_popup_login_link">Войти</a> <a href='#' class="CI_popup_close">Отмена</a></p>
+            </div>
+        </div>
+
+        <!-- Popup: ban time counter-->
+        <div class="CI_popup popup-ban-time-counter" style="display: none">
+            <div class="CI_popup_messagebox">
+                <p><span style="font-size: larger">Внимание!</span> </p>
+                <p>Для того чтобы оставить коммент подождите:</p>
+                <p class="ban-time-count"></p>
+                <p><a href='#' class="CI_popup_close">OK</a></p>
+            </div>
+        </div>
+
+        <!-- Templates -->
+
+        <script type="text/ng-template" id="tabs.html">
+        <div ng-controller="TabsCtrl" class="CI_main-tabs">
+            <tabset>
+                <tab ng-repeat="tab in tabs" select="foo(tab)" active="tab.active" disabled="tab.disabled" class="{{tab.className}}">
+                    <tab-heading>
+                        {{tab.title}}
+                        <div class="tab-toolbar" ng-include="tab.toolbar"></div>
+                    </tab-heading>
+                    <div class="CI_tab CI_scrollable">
+                        <ng-include src="tab.templateUrl"></ng-include>
+                    </div>
+                </tab>
+            </tabset>
+        </div>
+    </script>
+
+        <script type="text/ng-template" id="toolbar-wiki.html">
+        <div ng-controller="wikiController_toolbar">
+            <a href="#" ng-click="click('edit')"><span class="icon">&#9999;</span><span class="text">Edit</span></a>
+        </div>
+    </script>
+
+        <script type="text/ng-template" id="toolbar-profile.html">
+        <div ng-controller="profileController_toolbar">
+            <a href="#" ng-click="click('edit')">Sign In</a>
+        </div>
+    </script>
+
+        <script type="text/ng-template" id="wiki.html">
+        <div ng-controller="wikiController" class="CI_controller_container">
+            <tabset ng-show="editmode" class="edit-wiki light-tabs">
+                <tab heading="Set link">
+                    <input type="text" ng-model="$parent.link" />
+                    <button ng-click="submitUrl()">Submit</button>
+                    <button ng-click="cancel()">
+                        Cancel
+                    </button>
+                    <span style="color:red;" ng-show="$parent.wikiTypeIsLink">{{$parent.linkInvalid}}</span>
+                </tab>
+                <tab heading="Edit text">
+                    <textarea ui-tinymce="tinymceOptions" ng-model="$parent.editorcontent" id="wiki_edit"></textarea>
+                    <button ng-click="submitEditor()">Submit</button>
+                    <button ng-click="cancel()">Cancel</button>
+                </tab>
+            </tabset>
+            <div ng-bind-html="htmlcode" ng-show="!editmode" style="{{StyleForWiki}}"></div>
+        </div>
+    </script>
+
+
+        <script type="text/ng-template" id="discussion.html">
+        <div ng-controller="discussionController">
+            <div class="CI_toolbar">
+                <a href="#" ng-click="clickNewComment()">Write new comment</a>
+                <button class="pull-right">search</button>
+                <input type="search" class="pull-right" />
+            </div>
+
+            <input type="checkbox" style="display:none" data-ng-model="answerIsExpanded" id="answer_{{item.CommentId}}" />
+            <div ng-if="answerIsExpanded" ng-include="'answerForm.html'" style="margin: 0 15px"></div>
+            <treeview></treeview>
+        </div>
+
+    </script>
+
+
+        <script type="text/ng-template" id="faq.html">
+        <div ng-controller="faqController" class="faq">
+            <input type="checkbox" style="display:none" data-ng-model="editorIsExpanded" id="edit_" />
+            <label for="edit_" data-ng-switch on="editorIsExpanded" ng-click='clickEditor()'>
+                <span data-ng-switch-when="undefined">Add</span>
+                <span data-ng-switch-when="true">Close</span>
+                <span data-ng-switch-when="false">Add</span>
+            </label>
+            <div ng-if="editorIsExpanded" ng-include="'addForm.html'"></div>
+
+            <accordion>
+                <accordion-group is-open="isopen" ng-repeat="item in faqList" id="question_{{item.id}}">
+                    <input type="checkbox" style="display:none" data-ng-model="editorIsExpanded" id="edit_{{item.id}}" />
+                    <accordion-heading>
+                        <div ng-show='editorIsExpanded'>
+                            <input type="text" ng-model="item.question" placeholder="Question" class="CI_faqTitleEditor" ng-click="stopProp($event)" />
+                        </div>
+                        <div ng-show='!editorIsExpanded'>
+                            <b>{{item.question}}</b>
+                            <div class="CI_faqRaiting" ngclick="stopProp($event)">
+                                <a class="left-div-count" ng-click="vote(true, item, $event)">
+                                    <b>▲</b>
+                                </a>
+                                <span>{{item.weight | number:0}}</span>
+                                <a class="right-div-count" ng-click="vote(false, item, $event)">
+                                    <b>▼</b>
+                                </a>
+                            </div>
+                        </div>
+                    </accordion-heading>
+                    <div ng-bind-html="item.answerHtml" ng-show='!editorIsExpanded'>
+                    </div>
+                    <div ng-show='editorIsExpanded'>
+                        <div ng-if="editorIsExpanded" ng-include="'faqTextEditor.html'"></div>
+                    </div>
+                    <label for="edit_{{item.id}}" data-ng-switch on="editorIsExpanded" style="margin-bottom:-10px;margin-top:15px">
+                        <span data-ng-switch-when="undefined">Edit</span>
+                        <span data-ng-switch-when="true" ng-click='update(item)'>Submit</span>
+                        <span data-ng-switch-when="false">Edit</span>
+                    </label>
+                </accordion-group>
+            </accordion>
+            <br />
+            <pagination total-items="bigTotalItems" page="bigCurrentPage" items-per-page="itemsPerPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" on-select-page="onSelectPage(page)"></pagination>
+        </div>
+    </script>
+
+
+
+        <script type="text/ng-template" id="tree.html">
+        <div class="sl-treeview">
+            <div class="clear" infinite-scroll="addMoreItems()" infinite-scroll-distance="0" infinite-scroll-immediate-check="immediateCheck" infinite-scroll-disabled="scrollDisabled">
+                <treeview-item ng-repeat="item in items" item="item"></treeview-item>
+            </div>
+        </div>
+    </script>
+
+
+        <script type="text/ng-template" id="item.html">
+        <div id="{{item.CommentId}}" class="comment-container" ng-class="{'is-new': item.isNew}" ng-mouseenter="item.isNew = false;">
+            <div class="item">
+                <div class="top-line">
+                    <div class="left">
+                        <a href="#" id="userName">{{item.UserName}}</a>
+                        <label id="date">{{item.Created | date:'dd MMMM yyyy H:mm'}}</label>
+                    </div>
+                    <div class=right>
+                        <a class="left-div-count" ng-click="vote(true)">
+                            <b>▲</b>
+                        </a>
+                        <label id="count" title="{{item.VoteUp + item.VoteDown}}: ↑{{item.VoteUp}} ↓{{item.VoteDown}} ">{{item.VoteUp - item.VoteDown}}</label>
+                        <a class="right-div-count" ng-click="vote(false)">
+                            <b>▼</b>
+                        </a>
+                    </div>
+                </div>
+                <div class="message-container" ng-bind-html="item.Message"></div>
+                <div class="bottom-line">
+                    <div>
+                        <span data-ng-show="item.HasChildren!=false">
+                            <input type="checkbox" data-ng-model="isCollapsed" id="showAll{{item.CommentId}}" />
+                            <label for="showAll{{item.CommentId}}" data-ng-switch on="isCollapsed" ng-click="expandClick()">
+                                <span data-ng-switch-when="undefined">[&#x2013;] Collapse ↑</span>
+                                <span data-ng-switch-when="true">[+] Expand&nbsp; ↓</span>
+                                <span data-ng-switch-when="false">[&#x2013;] Collapse ↑</span>
+                            </label>
+                        </span>
+                        <label ng-click="clickAnswer()" class="right">Answer</label>
+                    </div>
+                </div>
+                <div ng-if="answerIsExpanded" ng-include="'answerForm.html'"></div>
+            </div>
+        </div>
+    </script>
+
+        <script type="text/ng-template" id="answerForm.html">
+        <textarea class="CI_CommentTextArea" style="width: 100%" ng-model="text" placeholder="Comment.." id="{{item.CommentId}}_CommentTextArea"></textarea>
+        <button class="sendAnswer" ng-click="sendAnswer()">Send</button>
+        <button ng-click="close()">Close</button>
+    </script>
+
+        <script type="text/ng-template" id="addForm.html">
+        <strong>Add question</strong>
+        <br />
+        <input type="text" ng-model="question" placeholder="Question" class="CI_faqTitleEditor" />
+        <textarea style="width: 100%" ng-model="answer" placeholder="Answer" ui-tinymce="tinymceOptions"></textarea>
+        <br />
+        <button class="sendAnswer" ng-click="add()">Submit</button>
+
+    </script>
+        <script type="text/ng-template" id="faqTextEditor.html">
+        <textarea style="width: 100%" ui-tinymce="tinymceOptions" ng-model="item.answer" placeholder="Answer"></textarea>
+        <br />
+    </script>
+
+        <script type="text/ng-template" id="thread-manage.html">
+        <div ng-controller="manageController" class="faq">
+            <tabset>
+                <tab heading="Wiki History">
+                    Static content
+                </tab>
+                <tab heading="Rename Thread">
+                    New name of Thread: <input type="text" /><button>Rename</button><br /><br />
+                    Renames history:<br />
+                    <table class="ci-vote">
+                        <tr>
+                            <th>New Name</th>
+                            <th>Old Name</th>
+                            <th>User</th>
+                            <th>Pro</th>
+                            <th>Con</th>
+                            <th>Date</th>
+                        </tr>
+                        <tr>
+                            <td>My new name</td>
+                            <td>My old name</td>
+                            <td>Raphael</td>
+                            <td class="vote-for">32, 66%, 41%</td>
+                            <td class="vote-against">12, 34%, 26%</td>
+                            <td>12 days</td>
+                        </tr>
+                    </table>
+                </tab>
+                <tab heading="Merge Thread">
+                    ThreadId: {{thread}}<br />
+                    Merge threads: <input type="text" placeholder="ThreadId" /><button>Merge</button><br />
+                    <br />
+                    Merges history:<br />
+                    <table class="ci-vote">
+                        <tr>
+                            <th>Thread1</th>
+                            <th>Thread2</th>
+                            <th>User</th>
+                            <th>For</th>
+                            <th>Con</th>
+                            <th>Date</th>
+                        </tr>
+                        <tr>
+                            <td>My new name</td>
+                            <td>My old name</td>
+                            <td class="vote-for">32, 66%, 41%</td>
+                            <td class="vote-against">12, 34%, 26%</td>
+                            <td>12 days</td>
+                        </tr>
+                    </table>
+                </tab>
+                <tab heading="Moderators">
+                    List of thread moderators:<br />
+                    <button>I want to become moderator</button>
+                    <button>Withdraw my candidacy</button>
+                </tab>
+                <tab heading="Thread">
+                    Static content
+                </tab>
+            </tabset>
+
+        </div>
+    </script>
+
+    </body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>LogIn</title>
+
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="content/css/login.css" />
+    <script type="text/javascript" src="scripts/require-config.js"></script>
+    <script type="text/javascript" data-main="login" src="scripts/lib/require.js"></script>
+</head>
+<body class="metal">
+    <div id="main">
+        <input type="radio" id="GoToRegister" class="radio" name="radioIn" />
+        <input type="radio" id="GoToLogin" class="radio" name="radioIn" />
+        <input type="radio" id="GoToMore" class="radio" name="radioIn" />
+        <div class="container">
+            <div class="panel" id="regist">
+                <header>
+                    <h1>Register</h1>
+                </header>
+                <form id="RegistForm">
+                    <div class="field">
+                        <label for="register_login" class="label">Email</label>
+                        <input id="register_login" type="text" name="mail" />
+                    </div>
+                    <div class="field">
+                        <label for="register_pass" class="label">Password</label>
+                        <input id="register_pass" type="password" name="reg_password" />
+                    </div>
+                    <div class="field">
+                        <label for="register_pass_conf" class="label">Repeat Password</label>
+                        <input id="register_pass_conf" type="password" name="conf_password" />
+                    </div>
+                    <div class="field" id="img_place">
+                        <img src="content/captcha.jpg" />
+                    </div>
+                    <div class="field" id="buttonReg">
+                        <label for="GoToLogin" class="labelClass" id="labelGoToLogin">
+                            LogIn</label>
+                        <button id="register_button" class="metal">Register</button>
+                    </div>
+                </form>
+            </div>
+            <div class="panel" id="log">
+                <header>
+                    <h1>Log in </h1>
+                </header>
+                <div class="loginForm_div">
+                    <form id="LogInForm">
+                        <div class="field">
+                            <label for="login" class="label">Username</label>
+                            <input id="login" type="text" name="username" />
+                        </div>
+                        <div class="field field_login">
+                            <label for="password" class="label">Password</label>
+                            <input id="password" type="password" name="password" />
+                        </div>
+                        <div class="field field_login" id="buttonLog">
+                            <label for="GoToRegister" class="labelClass">Register</label>
+                            <button id="login_button" type="submit" class="metal">Log in</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="social">
+                    <a href="#" id="facebook" class="social_a">
+                        <img src="content/facebook.png" class="social_img" />
+                    </a>
+                    <a href="#" id="google" class="social_a" onclick="return false;">
+                        <img src="content/google.png" class="social_img" /></a>
+                    <a href="#" id="twitter" class="social_a" onclick="return false;">
+                        <img src="content/twitter.png" class="social_img" /></a>
+                    <label for="GoToMore" class="labelClass">More >></label>
+                </div>
+            </div>
+            <div id="toggler" class="panel toggler">
+                <header>
+                    <h1>More buttons</h1>
+                </header>
+                <div id="moreButtons">
+                    <label for="GoToLogin" id="back" class="labelClass"><< back </label>
+                    <div>
+                        <a href="#" id="gethub" onclick="return false;">
+                            <img src="content/github.png" class="social_img" /></a>
+                        <a href="#" id="vk" onclick="return false;">
+                            <img src="content/vk.png" class="social_img" /></a>
+                        <a href="#" id="flickr" onclick="return false;">
+                            <img src="content/flickr.png" class="social_img" /></a>
+                        <a href="#" id="linkedin" onclick="return false;">
+                            <img src="content/linkedin.png" class="social_img" /></a>
+                        <a href="#" id="instagram" onclick="return false;">
+                            <img src="content/instagram.png" class="social_img" /></a>
+                        <a href="#" id="dropbox" onclick="return false;">
+                            <img src="content/dropbox.png" class="social_img" /></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

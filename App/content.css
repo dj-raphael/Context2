@@ -1,0 +1,121 @@
+﻿#context2-panel-wrapper {
+    position: fixed;
+    top: 0;
+    padding: 0 0 0 3px;
+    height: 100%;
+    background: grey;
+    cursor: col-resize;
+    -webkit-box-shadow: -2px 2px 13px rgba(50, 50, 50, 0.5);
+    -ms-box-shadow: -2px 2px 13px rgba(50, 50, 50, 0.5);
+    box-shadow: -2px 2px 13px rgba(50, 50, 50, 0.5);
+    z-index: 19999999999;
+    -webkit-transition: .3s all linear;
+    -moz-transition: .3s all linear;
+    -ms-transition: .3s all linear;
+    -o-transition: .3s all linear;
+    transition: .3s all linear;
+}
+
+    #context2-panel-wrapper.context2-resized {
+        -webkit-transition: none;
+        -moz-transition: none;
+        -ms-transition: none;
+        -o-transition: none;
+        transition: none;
+    }
+
+    #context2-panel-wrapper.context2-dragged {
+        -webkit-transition: .3s opacity linear;
+        -moz-transition: .3s opacity linear;
+        -ms-transition: .3s opacity linear;
+        -o-transition: .3s opacity linear;
+        transition: .3s opacity linear;
+        opacity: 0.4;
+    }
+
+#context2-outer-shutter,
+#context2-inner-shutter {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#context2-frame {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    cursor: default;
+    background: white;
+    border: 0;
+}
+
+#context2-panel-toggle-label {
+    display: block;
+    position: absolute;
+    left: -29px;
+    top: 45%;
+    width: 20px;
+    height: 16px;
+    background: white;
+    color: grey;
+    font-size: larger;
+    margin: 0;
+    vertical-align: central;
+    text-align: center;
+    font-family: Arial;
+    font-size: medium;
+    padding-top: 10px;
+    padding-bottom: 30px;
+    padding-left: 3px;
+    padding-right: 7px;
+    border: grey solid;
+    border-top-width: 3px;
+    border-left-width: 3px;
+    border-bottom-width: 3px;
+    border-right-width: 0;
+    -ms-border-top-left-radius: 6px;
+    border-top-left-radius: 6px;
+    -ms-border-bottom-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    -webkit-box-shadow: -2px 2px 13px rgba(50, 50, 50, 0.5);
+    -moz-box-shadow: -2px 2px 13px rgba(50, 50, 50, 0.5);
+    -ms-box-shadow: -2px 2px 13px rgba(50, 50, 50, 0.5);
+    box-shadow: -2px 2px 13px rgba(50, 50, 50, 0.5);
+    cursor: pointer;
+}
+
+    #context2-panel-toggle-label > span {
+        height: 20px;
+        background: url('images/icon.png');
+        display: block;
+        background-size: cover;
+        cursor: pointer;
+    }
+
+    #context2-panel-toggle-label > div {
+        -webkit-transition: .9s all;
+        -moz-transition: .9s all;
+        -ms-transition: .9s all;
+        -o-transition: .9s all;
+        transition: .9s all;
+        cursor: pointer;
+        vertical-align: central;
+        top: 50%;
+    }
+
+#context2-panel-toggle-checkbox {
+    display: none;
+}
+
+    #context2-panel-toggle-checkbox:checked ~ #context2-panel-wrapper {
+        right: 0 !important;
+    }
+
+        #context2-panel-toggle-checkbox:checked ~ #context2-panel-wrapper > #context2-panel-toggle-label > div {
+            -webkit-transform: rotate(180deg);
+            -moz-transform: rotate(180deg);
+            -ms-transform: rotate(180deg);
+            -o-transform: rotate(180deg);
+            transform: rotate(180deg);
+        }

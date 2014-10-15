@@ -1,0 +1,257 @@
+header {
+    height: 20px;
+    padding-bottom: 3px;
+    text-align: left;
+}
+h1 {
+    font-size: 24px;
+    font-weight: normal;
+}
+a {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+#back,
+#labelGoToLogin {
+    float: left;
+}
+html,
+body {
+    display: table;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+body {
+    display: table-cell;
+    background: linear-gradient(to bottom, #fff5ee 1%, #e6e6fa 99%);
+    font-family: Arial, sans-serif;
+    align-items: center;
+    align-self: center;
+    padding: 0;
+    vertical-align: middle;
+}
+body #main {
+    overflow: hidden;
+    background: white;
+    padding-left: 5px;
+    border: solid 3px;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: #bfcfe1;
+    padding-bottom: 15px;
+    padding-left: 10px;
+    padding-right: 30px;
+    padding-top: 5px;
+    width: 405px;
+    height: 330px;
+    margin: auto;
+}
+.panel {
+    text-align: center;
+    float: left;
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    width: 425px;
+    height: 320px;
+}
+form #RegistForm {
+    display: block;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    padding-left: 3px;
+    height: 290px;
+    position: relative;
+    width: 400px;
+}
+.field {
+    text-align: right;
+    box-sizing: border-box;
+    display: block;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    height: 30px;
+    padding-bottom: 15px;
+    padding-top: 5px;
+    position: relative;
+    width: 400px;
+    line-height: 2.3;
+}
+.label {
+    width: 100px;
+}
+div #img_place {
+    padding-top: 15px;
+    height: 135px;
+    width: 400px;
+    text-align: right;
+}
+div #buttonReg {
+    height: 40px;
+    padding-top: 12px;
+}
+#buttonReg button {
+    float: right;
+}
+div #log {
+    width: 415px;
+    padding-left: 14px;
+}
+#backLogIn {
+    float: left;
+}
+div #toggler {
+    padding-left: 5px;
+    padding-top: 5px;
+    padding-right: 15px;
+    padding-bottom: 5px;
+    height: 300px;
+    float: right;
+    display: block;
+    width: 410px;
+}
+a #moreButtons {
+    padding-top: 10px;
+    text-align: center;
+}
+#toggler div {
+    padding-top: 15px;
+}
+.loginForm_div a {
+    line-height: 2.7;
+}
+input {
+    width: 200px;
+}
+div .container {
+    width: 1330px;
+    height: 330px;
+    -webkit-transform: translateX(-450px);
+}
+.labelClass:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+.radio {
+    display: none;
+}
+input#GoToRegister:checked ~ .container {
+    -webkit-transform: translateX(0px);
+    -webkit-transition: all ease-out 0.3s 0.3s;
+}
+input#GoToLogin:checked ~ .container {
+    -webkit-transform: translateX(-450px);
+    -webkit-transition: all ease-out 0.3s 0.3s;
+}
+input#GoToMore:checked ~ .container {
+    -webkit-transform: translateX(-900px);
+    -webkit-transition: all ease-out 0.3s 0.3s;
+}
+.social {
+    text-align: center;
+    margin: 0 auto;
+    height: 50px;
+    padding-top: 25px;
+    display: block;
+    border-top: solid 1px;
+    line-height: 2.3;
+}
+.social_a {
+    float: left;
+}
+.social_img {
+    padding-left: 3px;
+    padding-right: 3px;
+}
+#moreButtons div {
+    text-align: center;
+    padding-top: 40px;
+}
+.loginForm_div {
+    display: block;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    height: 170px;
+    position: relative;
+    width: 400px;
+    padding-top: 20px;
+}
+.field_login {
+    height: 50px;
+    padding-top: 20px;
+}
+button {
+    margin-left: 10px;
+    width: 90px;
+    height: 35px;
+    display: block;
+    float: left;
+}
+#buttonLog {
+    padding-top: 20px;
+}
+#buttonLog button {
+    float: right;
+}
+button:active {
+    margin: 1px -1px -2px 11px;
+}
+.social button:active {
+    margin: 1px -1px -2px 11px;
+}
+.metal {
+    border-radius: .5em;
+    background-image: -webkit-repeating-linear-gradient(left, hsla(0, 0%, 100%, 0) 0%, hsla(0, 0%, 100%, 0) 6%, hsla(0, 0%, 100%, .1) 7.5%), -webkit-repeating-linear-gradient(left, hsla(0, 0%, 0%, 0) 0%, hsla(0, 0%, 0%, 0) 4%, hsla(0, 0%, 0%, .03) 4.5%), -webkit-repeating-linear-gradient(left, hsla(0, 0%, 100%, 0) 0%, hsla(0, 0%, 100%, 0) 1.2%, hsla(0, 0%, 100%, .15) 2.2%), linear-gradient(180deg, hsl(0, 0%, 78%) 0%, hsl(0, 0%, 90%) 47%, hsl(0, 0%, 78%) 53%, hsl(0, 0%, 70%)100%);
+    outline: none;
+}
+.ui-tooltip,
+.arrow:after {
+    background: black;
+    border: 2px solid white;
+}
+.ui-tooltip {
+    padding: 10px 20px;
+    color: white;
+    border-radius: 20px;
+    font: bold 14px"Helvetica Neue", Sans-Serif;
+    text-transform: uppercase;
+    box-shadow: 0 0 7px black;
+}
+.arrow {
+    width: 70px;
+    height: 16px;
+    overflow: hidden;
+    position: absolute;
+    left: 50%;
+    margin-left: -35px;
+    bottom: -16px;
+}
+.arrow.top {
+    top: -16px;
+    bottom: auto;
+}
+.arrow.left {
+    left: 20%;
+}
+.arrow:after {
+    content: "";
+    position: absolute;
+    left: 20px;
+    top: -20px;
+    width: 25px;
+    height: 25px;
+    box-shadow: 6px 5px 9px -9px black;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+.arrow.top:after {
+    bottom: -20px;
+    top: auto;
+}
