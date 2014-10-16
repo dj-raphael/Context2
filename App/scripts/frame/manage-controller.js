@@ -4,7 +4,7 @@
 
             function init() {
                 if ($('.CI_scrollable') !== undefined) {
-                    $('.CI_scrollable').height($(window).height() - 77);
+                    $('.CI_scrollable').height($(window).height() - 107);
                 }
 
                 var parentScope = $scope.$parent.$parent.$parent.$parent.$parent.$parent;

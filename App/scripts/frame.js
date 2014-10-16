@@ -77,7 +77,7 @@
                     $(window).on('resize', function () {
                         if ($('.CI_scrollable') !== undefined) {
                             //$('.CI_scrollable').width($(window).width());
-                            $('.CI_scrollable').height($(window).height() - 77);
+                            $('.CI_scrollable').height($(window).height() - 107);
                         }
                     });
 

@@ -33,65 +33,78 @@
     <link rel="stylesheet" href="content/css/bootstrap.min.css" />
     <link rel="stylesheet" href="content/css/frame.css" />
     <link rel="stylesheet" href="content/css/comments.css" />
-
+    
+    <script type="text/javascript" src="http://l2.io/ip.js?var=IP_adress"></script>
     <script type="text/javascript" src="scripts/require-config.js"></script>
     <script type="text/javascript" data-main="frame" src="scripts/lib/require.js"></script>
 </head>
-    <body ng-controller="mainCtrl">
-        <script type="text/javascript">
-            //var onSendKeywords = function (e) {
-            //    console.log(e);
-            //    document.getElementById('recivedData').innerHTML = JSON.stringify(e.data);
-            //    },
-            //eventMethod = window.addEventListener ? "addEventListener" : "attachEvent",
-            //eventer = window[eventMethod],
-            //messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
-            //eventer(messageEvent, onSendKeywords, false);
+<body ng-controller="mainCtrl">
+    <script type="text/javascript">
+        //var onSendKeywords = function (e) {
+        //    console.log(e);
+        //    document.getElementById('recivedData').innerHTML = JSON.stringify(e.data);
+        //    },
+        //eventMethod = window.addEventListener ? "addEventListener" : "attachEvent",
+        //eventer = window[eventMethod],
+        //messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
+        //eventer(messageEvent, onSendKeywords, false);
 
 
-            //window.onload = function () {
-            //    parent.postMessage('context2-frameready', '/');
-            //}
-        </script>
-        <div id="recivedData"></div>
-        <div class="CI_panel">
-            <div class="CI_panel-buttons">
-                <a href="success.html" target="_blank" class="CI_icon-settings CI_icon"></a>
-                <i class="CI_icon-refresh CI_icon"></i>
-            </div>
-            <div class="CI_thread-selector">
-                <input id="thread_box" type="text" name="thread" ng-model="thread" ng-change="onThreadSelect()" />
-            </div>
-            <div class="CI_language-selector">
-                <input id="language_box" type="text" name="language" ng-model="language" ng-change="onThreadSelect()" />
-            </div>
+        //window.onload = function () {
+        //    parent.postMessage('context2-frameready', '/');
+        //}
+    </script>
+    <div id="recivedData"></div>
+    <div class="CI_panel">
+        <div class="CI_panel-buttons">
+            <a href="success.html" target="_blank" class="CI_icon-settings CI_icon"></a>
+            <i class="CI_icon-refresh CI_icon"></i>
         </div>
-        <div class="CI_tabset" ng-controller="TabsCtrl">
-            <ng-include src="threadTemplate"></ng-include>
+        <div class="CI_thread-selector">
+            <input id="thread_box" type="text" name="thread" ng-model="thread" ng-change="onThreadSelect()" />
         </div>
-
-        <!-- Popup: unauthorized -->
-        <div class="CI_popup popup-authorize" style="display: none">
-            <div class="CI_popup_messagebox">
-                <p><span style="font-size: larger">Внимание!</span> </p>
-                <p>Для совершения данного действия необходима авторизация.</p>
-                <p><a href="login.html" target="_blank" style="font-size: larger" id="CI_popup_login_link">Войти</a> <a href='#' class="CI_popup_close">Отмена</a></p>
-            </div>
+        <div class="CI_language-selector">
+            <input id="language_box" type="text" name="language" ng-model="language" ng-change="onThreadSelect()" />
         </div>
+    </div>
+    
+    <div ng-controller="bannerCtrl" >
+        <ng-include src="urlBanners"></ng-include>
+    </div>
 
-        <!-- Popup: ban time counter-->
-        <div class="CI_popup popup-ban-time-counter" style="display: none">
-            <div class="CI_popup_messagebox">
-                <p><span style="font-size: larger">Внимание!</span> </p>
-                <p>Для того чтобы оставить коммент подождите:</p>
-                <p class="ban-time-count"></p>
-                <p><a href='#' class="CI_popup_close">OK</a></p>
-            </div>
+    <div class="CI_tabset" ng-controller="TabsCtrl">
+        <ng-include src="threadTemplate"></ng-include>
+    </div>
+
+    <!-- Popup: unauthorized -->
+    <div class="CI_popup popup-authorize" style="display: none">
+        <div class="CI_popup_messagebox">
+            <p><span style="font-size: larger">Внимание!</span> </p>
+            <p>Для совершения данного действия необходима авторизация.</p>
+            <p><a href="login.html" target="_blank" style="font-size: larger" id="CI_popup_login_link">Войти</a> <a href='#' class="CI_popup_close">Отмена</a></p>
         </div>
+    </div>
 
-        <!-- Templates -->
+    <!-- Popup: ban time counter-->
+    <div class="CI_popup popup-ban-time-counter" style="display: none">
+        <div class="CI_popup_messagebox">
+            <p><span style="font-size: larger">Внимание!</span> </p>
+            <p>Для того чтобы оставить коммент подождите:</p>
+            <p class="ban-time-count"></p>
+            <p><a href='#' class="CI_popup_close">OK</a></p>
+        </div>
+    </div>
 
-        <script type="text/ng-template" id="tabs.html">
+    <!-- Templates -->
+    
+    <script type="text/ng-template" id="banners.html">
+        
+        <div style="{{Height}}">{{contentBanners}}</div>
+
+    
+    </script>
+
+    <script type="text/ng-template" id="tabs.html">
         <div ng-controller="TabsCtrl" class="CI_main-tabs">
             <tabset>
                 <tab ng-repeat="tab in tabs" select="foo(tab)" active="tab.active" disabled="tab.disabled" class="{{tab.className}}">
@@ -99,7 +112,8 @@
                         {{tab.title}}
                         <div class="tab-toolbar" ng-include="tab.toolbar"></div>
                     </tab-heading>
-                    <div class="CI_tab CI_scrollable">
+
+                    <div class="CI_tab CI_scrollable" >
                         <ng-include src="tab.templateUrl"></ng-include>
                     </div>
                 </tab>
@@ -107,19 +121,19 @@
         </div>
     </script>
 
-        <script type="text/ng-template" id="toolbar-wiki.html">
+    <script type="text/ng-template" id="toolbar-wiki.html">
         <div ng-controller="wikiController_toolbar">
             <a href="#" ng-click="click('edit')"><span class="icon">&#9999;</span><span class="text">Edit</span></a>
         </div>
     </script>
 
-        <script type="text/ng-template" id="toolbar-profile.html">
+    <script type="text/ng-template" id="toolbar-profile.html">
         <div ng-controller="profileController_toolbar">
             <a href="#" ng-click="click('edit')">Sign In</a>
         </div>
     </script>
 
-        <script type="text/ng-template" id="wiki.html">
+    <script type="text/ng-template" id="wiki.html">
         <div ng-controller="wikiController" class="CI_controller_container">
             <tabset ng-show="editmode" class="edit-wiki light-tabs">
                 <tab heading="Set link">
@@ -141,7 +155,7 @@
     </script>
 
 
-        <script type="text/ng-template" id="discussion.html">
+    <script type="text/ng-template" id="discussion.html">
         <div ng-controller="discussionController">
             <div class="CI_toolbar">
                 <a href="#" ng-click="clickNewComment()">Write new comment</a>
@@ -157,7 +171,7 @@
     </script>
 
 
-        <script type="text/ng-template" id="faq.html">
+    <script type="text/ng-template" id="faq.html">
         <div ng-controller="faqController" class="faq">
             <input type="checkbox" style="display:none" data-ng-model="editorIsExpanded" id="edit_" />
             <label for="edit_" data-ng-switch on="editorIsExpanded" ng-click='clickEditor()'>
@@ -206,7 +220,7 @@
 
 
 
-        <script type="text/ng-template" id="tree.html">
+    <script type="text/ng-template" id="tree.html">
         <div class="sl-treeview">
             <div class="clear" infinite-scroll="addMoreItems()" infinite-scroll-distance="0" infinite-scroll-immediate-check="immediateCheck" infinite-scroll-disabled="scrollDisabled">
                 <treeview-item ng-repeat="item in items" item="item"></treeview-item>
@@ -215,7 +229,7 @@
     </script>
 
 
-        <script type="text/ng-template" id="item.html">
+    <script type="text/ng-template" id="item.html">
         <div id="{{item.CommentId}}" class="comment-container" ng-class="{'is-new': item.isNew}" ng-mouseenter="item.isNew = false;">
             <div class="item">
                 <div class="top-line">
@@ -252,13 +266,13 @@
         </div>
     </script>
 
-        <script type="text/ng-template" id="answerForm.html">
+    <script type="text/ng-template" id="answerForm.html">
         <textarea class="CI_CommentTextArea" style="width: 100%" ng-model="text" placeholder="Comment.." id="{{item.CommentId}}_CommentTextArea"></textarea>
         <button class="sendAnswer" ng-click="sendAnswer()">Send</button>
         <button ng-click="close()">Close</button>
     </script>
 
-        <script type="text/ng-template" id="addForm.html">
+    <script type="text/ng-template" id="addForm.html">
         <strong>Add question</strong>
         <br />
         <input type="text" ng-model="question" placeholder="Question" class="CI_faqTitleEditor" />
@@ -267,12 +281,12 @@
         <button class="sendAnswer" ng-click="add()">Submit</button>
 
     </script>
-        <script type="text/ng-template" id="faqTextEditor.html">
+    <script type="text/ng-template" id="faqTextEditor.html">
         <textarea style="width: 100%" ui-tinymce="tinymceOptions" ng-model="item.answer" placeholder="Answer"></textarea>
         <br />
     </script>
 
-        <script type="text/ng-template" id="thread-manage.html">
+    <script type="text/ng-template" id="thread-manage.html">
         <div ng-controller="manageController" class="faq">
             <tabset>
                 <tab heading="Wiki History">
@@ -336,5 +350,5 @@
         </div>
     </script>
 
-    </body>
+</body>
 </html>

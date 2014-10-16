@@ -5,7 +5,7 @@ require(['jquery', 'services/auth'],
         function init() {
             authService.setCookie().done(function (data) {
                 if (data.result === 'success') {
-                    window.location.href = 'options.html';
+                    window.location.href = 'en/Account/Options';//TODO
                 } else {
                     window.location.href = 'login.html';
                 }

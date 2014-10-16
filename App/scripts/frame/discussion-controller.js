@@ -48,7 +48,7 @@ define('frame/discussion-controller', ['frame/app', 'services/comments'], functi
       function ($scope, $rootScope) {
           if ($('.CI_scrollable') !== undefined) {
               //$('.CI_scrollable').width($(window).width() - 12);
-              $('.CI_scrollable').height($(window).height() - 77);
+              $('.CI_scrollable').height($(window).height() - 107);
           }
 
 

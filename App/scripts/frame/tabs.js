@@ -1,4 +1,4 @@
-define('frame/tabs', ['frame/app', 'services/config', 'frame/wiki-controller', 'frame/faq-controller', 'frame/discussion-controller', 'frame/manage-controller'],
+define('frame/tabs', ['frame/app', 'services/config', 'frame/wiki-controller', 'frame/faq-controller', 'frame/discussion-controller', 'frame/manage-controller', 'frame/banner-controller'],
     function (app, configService) {
 
         app.controller('mainCtrl', function ($scope, $rootScope) {
