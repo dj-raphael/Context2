@@ -2,14 +2,15 @@ define('configuration',
     [],
     function() {
         "use strict";
-        var baseUrl = 'http://localhost:2341/';
-        //var baseUrl = 'http://www.context2.com/';
+        var baseUrl = '/';
+        //var baseUrl = 'http://context2.com/';
         var configuration = {
             authCookieName: '.ASPXAUTH',
             urls: {
-                localUrl: window.location.protocol + "//" + window.location.hostname + "/",
+                localUrl: window.location.protocol + "//" + window.location.hostname + "/app/",
 
                 /* Account2 */
+                isAuthenticated: baseUrl + 'api/Account2/isAuthenticated',
                 restoreAuthCookie: baseUrl + 'api/Account2/RestoreAuthCookie',
                 login: baseUrl + 'api/Account2/Login',
                 logoff: baseUrl + 'api/Account2/Logoff',

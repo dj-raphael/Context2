@@ -24,9 +24,8 @@
                     configuration.urls.getBanners,
                     {
                         keywords: keywords,
-                        IPadress: IP_adress,
                         Language: languages.getCurrentLanguage(),
-                        threadId: null//TODO get threadId
+                        ThreadId: null//TODO get threadId
                     }
                 ).done(function(data) { _keywords = data; });
                 return promize;

@@ -1,5 +1,5 @@
 ﻿
-define('frame/discussion-controller', ['frame/app', 'services/comments'], function (app, commentService) {
+define('frame/discussion-controller', ['frame/app', 'services/comments', 'services/auth'], function (app, commentService, authService) {
 	var	commentsBanned = false,
 		addComment = function (language, threadId, parentId, message, url, keywords, threadCode, threadTitle, successCallback) {
 			if (!commentsBanned) {
@@ -44,6 +44,7 @@ define('frame/discussion-controller', ['frame/app', 'services/comments'], functi
 				$('.popup-ban-time-counter').show();
 			}
 		};
+
     app.controller('discussionController', ['$scope', '$rootScope',
       function ($scope, $rootScope) {
           if ($('.CI_scrollable') !== undefined) {
@@ -67,6 +68,7 @@ define('frame/discussion-controller', ['frame/app', 'services/comments'], functi
           $scope.currenturl = decodeURIComponent(location.search.substr(5));
           $scope.item = {};
           $scope.item.CommentId = '';
+          $scope.isAuthenticated = authService.isAuthenticated();
 
           $scope.sendAnswer = function sendAnswer() {
           	addComment(
@@ -233,6 +235,7 @@ define('frame/discussion-controller', ['frame/app', 'services/comments'], functi
                 element.append($compile('<div collapse="isCollapsed" class="collapse treeview-item"><treeview-item ng-repeat="Child in item.Children" item="Child"></treeview-item></div>')(scope));
             },
             controller: function ($scope, $rootScope, $sce) {
+                $scope.isAuthenticated = authService.isAuthenticated();
 
                 function getMessagesTrusted(data) {
                     for (var i = 0; i < data.length; i++) {

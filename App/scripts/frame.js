@@ -1,5 +1,5 @@
-﻿require(['jquery', 'services/threads', 'services/languages', 'angular', 'frame/app', 'combobox', 'select2', 'frame/tabs'],
-    function ($, threadService, langService, ng, app) {
+﻿require(['jquery', 'services/auth', 'services/threads', 'services/languages', 'angular', 'frame/app', 'combobox', 'select2', 'frame/tabs'],
+    function ($, authService, threadService, langService, ng, app) {
         "use strict";
 
         //Initialize
@@ -93,9 +93,10 @@
             }
             var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent",
                 eventer = window[eventMethod],
-                messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
+                messageEvent = eventMethod === "attachEvent" ? "onmessage" : "message";
             eventer(messageEvent, onSendKeywords, false);
-            window.parent.postMessage('context2-frameready', '/');
+            window.parent.postMessage('context2-frameready', currenturl);
+            authService.isAuthenticated(function(r) {});
         }
 
         /********************************** \/ Define functions \/ *************************************/

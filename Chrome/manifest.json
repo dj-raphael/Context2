@@ -1,0 +1,47 @@
+{
+    "manifest_version": 2,
+    "name": "context-comment",
+    "description": "Context Comment.",
+    "version": "1.0",
+    "offline_enabled": true,
+	
+	"background": {
+		"persistent": false,
+		"scripts": [ "background.js" ]
+	},
+	
+    "permissions": [
+        "tabs",
+        "http://*/*",
+        "https://*/*",
+        "storage"
+    ],
+
+    "browser_action": {
+        "default_icon": "icon.png",
+        "default_title": "Open context comment"
+    },
+	
+	"content_security_policy": "script-src 'self'; object-src 'self'",
+	"icons": {
+      "128": "icon.png",
+      "16": "icon.png",
+      "48": "icon.png",
+      "64": "icon.png"
+	},
+   
+    "options_page": "options.html",
+    "web_accessible_resources": [
+        "icon.png",
+        "success.html",
+        "frame.html",
+        "login.html",
+        "scripts/frame/comment.html",
+        "scripts/lib/jquery-1.10.2.min.map",
+        "scripts/lib/angular.min.js.map",
+        "content/css/content.css",
+        "content/css/cleanslate.css",
+        "scripts/stopwords/en.js",
+		    "scripts/stopwords/ru.js"
+    ]
+}

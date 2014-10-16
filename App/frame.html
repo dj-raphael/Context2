@@ -1,31 +1,4 @@
 ﻿<!DOCTYPE html>
-<!--<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title></title>
-</head>
-<body>
-    <h2>It's frame</h2>
-    <div id="recivedData"></div>
-    <script type="text/javascript">
-        var onSendKeywords = function (e) {
-                console.log(e);
-                document.getElementById('recivedData').innerHTML = JSON.stringify(e.data);
-            },
-            eventMethod = window.addEventListener ? "addEventListener" : "attachEvent",
-            eventer = window[eventMethod],
-            messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
-        eventer(messageEvent, onSendKeywords, false);
-        window.onload = function() {
-            parent.postMessage('context2-frameready', '/');
-        }
-    </script>
-</body>
-</html>-->
-
-
-
-
-
 <html ng-csp="">
 <head>
     <title>ContextInfo - Frame</title>
@@ -34,26 +7,10 @@
     <link rel="stylesheet" href="content/css/frame.css" />
     <link rel="stylesheet" href="content/css/comments.css" />
     
-    <script type="text/javascript" src="http://l2.io/ip.js?var=IP_adress"></script>
     <script type="text/javascript" src="scripts/require-config.js"></script>
     <script type="text/javascript" data-main="frame" src="scripts/lib/require.js"></script>
 </head>
 <body ng-controller="mainCtrl">
-    <script type="text/javascript">
-        //var onSendKeywords = function (e) {
-        //    console.log(e);
-        //    document.getElementById('recivedData').innerHTML = JSON.stringify(e.data);
-        //    },
-        //eventMethod = window.addEventListener ? "addEventListener" : "attachEvent",
-        //eventer = window[eventMethod],
-        //messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
-        //eventer(messageEvent, onSendKeywords, false);
-
-
-        //window.onload = function () {
-        //    parent.postMessage('context2-frameready', '/');
-        //}
-    </script>
     <div id="recivedData"></div>
     <div class="CI_panel">
         <div class="CI_panel-buttons">
@@ -267,9 +224,10 @@
     </script>
 
     <script type="text/ng-template" id="answerForm.html">
-        <textarea class="CI_CommentTextArea" style="width: 100%" ng-model="text" placeholder="Comment.." id="{{item.CommentId}}_CommentTextArea"></textarea>
-        <button class="sendAnswer" ng-click="sendAnswer()">Send</button>
-        <button ng-click="close()">Close</button>
+        <textarea class="CI_CommentTextArea" style="width: 100%" ng-model="text" ng-attr-placeholder="{{isAuthenticated && 'Write comment here...' || 'You must log in before write comment.' }}" id="{{item.CommentId}}_CommentTextArea"></textarea>
+        <a ng-hide="isAuthenticated" class="sendAnswer" href="login.html" target="_blank">Sign In</a>
+        <button ng-show="isAuthenticated" class="sendAnswer" ng-click="sendAnswer()">Send</button>
+        <button ng-show="isAuthenticated" ng-click="close()">Close</button>
     </script>
 
     <script type="text/ng-template" id="addForm.html">
