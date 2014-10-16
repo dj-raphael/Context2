@@ -25,6 +25,7 @@
 .message-container{
     padding: 5px 5px 5px 15px;
     text-align:left;
+    clear: both;
 }
 
 .top-line{

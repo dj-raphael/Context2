@@ -256,7 +256,6 @@ li.active a.ng-binding .tab-toolbar a:hover .text {
 }
 
 .CI_popup_messagebox {
-    height: 100px;
     width: 300px;
     padding: 10px;
     background: -moz-linear-gradient(90deg, rgb(240, 240, 240) 0%, rgb(230, 230, 230) 70%);
@@ -270,6 +269,10 @@ li.active a.ng-binding .tab-toolbar a:hover .text {
     border-style: solid;
     text-align: center;
     margin: auto;
+}
+.CI_popup_messagebox:after {
+    display: table;
+    clear: both;
 }
 
 .popup-ban-time-counter .CI_popup_messagebox {
