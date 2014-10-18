@@ -1,55 +1,46 @@
-(function (chrome) {
-    "use strict";
-    if (window.parent !== window) {
-        return;
-    }
-    var el = document.createElement('script');
-    el.src = 'http://www.context2.com/App/mainEmbedded.js'
-
-//    function handleRequest(request, sender, sendResponse) {
-//        if (request.callFunction == "toggleSidebar") {
-//            toggleSidebar();
-//        }
-//    }
-//    if (!window.listenerAdded) {
-//        window.listenerAdded = true;
-//        chrome.extension.onMessage.addListener(handleRequest);
-//    }
-
-})(chrome);
-
-
-(function (chrome) {
-    // part for wikipedia
-    "use strict";
-    if (window.parent === window) {
-        return;
-    }
-
-    function init() {
-        window.addEventListener('message', messageHandler, false);
-        window.parent.postMessage('ready:' + window.location.hostname, '*');
-    }
-
-    function messageHandler(event) {
-        if (event.data.type2 != null && event.data.type2 == 'keywords')
-            if (event.data.data.indexOf('style:') == 0) {
-                applyStyle(event.data.data.substring(6));
-            }
-    }
-
-    function applyStyle(style) {
-        var sheet = document.head.appendChild(document.createElement('style')).sheet;
-        var styles = style.split('}');
-        for (var i = 0; i < styles.length-1; i++) {
-            sheet.insertRule(styles[i]+'}');
-        }
-        var links = document.querySelectorAll('a:not([href^="#"])');
-        for (var i = 0; i < links.length - 1; i++) {
-            links[i].target = '_blank';
+var panelToggleLabelId = 'context2-panel-toggle-label';
+var scriptSource = 'http://localhost:2341/app/mainEmbedded.js';
+var panelToggle = function(){
+    var panelLabel = document.getElementById(panelToggleLabelId);
+    panelLabel.click();
+};
+var isScriptInjected = function(){
+    var scripts = document.getElementsByTagName("script");
+    for (var i = 0; i<scripts.length;i++){
+        if (scripts[i].src == scriptSource){
+            return true;
         }
     }
-
-    init();
-
-})(chrome);
+    return false;
+};
+var isScriptLoaded = function(){
+    var scripts = document.getElementsByTagName("script");
+    for (var i = 0; i<scripts.length;i++){
+        if (scripts[i].src == scriptSource && scripts[i].dataset.loaded == 'true'){
+            return true;
+        }
+    }
+    return false;
+};
+var setScriptLoad = function(){
+    var scripts = document.getElementsByTagName("script");
+    for (var i = 0; i<scripts.length;i++){
+        if (scripts[i].src == scriptSource){
+            scripts[i].dataset.loaded = 'true';
+            return;
+        }
+    }
+};
+if (!isScriptInjected()){
+    var head = document.getElementsByTagName("head")[0];
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = scriptSource;
+    script.onload = function(){
+        setScriptLoad();
+        panelToggle();
+    };
+    head.appendChild(script);
+} else if (isScriptLoaded()){
+    panelToggle();
+}

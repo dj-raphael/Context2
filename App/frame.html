@@ -14,7 +14,7 @@
     <div id="recivedData"></div>
     <div class="CI_panel">
         <div class="CI_panel-buttons">
-            <a href="/options" target="_blank" class="CI_icon-settings CI_icon"></a>
+            <a href="success.html" target="_blank" class="CI_icon-settings CI_icon"></a>
             <i class="CI_icon-refresh CI_icon"></i>
         </div>
         <div class="CI_thread-selector">
@@ -38,8 +38,7 @@
         <div class="CI_popup_messagebox">
             <p><span style="font-size: larger">Внимание!</span> </p>
             <p>Для совершения данного действия необходима авторизация.</p>
-            <p><a href="login.html" target="_blank" style="font-size: larger" id="CI_popup_login_link">Войти</a> <a href='#' class="CI_popup_close">Отмена</a>
-            </p>
+            <p><a href="login.html" target="_blank" style="font-size: larger" id="CI_popup_login_link">Войти</a> <a href='#' class="CI_popup_close">Отмена</a></p>
         </div>
     </div>
 
@@ -226,7 +225,7 @@
 
     <script type="text/ng-template" id="answerForm.html">
         <textarea class="CI_CommentTextArea" style="width: 100%" ng-model="text" ng-attr-placeholder="{{isAuthenticated && 'Write comment here...' || 'You must log in before write comment.' }}" id="{{item.CommentId}}_CommentTextArea"></textarea>
-        <a ng-hide="isAuthenticated" class="sendAnswer" href="login.html" target="_blank" ng-click="isAuthenticated = true">Sign In</a>
+        <a ng-hide="isAuthenticated" class="sendAnswer" href="login.html" target="_blank">Sign In</a>
         <button ng-show="isAuthenticated" class="sendAnswer" ng-click="sendAnswer()">Send</button>
         <button ng-show="isAuthenticated" ng-click="close()">Close</button>
     </script>

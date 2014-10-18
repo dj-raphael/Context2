@@ -7,7 +7,7 @@
 	
 	"background": {
 		"persistent": false,
-		"scripts": [ "background.js" ]
+		"scripts": [ "background.js", "content.js" ]
 	},
 	
     "permissions": [
@@ -31,17 +31,4 @@
 	},
    
     "options_page": "options.html",
-    "web_accessible_resources": [
-        "icon.png",
-        "success.html",
-        "frame.html",
-        "login.html",
-        "scripts/frame/comment.html",
-        "scripts/lib/jquery-1.10.2.min.map",
-        "scripts/lib/angular.min.js.map",
-        "content/css/content.css",
-        "content/css/cleanslate.css",
-        "scripts/stopwords/en.js",
-		    "scripts/stopwords/ru.js"
-    ]
 }
