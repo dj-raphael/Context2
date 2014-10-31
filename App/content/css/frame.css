@@ -335,6 +335,10 @@ h1, h2, h3, strong {
     width: auto;
     background: white;
 }
+.CI_toolbar::after {
+    display: table;
+    clear: both;
+}
 
 .nav-tabs > li {
     cursor: pointer;
