@@ -3,16 +3,13 @@
     function () {
         "use strict";
 
-        function getDefaultTab() {
-            if (localStorage['tab']) {
-                return localStorage['tab'];
-            }
-            return 'wiki';
+        function getDefaultTab(domain) {
+            // TODO: call page and get stored tab
+            return 'discussion';
         }
 
-        function setDefaultTab(tab) {
-            localStorage['tab'] = tab;
-            return localStorage['tab'];
+        function setDefaultTab(domain, tab) {
+            // TODO: call page and set stored tab
         }
 
         function DomainConfig(host) {

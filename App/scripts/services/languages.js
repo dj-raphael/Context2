@@ -29,23 +29,31 @@ define('services/languages',
         }
 
         function getSelectedLanguages() {
-            if (localStorage['selectedLanguages']) {
+            if (localStorage['selectedLanguages'] != null) {
                 return JSON.parse(localStorage['selectedLanguages']);
             }
+            return [];
+        }
+
+        function initSelectedLanguages() {
             if (Array.isArray(_languages)) {
                 var current = getCurrentLanguage();
-                var res = null;
+                var nav = window.navigator.languages;
+                nav.push(current);
+                var res = [];
                 _languages.forEach(function (item) {
-                    if (item.uniCode === current) {
-                        res = item;
+                    for (var i = 0; i < nav.length; i++) {
+                        if (nav[i].indexOf(item.uniCode) === 0) {
+                            res.push(item);
+                            break;
+                        }
                     }
                 });
-                if (res) {
-                    localStorage['selectedLanguages'] = JSON.stringify([res]);
+                if (res.length > 0 ) {
+                    localStorage['selectedLanguages'] = JSON.stringify(res);
                     return [res];
                 }
             }
-            return [];
         }
 
         function setSelectedLanguages(languages) {
@@ -54,7 +62,7 @@ define('services/languages',
 
         function getCurrentLanguage() {   
             if (localStorage['currentlang'] == null)
-                return navigator.language;
+                return window.navigator.language;
             else {
                 return localStorage['currentlang'];
             }
@@ -69,7 +77,8 @@ define('services/languages',
             getSelectedLanguages: getSelectedLanguages,
             setSelectedLanguages: setSelectedLanguages,
             getCurrentLanguage: getCurrentLanguage,
-            setCurrentLanguage: setCurrentLanguage
+            setCurrentLanguage: setCurrentLanguage,
+            initSelectedLanguages: initSelectedLanguages
         };
         return service;
     }

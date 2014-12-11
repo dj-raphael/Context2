@@ -96,7 +96,7 @@
                 messageEvent = eventMethod === "attachEvent" ? "onmessage" : "message";
             eventer(messageEvent, onSendKeywords, false);
             window.parent.postMessage('context2-frameready', currenturl);
-            authService.isAuthenticated(function(r) {});
+            authService.isAuthenticated(function (r) { });
         }
 
         /********************************** \/ Define functions \/ *************************************/
@@ -192,9 +192,22 @@
 
                 data: function () {
                     var data = [];
-                    langService.getSelectedLanguages().forEach(function (entry) {
-                        data.push({ id: entry.uniCode, text: entry.NativeTitle });
-                    });
+                    var langs = langService.getSelectedLanguages()
+                    if (langs.length > 0) {
+                        langs.forEach(function (entry) {
+                            data.push({ id: entry.uniCode, text: entry.NativeTitle });
+                        });
+                    } else {
+                        langService.getLanguages().done(function (data) {
+                            langService.initSelectedLanguages();
+                            langs = langService.getSelectedLanguages()
+                            langs.forEach(function (entry) {
+                                data.push({ id: entry.uniCode, text: entry.NativeTitle });
+                            });
+                            $("#language_box").select2("enable", true);
+                            $("#language_box").val(currentlang).trigger("change");
+                        });;
+                    }
                     return { results: data };
                 },
                 placeholder: 'Select language...',
