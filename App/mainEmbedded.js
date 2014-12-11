@@ -407,6 +407,8 @@
             //todo move this dinamic styles to js css
             panelWrapper.style.right = (-panelWidth - panelBorderWidth) + 'px';
             panelWrapper.style.width = panelWidth + "px";
+            panelWrapper.style.position = "fixed";
+            panelWrapper.style.top = "0";
 
             panelToggleCheckBox.id = panelToggleCheckBoxId;
             panelToggleCheckBox.type = "checkbox";
@@ -423,6 +425,8 @@
             panelInit();
         },
         init = function () {
+            if (window.top !== window.self || window.CONTEXT_PANEL) return;
+            window.CONTEXT_PANEL = true;
             loadCss();
             createPanel();
         };

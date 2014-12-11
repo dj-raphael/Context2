@@ -20,6 +20,7 @@
     margin-top: 10px;
     background: rgba(200,200,200,0.15);
     transition: 1s;
+    clear: both;
 }
 
 .message-container{

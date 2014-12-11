@@ -2,7 +2,11 @@ var panelToggleLabelId = 'context2-panel-toggle-label';
 var scriptSource = 'http://localhost:2341/app/mainEmbedded.js';
 var panelToggle = function(){
     var panelLabel = document.getElementById(panelToggleLabelId);
+    var y = window.scrollY;
+    var x = window.scrollX;
     panelLabel.click();
+    window.blur();
+    window.scrollTo(x,y);
 };
 var isScriptInjected = function(){
     var scripts = document.getElementsByTagName("script");
