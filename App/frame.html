@@ -103,7 +103,7 @@
                     <span style="color:red;" ng-show="$parent.wikiTypeIsLink">{{$parent.linkInvalid}}</span>
                 </tab>
                 <tab heading="Edit text">
-                    <textarea ui-tinymce="tinymceOptions" ng-model="$parent.editorcontent" id="wiki_edit"></textarea>
+                    <textarea class="tinymce-editor" ui-tinymce="tinymceOptions" ng-model="$parent.editorcontent" id="wiki_edit"></textarea>
                     <button ng-click="submitEditor()">Submit</button>
                     <button ng-click="cancel()">Cancel</button>
                 </tab>
@@ -235,13 +235,13 @@
         <strong>Add question</strong>
         <br />
         <input type="text" ng-model="question" placeholder="Question" class="CI_faqTitleEditor" />
-        <textarea style="width: 100%" ng-model="answer" placeholder="Answer" ui-tinymce="tinymceOptions"></textarea>
+        <textarea style="width: 100%" ng-model="answer" placeholder="Answer" class="tinymce-editor" ui-tinymce="tinymceOptions"></textarea>
         <br />
         <button class="sendAnswer" ng-click="add()">Submit</button>
 
     </script>
     <script type="text/ng-template" id="faqTextEditor.html">
-        <textarea style="width: 100%" ui-tinymce="tinymceOptions" ng-model="item.answer" placeholder="Answer"></textarea>
+        <textarea style="width: 100%" class="tinymce-editor" ui-tinymce="tinymceOptions" ng-model="item.answer" placeholder="Answer"></textarea>
         <br />
     </script>
 

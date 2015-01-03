@@ -76,6 +76,7 @@
                   });
           };
           $scope.tinymceOptions = {
+              selector: "textarea.tinymce-editor",
               theme: "modern",
               plugins: [
                   "anchor code contextmenu image insertdatetime link lists media paste preview searchreplace table wordcount"
