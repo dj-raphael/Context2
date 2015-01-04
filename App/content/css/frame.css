@@ -168,16 +168,17 @@
     width: 100%;
     height: 100%;
 }
-
 .ng-hide {
-    display: none;
+    display: none !important;
 }
 
 li a.ng-binding .tab-toolbar {
     display: none;
 }
 
-li.active a.ng-binding .tab-toolbar {
+
+
+li.active a.ng-binding .tab-toolbar, li.tab-plus a.ng-binding .tab-toolbar{
     position: absolute;
     display: block;
     right: 0;
@@ -188,7 +189,7 @@ li.active a.ng-binding .tab-toolbar {
     white-space: nowrap;
     z-index: 100;
 }
-
+ 
     li.active a.ng-binding .tab-toolbar > div {
         display: table;
         width: auto;
@@ -206,6 +207,27 @@ li.active a.ng-binding .tab-toolbar {
         opacity: 0.3;
         line-height: 1px;
     }
+
+li.tab-plus a.ng-binding .tab-toolbar {
+    right: auto;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+    li.tab-plus a.ng-binding .tab-toolbar > div {
+        height: 100%;
+        width: 100%;
+        padding-top: 40px;
+    }
+
+    li.tab-plus a.ng-binding .tab-toolbar a {
+        width: 70px;
+        background: #eee;
+        border-bottom: 1px solid lightgray;
+        margin-left: -2px;
+        padding: 0 10px
+    }
+
 
 li.active a.ng-binding:hover .tab-toolbar a .icon {
     opacity: 1;

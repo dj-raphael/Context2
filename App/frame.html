@@ -65,7 +65,7 @@
     <script type="text/ng-template" id="tabs.html">
         <div ng-controller="TabsCtrl" class="CI_main-tabs">
             <tabset>
-                <tab ng-repeat="tab in tabs" select="foo(tab)" active="tab.active" disabled="tab.disabled" class="{{tab.className}}">
+                <tab id="tab_{{tab.id}} "ng-repeat="tab in tabs" select="foo(tab)" active="tab.active" disabled="tab.disabled" class="{{tab.className}}">
                     <tab-heading>
                         {{tab.title}}
                         <div class="tab-toolbar" ng-include="tab.toolbar"></div>
@@ -88,6 +88,14 @@
     <script type="text/ng-template" id="toolbar-profile.html">
         <div ng-controller="profileController_toolbar">
             <a href="#" ng-click="click('edit')">Sign In</a>
+        </div>
+    </script>
+    
+    <script type="text/ng-template" id="toolbar-plus.html">
+        <div ng-controller="plusController_toolbar" ng-click="click('', $event)" ng-mouseenter="mEnter()" ng-mouseleave="mLeave()">
+            <a href="#" ng-show="show_wiki" ng-click="click('wiki', $event)">Wiki</a>
+            <a href="#" ng-show="show_faq" ng-click="click('faq', $event)">FAQ</a>
+            <a href="#" ng-show="show_manage" ng-click="click('manage', $event)">Manage</a>
         </div>
     </script>
 
