@@ -101,7 +101,7 @@ define('frame/tabs', ['frame/app', 'services/config', 'services/auth', 'services
                         }
                     });
                     wikiService.getWiki($rootScope.thread, $rootScope.language).success(function(data) {
-                        if (data != null) {
+                        if (data != null && data != "<div>No Wiki Avaliable</div>") {
                             $scope.tabs.unshift(tabWiki);
                         }
                     });
