@@ -14,7 +14,7 @@ define("services/auth",
                             localStorage["username"] = data.username;
                         }
                         if (callback) {
-                            callback(data.isAuthenticated);
+                            callback(data.isAuthenticated, data.username);
                         }
                     });
             }
@@ -57,6 +57,7 @@ define("services/auth",
             var promize = transport.request("GET", configuration.urls.logoff)
                 .done(function (data) {
                     localStorage["uid"] = undefined;
+                    localStorage["username"] = undefined;
                     localStorage.removeItem(configuration.authCookieName);
                 });
             return promize;

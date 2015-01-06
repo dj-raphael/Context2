@@ -43,12 +43,15 @@ define('frame/tabs', ['frame/app', 'services/config', 'services/auth', 'services
                 var tabsCount = 5;
                 var isAuthenticated = authService.isAuthenticated();
                 var domainConfig = configService.getDomainConfig(decodeURIComponent(location.search.substr(5)));
+                var faqCheckDone, wikiCheckDone = false;
 
                 var
-                   tabWiki = { id: "wiki", title: "Wiki", template: 'wiki.html', toolbar: 'toolbar-wiki.html', active: (activeTab == 'wiki'), updated: false, },
-                   tabFaq = { id: "faq", title: "FAQ", template: 'faq.html', active: (activeTab == 'faq'), updated: false, },
-                   tabManage = { id: "manage", title: "Manage", template: 'thread-manage.html', active: (activeTab == 'manage'), updated: false, className: "pull-right" },
-                   tabPlus = { id: "plus", title: "+", toolbar: 'toolbar-plus.html', active: false, updated: false, className: "tab-plus" };
+                    tabWiki =       { id: "wiki", title: "Wiki", template: 'wiki.html', toolbar: 'toolbar-wiki.html', active: (activeTab == 'wiki'), updated: false, },
+                    tabFaq =        { id: "faq", title: "FAQ", template: 'faq.html', active: (activeTab == 'faq'), updated: false, },
+                    tabManage =     { id: "manage", title: "Manage", template: 'thread-manage.html', active: (activeTab == 'manage'), updated: false, className: "pull-right" },
+                    tabPlus =       { id: "plus", title: "+", toolbar: 'toolbar-plus.html', active: false, updated: false, className: "tab-plus" },
+                    tabDiscussion = { id: "discussion", title: "Discussion", template: 'discussion.html', active: (activeTab == 'discussion'), updated: false },
+                    tabProfile =    { id: "profile", title: "", toolbar: 'toolbar-profile.html', active: false, updated: false, className: "pull-right tab-profile" };
 
                 var removePlus = function () {
                     var i = $scope.tabs.indexOf(tabPlus);
@@ -56,8 +59,8 @@ define('frame/tabs', ['frame/app', 'services/config', 'services/auth', 'services
                 };
 
                 $scope.tabs = [
-                  { id: "discussion", title: "Discussion", template: 'discussion.html', active: (activeTab == 'discussion'), updated: false },
-                  { id: "profile", toolbar: 'toolbar-profile.html', active: false, updated: false, className: "pull-right" }
+                    tabDiscussion,
+                    tabProfile
                 ];
 
                 $scope.foo = function (e) {
@@ -73,11 +76,11 @@ define('frame/tabs', ['frame/app', 'services/config', 'services/auth', 'services
                             break;
                         case 'faq':
                             tabFaq.active = true;
-                            $scope.tabs.unshift(tabFaq);
+                            $scope.tabs.splice($scope.tabs.indexOf(tabDiscussion) + 1, 0, tabFaq);
                             break;
                         case 'manage':
                             tabManage.active = true;
-                            $scope.tabs.unshift(tabManage);
+                            $scope.tabs.push(tabManage);
                             domainConfig.setValue('showManageTab', true);
                             break;
                         default:
@@ -86,24 +89,31 @@ define('frame/tabs', ['frame/app', 'services/config', 'services/auth', 'services
                     if ($scope.tabs.length > tabsCount) removePlus();
                 });
 
-               
-                if (isAuthenticated) {
-                    $scope.tabs.push(tabPlus);
-                    if (domainConfig.getValue('showManageTab')) {
-                        $scope.tabs.unshift(tabManage);
+                var addPlus = function () {
+                    if (faqCheckDone && wikiCheckDone) {
+                        if (isAuthenticated) {
+                            $scope.tabs.push(tabPlus);
+                            if (domainConfig.getValue('showManageTab')) {
+                                $scope.tabs.push(tabManage);
+                            }
+                        };
                     }
                 };
 
                 if ($rootScope.thread && $rootScope.language) {
-                    faqService.getList($rootScope.thread, $rootScope.language, 0, 1).success(function(data) {
+                    faqService.getList($rootScope.thread, $rootScope.language, 0, 1).done(function(data) {
                         if (data != null && data.totalRecords != null && data.totalRecords > 0) {
                             $scope.tabs.unshift(tabFaq);
                         }
+                        faqCheckDone = true;
+                        addPlus();
                     });
-                    wikiService.getWiki($rootScope.thread, $rootScope.language).success(function(data) {
+                    wikiService.getWiki($rootScope.thread, $rootScope.language).done(function(data) {
                         if (data != null && data != "<div>No Wiki Avaliable</div>") {
                             $scope.tabs.unshift(tabWiki);
                         }
+                        wikiCheckDone = true;
+                        addPlus();
                     });
                 };
 
