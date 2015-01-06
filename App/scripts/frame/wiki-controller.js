@@ -38,6 +38,13 @@
                                 $scope.wikiTypeIsLink = false;
                                 $scope.content = data;
                                 $scope.StyleForWiki = "height: 100%;";
+                                if (data == "<div>No Wiki Avaliable</div>") {
+                                    window.setTimeout(function() {
+                                        $scope.editmode = true;
+                                        $scope.$apply();
+                                    });
+                                    return;
+                                }
                             }
                             $scope.htmlcode = $sce.trustAsHtml($scope.content);
                             window.setTimeout(function() {
