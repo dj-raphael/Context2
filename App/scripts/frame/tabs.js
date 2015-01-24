@@ -18,6 +18,7 @@ define('frame/tabs', ['frame/app', 'services/config', 'services/auth', 'services
                     if ($('#thread_box').select2('data')) {
                         $rootScope.threadCode = $('#thread_box').select2('data').code;
                         $rootScope.threadText = $('#thread_box').select2('data').text;
+                        $rootScope.threadRaiting = $('#thread_box').select2('data').raiting;
                     }
                 });
                 $rootScope.language = $scope.$$childHead.language;

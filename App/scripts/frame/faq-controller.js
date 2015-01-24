@@ -30,7 +30,7 @@
                   data.list.forEach(function (it) {
                       $scope.faqList.push({ id: it.QuestionId, question: it.Question, answer: it.Answer, answerHtml: $sce.trustAsHtml(it.Answer), weight: it.Weight });
                   });
-                  $scope.bigTotalItems = data.totalRecords;
+              $scope.bigTotalItems = data.totalRecords;
                   if (data.totalRecords == 0) {
                       $scope.editorIsExpanded = true;
                   }
@@ -73,7 +73,7 @@
               faqService.voteQuestion(item.id, $scope.thread, isGood)
                   .done(function (data) {
                       item.weight = data;
-                      window.setTimeout(function () {
+                      window.setTimeout(function() {
                           $scope.$apply();
                       });
                   });

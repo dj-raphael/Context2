@@ -12,7 +12,21 @@
                 authService.isAuthenticated(function (isAuthenticated, username) {
                     if (isAuthenticated) {
                         $scope.username = username;
-                        $scope.score = "";
+                        var tRaiting = $rootScope.threadRaiting;
+                        if (tRaiting && !isNaN(tRaiting) && tRaiting != 0) {
+                            if (Math.abs(tRaiting) < 10) {
+                                tRaiting = Math.round(tRaiting * 10) / 10;
+                            } else {
+                                tRaiting = Math.round(tRaiting);
+                            }
+                            if (tRaiting > 0) {
+                                $scope.score = "+" + tRaiting;
+                                $(".CI_score").removeClass("red");
+                            } else {
+                                $scope.score = "-" + tRaiting;
+                                $(".CI_score").addClass("red");
+                            }
+                        }
                     } else {
                         $scope.username = "Guest";
                         $scope.score = "";
@@ -29,7 +43,7 @@
                         break;
                     case 'logout':
                         event.preventDefault();
-                        authService.logoff().success(function() {
+                        authService.logoff().success(function () {
                             update();
                             $scope.mLeave();
                         });
@@ -69,7 +83,7 @@
                     $scope.$apply();
                 });
             };
-            
+
             update();
         }
     ]);

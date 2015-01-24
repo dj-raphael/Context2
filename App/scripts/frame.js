@@ -107,7 +107,7 @@
             var selectedData = $("#thread_box").select2("data");
             threadService.searchThreads(term, currentlang).done(function (response) {
                 response.forEach(function (entry) {
-                    newdata.push({ id: entry.ThreadId, code: entry.Code, text: entry.Title, fromAnotherUrl: true });
+                    newdata.push({ id: entry.ThreadId, code: entry.Code, text: entry.Title, raiting: entry.Raiting, fromAnotherUrl: true });
                 });
 
                 threads = threads.concat(newdata);
@@ -178,7 +178,7 @@
         function getThreads(currlang, currurl, keywords) {
             threadService.getThreads(currurl, currlang, keywords).done(function (data) {
                 data.forEach(function (entry) {
-                    threads.push({ id: entry.ThreadId, code: entry.Code, text: entry.Title });
+                    threads.push({ id: entry.ThreadId, code: entry.Code, text: entry.Title, raiting: entry.Raiting });
                 });
 
                 createThreadBox(threads);
