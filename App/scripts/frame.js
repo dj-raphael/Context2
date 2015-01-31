@@ -10,13 +10,16 @@
         var wasNoMatch = false;
         var lastThread;
         var keywords = null;
+        var pageTitle = null;
 
         
 
         function init() {
             var onSendKeywords = function (e) {
-                if (e.data.type2 == "keywords")
+                if (e.data.type2 == "keywords") {
                     keywords = e.data.data;
+                    pageTitle = e.data.title;
+                }
 
                 if (keywords && e.data.type2 == "keywords") {
                     var injector = ng.bootstrap(document, ['app']);
@@ -32,7 +35,7 @@
                         },
                     });
                     $("#thread_box").select2("enable", false);
-                    getThreads(currentlang, currenturl, keywords);
+                    getThreads(currentlang, currenturl, keywords, pageTitle);
 
                     $("#language_box").select2({
                         width: '100%',
@@ -175,12 +178,15 @@
 
         }
 
-        function getThreads(currlang, currurl, keywords) {
+        function getThreads(currlang, currurl, keywords, pageTitle) {
             threadService.getThreads(currurl, currlang, keywords).done(function (data) {
+                var addPageTitleEnabled = true;
                 data.forEach(function (entry) {
                     threads.push({ id: entry.ThreadId, code: entry.Code, text: entry.Title, raiting: entry.Raiting });
+                    if (entry.Title == pageTitle) addPageTitleEnabled = false;
                 });
-
+                if (addPageTitleEnabled)
+                    threads.push({ id: '00000000-0000-0000-0000-000000000000', code: pageTitle, text: pageTitle, raiting: 0, fromAnotherUrl: true });
                 createThreadBox(threads);
             }).error(function () {
                 $(".CI_thread-selector .select2-chosen").text("Service unavailable");

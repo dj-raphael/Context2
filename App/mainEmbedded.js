@@ -222,6 +222,54 @@
             }
             return results;
         },
+        extractTitle = function (el, options) {
+            "use strict";
+            
+            // extract text from all elements in required tag,
+            // ignore links
+            function extractText(tagName) {
+                
+                var res = [];
+                var tags = el.querySelectorAll(tagName);
+                for (var i = 0; i < tags.length; i++) {
+                    // ignore links
+                    if ((tags[i].parentNode && tags[i].parentNode.tagName == 'a') ||
+                        (tags[i].parentNode.parentNode && tags[i].parentNode.parentNode.tagName == 'a') ||
+                        (tags[i].getElementsByTagName('a').length > 0)) continue;
+                    if (tags[i].innerText) res.push(tags[i].innerText);
+                }
+                return res;
+            }
+
+            function extractTitleFromArray(array, docTitle) {
+                if (array.length == 0) return '';
+                if (array.length == 1) return array[0];
+                var scores = []
+                for (var index in array) {
+                    var words = array[index].split(' ');
+                    scores[index] = 0;
+                    for (var w_index in words) 
+                        if (docTitle.indexOf(words[w_index]) > -1) scores[index]++;
+                }
+                var maxIndex = scores.indexOf(Math.max.apply(null, scores));
+                return array[maxIndex];
+            }
+            var
+                title = document.title,
+                h1 = extractText('h1'),
+                h2 = extractText('h2'),
+                result = '';
+            if (h1.length > 0) {
+                result = extractTitleFromArray(h1, title);
+            } else if (h2.length > 0) {
+                result = extractTitleFromArray(h2, title);
+            } else {
+                var l = document.location;
+                result = document.title.replace(l.href, '').replace(l.origin, '').replace(l.host, '');
+            }
+            
+            return result;
+        },
         loadCss = function () {
             var head,
                 link;
@@ -384,7 +432,8 @@
                                 top: postWordsCount,
                                 stopLangs: navigator.languages
                             }),
-                            type2: "keywords"
+                            type2: "keywords",
+                            title: extractTitle(document.body)
                         };
                         frame.contentWindow.postMessage(postData, context2Url);
                     }
