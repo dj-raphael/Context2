@@ -92,10 +92,14 @@ define('frame/discussion-controller', ['frame/app', 'services/comments', 'servic
           };
 
           $scope.clickNewComment = function () {
-              $scope.answerIsExpanded = !$scope.answerIsExpanded;
-              window.setTimeout(function () {
-                  $('#' + $scope.item.CommentId + '_CommentTextArea').focus();
-              });
+              if (authService.isAuthenticated()) {
+                  $scope.answerIsExpanded = !$scope.answerIsExpanded;
+                  window.setTimeout(function() {
+                      $('#' + $scope.item.CommentId + '_CommentTextArea').focus();
+                  });
+              } else {
+                  $('.popup-authorize').show();
+              }
           };
 
           $scope.close = function close() {

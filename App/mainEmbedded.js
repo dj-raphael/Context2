@@ -63,7 +63,27 @@
             "ro": ["acea", "aceasta", "această", "aceea", "acei", "aceia", "acel", "acela", "acele", "acelea", "acest", "acesta", "aceste", "acestea", "aceşti", "aceştia", "acolo", "acord", "acum", "ai", "aia", "aibă", "aici", "al", "ale", "alea", "altceva", "altcineva", "am", "ar", "are", "asemenea", "asta", "astea", "astăzi", "asupra", "au", "avea", "avem", "aveţi", "azi", "aş", "aşadar", "aţi", "bine", "bucur", "bună", "ca", "care", "caut", "ce", "cel", "ceva", "chiar", "cinci", "cine", "cineva", "contra", "cu", "cum", "cumva", "curând", "curînd", "când", "cât", "câte", "câtva", "câţi", "cînd", "cît", "cîte", "cîtva", "cîţi", "că", "căci", "cărei", "căror", "cărui", "către", "da", "dacă", "dar", "datorită", "dată", "dau", "de", "deci", "deja", "deoarece", "departe", "deşi", "din", "dinaintea", "dintr-", "dintre", "doi", "doilea", "două", "drept", "după", "dă", "ea", "ei", "el", "ele", "eram", "este", "eu", "eşti", "face", "fata", "fi", "fie", "fiecare", "fii", "fim", "fiu", "fiţi", "frumos", "fără", "graţie", "halbă", "iar", "ieri", "la", "le", "li", "lor", "lui", "lângă", "lîngă", "mai", "mea", "mei", "mele", "mereu", "meu", "mi", "mie", "mine", "mult", "multă", "mulţi", "mulţumesc", "mâine", "mîine", "mă", "ne", "nevoie", "nici", "nicăieri", "nimeni", "nimeri", "nimic", "nişte", "noastre", "noastră", "noi", "noroc", "nostru", "nouă", "noştri", "nu", "opt", "ori", "oricare", "orice", "oricine", "oricum", "oricând", "oricât", "oricînd", "oricît", "oriunde", "patra", "patru", "patrulea", "pe", "pentru", "peste", "pic", "poate", "pot", "prea", "prima", "primul", "prin", "printr-", "puţin", "puţina", "puţină", "până", "pînă", "rog", "sa", "sale", "sau", "se", "spate", "spre", "sub", "sunt", "suntem", "sunteţi", "sută", "sînt", "sîntem", "sînteţi", "să", "săi", "său", "ta", "tale", "te", "timp", "tine", "toate", "toată", "tot", "totuşi", "toţi", "trei", "treia", "treilea", "tu", "tăi", "tău", "un", "una", "unde", "undeva", "unei", "uneia", "unele", "uneori", "unii", "unor", "unora", "unu", "unui", "unuia", "unul", "vi", "voastre", "voastră", "voi", "vostru", "vouă", "voştri", "vreme", "vreo", "vreun", "vă", "zece", "zero", "zi", "zice", "îi", "îl", "îmi", "împotriva", "în", "înainte", "înaintea", "încotro", "încât", "încît", "între", "întrucât", "întrucît", "îţi", "ăla", "ălea", "ăsta", "ăstea", "ăştia", "şapte", "şase", "şi", "ştiu", "ţi", "ţie"],
             "en": ["a", "a's", "able", "about", "above", "according", "accordingly", "across", "actually", "after", "afterwards", "again", "against", "ain't", "all", "allow", "allows", "almost", "alone", "along", "already", "also", "although", "always", "am", "among", "amongst", "an", "and", "another", "any", "anybody", "anyhow", "anyone", "anything", "anyway", "anyways", "anywhere", "apart", "appear", "appreciate", "appropriate", "are", "aren't", "around", "as", "aside", "ask", "asking", "associated", "at", "available", "away", "awfully", "b", "be", "became", "because", "become", "becomes", "becoming", "been", "before", "beforehand", "behind", "being", "believe", "below", "beside", "besides", "best", "better", "between", "beyond", "both", "brief", "but", "by", "c", "c'mon", "c's", "came", "can", "can't", "cannot", "cant", "cause", "causes", "certain", "certainly", "changes", "clearly", "co", "com", "come", "comes", "concerning", "consequently", "consider", "considering", "contain", "containing", "contains", "corresponding", "could", "couldn't", "course", "currently", "d", "definitely", "described", "despite", "did", "didn't", "different", "do", "does", "doesn't", "doing", "don't", "done", "down", "downwards", "during", "e", "each", "edu", "eg", "eight", "either", "else", "elsewhere", "enough", "entirely", "especially", "et", "etc", "even", "ever", "every", "everybody", "everyone", "everything", "everywhere", "ex", "exactly", "example", "except", "f", "far", "few", "fifth", "first", "five", "followed", "following", "follows", "for", "former", "formerly", "forth", "four", "from", "further", "furthermore", "g", "get", "gets", "getting", "given", "gives", "go", "goes", "going", "gone", "got", "gotten", "greetings", "h", "had", "hadn't", "happens", "hardly", "has", "hasn't", "have", "haven't", "having", "he", "he's", "hello", "help", "hence", "her", "here", "here's", "hereafter", "hereby", "herein", "hereupon", "hers", "herself", "hi", "him", "himself", "his", "hither", "hopefully", "how", "howbeit", "however", "i", "i'd", "i'll", "i'm", "i've", "ie", "if", "ignored", "immediate", "in", "inasmuch", "inc", "indeed", "indicate", "indicated", "indicates", "inner", "insofar", "instead", "into", "inward", "is", "isn't", "it", "it'd", "it'll", "it's", "its", "itself", "j", "just", "k", "keep", "keeps", "kept", "know", "known", "knows", "l", "last", "lately", "later", "latter", "latterly", "least", "less", "lest", "let", "let's", "like", "liked", "likely", "little", "look", "looking", "looks", "ltd", "m", "mainly", "many", "may", "maybe", "me", "mean", "meanwhile", "merely", "might", "more", "moreover", "most", "mostly", "much", "must", "my", "myself", "n", "name", "namely", "nd", "near", "nearly", "necessary", "need", "needs", "neither", "never", "nevertheless", "new", "next", "nine", "no", "nobody", "non", "none", "noone", "nor", "normally", "not", "nothing", "novel", "now", "nowhere", "o", "obviously", "of", "off", "often", "oh", "ok", "okay", "old", "on", "once", "one", "ones", "only", "onto", "or", "other", "others", "otherwise", "ought", "our", "ours", "ourselves", "out", "outside", "over", "overall", "own", "p", "particular", "particularly", "per", "perhaps", "placed", "please", "plus", "possible", "presumably", "probably", "provides", "q", "que", "quite", "qv", "r", "rather", "rd", "re", "really", "reasonably", "regarding", "regardless", "regards", "relatively", "respectively", "right", "s", "said", "same", "saw", "say", "saying", "says", "second", "secondly", "see", "seeing", "seem", "seemed", "seeming", "seems", "seen", "self", "selves", "sensible", "sent", "serious", "seriously", "seven", "several", "shall", "she", "should", "shouldn't", "since", "six", "so", "some", "somebody", "somehow", "someone", "something", "sometime", "sometimes", "somewhat", "somewhere", "soon", "sorry", "specified", "specify", "specifying", "still", "sub", "such", "sup", "sure", "t", "t's", "take", "taken", "tell", "tends", "th", "than", "thank", "thanks", "thanx", "that", "that's", "thats", "the", "their", "theirs", "them", "themselves", "then", "thence", "there", "there's", "thereafter", "thereby", "therefore", "therein", "theres", "thereupon", "these", "they", "they'd", "they'll", "they're", "they've", "think", "third", "this", "thorough", "thoroughly", "those", "though", "three", "through", "throughout", "thru", "thus", "to", "together", "too", "took", "toward", "towards", "tried", "tries", "truly", "try", "trying", "twice", "two", "u", "un", "under", "unfortunately", "unless", "unlikely", "until", "unto", "up", "upon", "us", "use", "used", "useful", "uses", "using", "usually", "uucp", "v", "value", "various", "very", "via", "viz", "vs", "w", "want", "wants", "was", "wasn't", "way", "we", "we'd", "we'll", "we're", "we've", "welcome", "well", "went", "were", "weren't", "what", "what's", "whatever", "when", "whence", "whenever", "where", "where's", "whereafter", "whereas", "whereby", "wherein", "whereupon", "wherever", "whether", "which", "while", "whither", "who", "who's", "whoever", "whole", "whom", "whose", "why", "will", "willing", "wish", "with", "within", "without", "won't", "wonder", "would", "wouldn't", "x", "y", "yes", "yet", "you", "you'd", "you'll", "you're", "you've", "your", "yours", "yourself", "yourselves", "z", "zero"]
         },
-        extractKeywords = function (el, options) {
+        jsonp = function (url, callback) {
+            var id = "_" + (new Date()).getTime();
+            
+            window[id] = function (result) {
+                if (callback)
+                    callback(result);
+
+                var sc = document.getElementById(id);
+                sc.parentNode.removeChild(sc);
+                window[id] = null;
+            }
+
+            url = url.replace("callback=?", "callback=" + id);
+
+            var script = document.createElement("script");
+            script.setAttribute("id", id);
+            script.setAttribute("src", url);
+            script.setAttribute("type", "text/javascript");
+            document.body.appendChild(script);
+        },
+        extractKeywords = function (el, options, domainStopWords) {
             "use strict";
             var defaultOptions =
             {
@@ -113,6 +133,7 @@
                 for (var i in options.stopLangs) {
                     options.stopWords = options.stopWords.concat(stopWordsLangs[options.stopLangs[i]]);
                 }
+                options.stopWords.concat(domainStopWords);
             }
 
             // extract text from all elements in required tag,
@@ -222,7 +243,7 @@
             }
             return results;
         },
-        extractTitle = function (el, options) {
+        extractTitle = function (el, domainStopWords) {
             "use strict";
             
             // extract text from all elements in required tag,
@@ -232,10 +253,6 @@
                 var res = [];
                 var tags = el.querySelectorAll(tagName);
                 for (var i = 0; i < tags.length; i++) {
-                    // ignore links
-                    if ((tags[i].parentNode && tags[i].parentNode.tagName == 'a') ||
-                        (tags[i].parentNode.parentNode && tags[i].parentNode.parentNode.tagName == 'a') ||
-                        (tags[i].getElementsByTagName('a').length > 0)) continue;
                     if (tags[i].innerText) res.push(tags[i].innerText);
                 }
                 return res;
@@ -252,7 +269,11 @@
                         if (docTitle.indexOf(words[w_index]) > -1) scores[index]++;
                 }
                 var maxIndex = scores.indexOf(Math.max.apply(null, scores));
-                return array[maxIndex];
+                if (scores[maxIndex] > 0) {
+                    return array[maxIndex];
+                } else {
+                    return '';
+                }
             }
             var
                 title = document.title,
@@ -263,9 +284,13 @@
                 result = extractTitleFromArray(h1, title);
             } else if (h2.length > 0) {
                 result = extractTitleFromArray(h2, title);
-            } else {
+            }
+            if (result == ''){
                 var l = document.location;
-                result = document.title.replace(l.href, '').replace(l.origin, '').replace(l.host, '');
+                var stopWordsArray = domainStopWords.split(", ");
+                result = document.title
+                for (var i in stopWordsArray)
+                    result = result.replace(stopWordsArray[i], "");
             }
             
             return result;
@@ -411,6 +436,28 @@
                 panelWrapper.className = panelWrapper.className.replace(new RegExp('(?:^|\\s)' + panelResizedClass + '(?!\\S)', 'g'), '');
             };
         },
+        getStopWordsFromServer = function(callback) {
+            var url = context2Url + "api/StopWords/Get";
+            var params = 'domain=' + encodeURIComponent(location.host) + "&callback=?";
+            jsonp(url + "?" + params,
+                    function (stopWords) {
+                        localStorage['CI_stopwords_' + location.host] = stopWords
+                        localStorage['CI_stopwords_last_update_' + location.host] = new Date()
+                        callback(stopWords);
+                    });
+        },
+        getStopWords = function (callback) {
+            var
+                stopWords = localStorage['CI_stopwords_' + location.host],
+                stopWordsUpdated = new Date(localStorage['CI_stopwords_last_update_' + location.host]),
+                now = new Date();
+            debugger;
+            if ((stopWords != null && stopWords != "") || (now - stopWordsUpdated > 1000 * 60 * 60 * 24)) {
+                callback(stopWords);
+            } else {
+                getStopWordsFromServer(callback);
+           }
+        },
         addPanelLabelClickEvent = function () {
             document.getElementById(panelToggleLabelId).onclick = panelOpen
         },
@@ -425,19 +472,22 @@
                 frame.id = frameId;
                 frame.src = context2Url + 'app/frame.html?url=' + encodeURIComponent(window.location.href);
                 panelWrapper.appendChild(frame);
-                eventer(messageEvent, function (e) {
-                    if (e.data == frameReadyMessageData) {
-                        var postData = {
-                            data: extractKeywords(document.body, {
-                                top: postWordsCount,
-                                stopLangs: navigator.languages
-                            }),
-                            type2: "keywords",
-                            title: extractTitle(document.body)
-                        };
-                        frame.contentWindow.postMessage(postData, context2Url);
-                    }
-                }, false);
+
+                getStopWords(function(stopWords) {
+                    eventer(messageEvent, function (e) {
+                        if (e.data == frameReadyMessageData) {
+                            var postData = {
+                                data: extractKeywords(document.body, {
+                                    top: postWordsCount,
+                                    stopLangs: navigator.languages
+                                }, stopWords),
+                                type2: "keywords",
+                                title: extractTitle(document.body, stopWords)
+                            };
+                            frame.contentWindow.postMessage(postData, context2Url);
+                        }
+                    }, false);
+                })
             };
         },
         panelInit = function () {

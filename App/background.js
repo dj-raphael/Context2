@@ -5,7 +5,7 @@
         var keywords = [];
 
         function init() {
-            authService.isAuthenticated();
+            authService.isAuthenticated(authService.setCookie());
             initLanguages();
         }
 

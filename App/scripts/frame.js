@@ -11,6 +11,7 @@
         var lastThread;
         var keywords = null;
         var pageTitle = null;
+        var maxAutoThreadRaiting = 1;
 
         
 
@@ -183,7 +184,9 @@
                 var addPageTitleEnabled = true;
                 data.forEach(function (entry) {
                     threads.push({ id: entry.ThreadId, code: entry.Code, text: entry.Title, raiting: entry.Raiting });
-                    if (entry.Title == pageTitle) addPageTitleEnabled = false;
+                    if (entry.Title == pageTitle || entry.Weight >= maxAutoThreadRaiting) {
+                        addPageTitleEnabled = false;
+                    }
                 });
                 if (addPageTitleEnabled)
                     threads.push({ id: '00000000-0000-0000-0000-000000000000', code: pageTitle, text: pageTitle, raiting: 0, fromAnotherUrl: true });

@@ -9,29 +9,28 @@
             $scope.score = "";
 
             var update = function () {
-                authService.isAuthenticated(function (isAuthenticated, username) {
-                    if (isAuthenticated) {
-                        $scope.username = username;
-                        var tRaiting = $rootScope.threadRaiting;
-                        if (tRaiting && !isNaN(tRaiting) && tRaiting != 0) {
-                            if (Math.abs(tRaiting) < 10) {
-                                tRaiting = Math.round(tRaiting * 10) / 10;
-                            } else {
-                                tRaiting = Math.round(tRaiting);
-                            }
-                            if (tRaiting > 0) {
-                                $scope.score = "+" + tRaiting;
-                                $(".CI_score").removeClass("red");
-                            } else {
-                                $scope.score = "-" + tRaiting;
-                                $(".CI_score").addClass("red");
-                            }
+                var isAuthenticated = authService.isAuthenticated();
+                if (isAuthenticated) {
+                    $scope.username = localStorage['username'];
+                    var tRaiting = $rootScope.threadRaiting;
+                    if (tRaiting && !isNaN(tRaiting) && tRaiting != 0) {
+                        if (Math.abs(tRaiting) < 10) {
+                            tRaiting = Math.round(tRaiting * 10) / 10;
+                        } else {
+                            tRaiting = Math.round(tRaiting);
                         }
-                    } else {
-                        $scope.username = "Guest";
-                        $scope.score = "";
+                        if (tRaiting > 0) {
+                            $scope.score = "+" + tRaiting;
+                            $(".CI_score").removeClass("red");
+                        } else {
+                            $scope.score = "-" + tRaiting;
+                            $(".CI_score").addClass("red");
+                        }
                     }
-                });
+                } else {
+                    $scope.username = "Guest";
+                    $scope.score = "";
+                }
             };
 
             $scope.click = function (parameter, event) {
@@ -49,7 +48,8 @@
                         });
                         break;
                     case 'settings':
-                        //Do default action
+                        event.preventDefault();
+                        $(".popup-settings").show();
                         break;
                     case 'account':
                         event.preventDefault();
