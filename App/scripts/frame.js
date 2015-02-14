@@ -201,15 +201,15 @@
 
                 data: function () {
                     var data = [];
-                    var langs = langService.getSelectedLanguages()
+                    var langs = langService.getSelectedLanguages();
                     if (langs.length > 0) {
                         langs.forEach(function (entry) {
                             data.push({ id: entry.uniCode, text: entry.NativeTitle });
                         });
                     } else {
-                        langService.getLanguages().done(function (data) {
+                        langService.getLanguages().done(function () {
                             langService.initSelectedLanguages();
-                            langs = langService.getSelectedLanguages()
+                            langs = langService.getSelectedLanguages();
                             langs.forEach(function (entry) {
                                 data.push({ id: entry.uniCode, text: entry.NativeTitle });
                             });

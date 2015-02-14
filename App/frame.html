@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="content/css/bootstrap.min.css" />
     <link rel="stylesheet" href="content/css/frame.css" />
     <link rel="stylesheet" href="content/css/comments.css" />
+    <link rel="stylesheet" href="content/css/jquery.lwMultiSelect.css" />
     
     <script type="text/javascript" src="scripts/require-config.js"></script>
     <script type="text/javascript" data-main="frame" src="scripts/lib/require.js"></script>
@@ -55,8 +56,12 @@
     
     <!-- Popup: settings -->
     <div class="CI_popup popup-settings" style="display: none">
-        <div class="CI_popup_messagebox">
-            <p>settings</p>
+        <div class="CI_popup_messagebox" align="center">
+            <i class="pull-right close">X</i>
+            <p>Filter: <input type="text" id="lang-textbox" /> </p>
+            <select id="lang-select" multiple>
+            
+            </select>
         </div>
     </div>
 

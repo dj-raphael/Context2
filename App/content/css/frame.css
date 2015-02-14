@@ -329,7 +329,7 @@ li.active a.ng-binding .tab-toolbar a:hover .text {
 }
 
 .CI_popup_messagebox {
-    width: 300px;
+    min-width: 300px;
     padding: 10px;
     background: -moz-linear-gradient(90deg, rgb(240, 240, 240) 0%, rgb(230, 230, 230) 70%);
     background: -webkit-linear-gradient(90deg, rgb(240, 240, 240) 0%, rgb(230, 230, 230) 70%);

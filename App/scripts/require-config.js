@@ -3,6 +3,7 @@
     paths: {
         'jquery': 'lib/jquery.min',
         'jquery-ui': 'lib/jquery-ui.min',
+        'jquery-lwMultiSelect': 'lib/jquery.lwMultiSelect.min',
         'combobox': 'lib/combobox',
         'validate': 'lib/jquery.validate',
         'showPassword': 'lib/hide-show-password',
@@ -60,6 +61,9 @@
         },
         'infinite-scroll': {
             deps: ['jquery']
-        }
+        },
+        'jquery-lwMultiSelect': {
+            deps: ['jquery']
+        },
     }
 };

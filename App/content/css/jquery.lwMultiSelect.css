@@ -1,0 +1,74 @@
+﻿/* multi select */
+.lwms-main
+{
+    font-family: Arial,Helvetica,sans-serif;
+    background: no-repeat 204px 110px;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAQCAYAAAAFzx/vAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NzA5MzMyMzExQzc0MTFFMjg2MjA5RTM0QTg5OUM0NzMiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NzA5MzMyMzIxQzc0MTFFMjg2MjA5RTM0QTg5OUM0NzMiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo3MDkzMzIyRjFDNzQxMUUyODYyMDlFMzRBODk5QzQ3MyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo3MDkzMzIzMDFDNzQxMUUyODYyMDlFMzRBODk5QzQ3MyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PnfcJ5EAAAOgSURBVHjapJRZaBNBGMdndzab3STNJmlt09jakFirEQseVfBAay9btF4PYi0WX/TBF32TvqhgW0QEn9QXoXi9iOLx4A22lkItgqgVq3jhUWuitulpstn4n3RTl1ij4MCfZL755vvt9818wzU1NRHDMEMnob3QAPm/4YCOQbugH0mjYHDI5Xj+imTLKFlYPO9AR0fHlMDGxsZ/orW3tysPHz9pGB8eCsQ1bT329RmBJZQK12RFyaEmE3nwoHs/bGFIgz5Bt6DH6QDNzc0e/JRC09hclmWnaFcIFYSSscGBR1ivBbSLAesFUTwlKw6R5/nEZiqZd0hmVt04icc0okZ+HImp6m0YdkMvU0C5+DmCvXVUNHPJGBo3sc4SsLoys0cHBu7Ddyd35tz5m4Ojo5WE49KWSI1EyPhQeAzgBnzpBR1WylN6UbLZnCZJTl/jeJy47Bk3hPq6rb3Pel9UtnV2Ek3TEmuFfh+hPE3M+/r7ydDwMEEV2JfKLpu1Di4XANsqiObTFkUROD0rSZJIzrQswrJke9+9/zCRJaVk9YrlZJbf30NFUby+aeOGj3me3Bo48FFVJbVrqi4WzZzZ7fd6e+YF5iiiaHJ87PtMigMBsrZ6zWXA3KIkn7U4HJTTK7OguJjUVJR/nV1YeK/Q53uW5/G8f/Tkqd9mtZLaqsrIjLy8Brgd5ZJtgTItQyaXr9+5m+V2Ob24pe90OzvnPd++f29xOZ0nAOsSZfmMbFcSJIpsKktXEZ/XexjTg9CYfksLQuGht1WrS/usFss6mB4yO2fsQwTPj0ajV4PBYEVra2sopR3mtrS0zDdJ0ukkTECpaioq1Pzpni2YXjL6h0KhTKfLdQUftBnT/qSdS2l8FtiCnwgyUVOOvR6ZTcLYOVWXlUW8M/Kr4bsYJrbvAPZruj/VFTEG+Q04xWCAfbiFzbggJAlDqWK+goJawArMVutxdpbjIyOduI2H4NKr9zBL4O3fgF7D/yIGQ8BVeIFSYZsA67Rk2N+YLBYbW4tFo4AOE039VRwtFjNWjzM+bfFEQEonDTwVCGCJlkg8tHgMasrLVI/bzc7lKgJkDYbD0dv32kh/MDjR5A5n2nJNApUcd1rHbPRX+cqVg05FWY9pW/JuKHb7os3r1p5/8erVkp7nveQLwDFN+ztwykVBINlZmSRQVMSathvntC31acN4DftS9G09tJO9y5D4x6DsDJniU48RqB3aDvG633/ppwADANH/jGrtrgrJAAAAAElFTkSuQmCC);
+    width:435px;}
+
+.lwms-main .lwms-left, .lwms-main .lwms-right{width: 200px; color: #555; float: left;}
+
+.lwms-main .lwms-list{
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  border: 1px solid #ccc;
+}
+
+.lwms-selected{display:none;}
+
+.lwms-main .lwms-left{margin-right: 35px;}
+
+.lwms-main ul{margin: 0; list-style-type: none;}
+
+.lwms-main ul.lwms-list{  
+  height: 200px;
+  padding: 0px 0px;
+  overflow-y: auto;
+  background:#fff;
+}
+
+.lwms-main .lwms-left li.lwms-selectli,
+.lwms-main .lwms-right li.lwms-selectli{
+  padding: 4px 10px;
+  color: #555;
+  font-size: 12px;
+  line-height:16px;
+  border-bottom:1px solid #D4D4D4;
+}
+
+.lwms-filterhead {
+  color: #4A4A4A;
+  font-size: 12px;
+  font-weight: bold;
+  height: 25px;
+  line-height: 25px;
+  margin-top: 5px;
+  vertical-align: middle;
+}
+
+.lwms-filterhead a {
+  color: #4A4A4A;
+  text-decoration: none;
+}
+
+.lwms-filcount {
+  color: #078697;
+  font-size: 14px;
+}
+
+.lwms-filterhead a:hover { text-decoration: underline; }
+
+.lwms-main li.lwms-selectli:hover,
+.lwms-main .lwms-right li:hover{
+  cursor: pointer;
+  text-decoration: none;
+  color:#fff;
+  background-color: #1a849b;
+}
+
+/* clear fix */
+.lwms-cf:after { content: "."; display: block; clear: both; visibility: hidden; line-height: 0; height: 0; }
+.lwms-cf { display: inline-block;}
+html[xmlns] .lwms-cf {display: block;} 
+* html .lwms-cf { height: 1%;}
