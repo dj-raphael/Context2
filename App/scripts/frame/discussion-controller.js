@@ -3,44 +3,58 @@ define('frame/discussion-controller', ['frame/app', 'services/comments', 'servic
 	var	commentsBanned = false,
 		addComment = function (language, threadId, parentId, message, url, keywords, threadCode, threadTitle, successCallback) {
 			if (!commentsBanned) {
-				commentService.addComment(
-					language,
-					threadId,
-					parentId,
-					message,
-					url,
-					keywords,
-					threadCode,
-					threadTitle
-				).then(function (data) {
-					var banTime = parseInt(data, 10),
-						getTimeStampString = function(time) {
-							var hours = Math.floor(time / 3600000);
-							var minutes = Math.floor((time - hours * 3600000) / 60000);
-							var seconds = Math.floor((time - hours * 3600000 - minutes * 60000) / 1000);
-							return hours + ':' + minutes + ':' + seconds;
-						};
-					if (!isNaN(banTime)) {
-						commentsBanned = true;
-						$('.popup-ban-time-counter').show();
-						var banTimeCounter = banTime;
-						$('.ban-time-count').html(getTimeStampString(banTimeCounter));
-						var handler = setInterval(function() {
-							if (banTimeCounter >= 1000) {
-								banTimeCounter -= 1000;
-								$('.ban-time-count').html(getTimeStampString(banTimeCounter));
-							} else {
-								clearInterval(handler);
-							}
-						}, 1000);
-						setTimeout(function() {
-							commentsBanned = false;
-							$('.popup-ban-time-counter').hide();
-						}, banTime);
-					}
-				}).done(successCallback);
+			    commentService.addComment(
+			        language,
+			        threadId,
+			        parentId,
+			        message,
+			        url,
+			        keywords,
+			        threadCode,
+			        threadTitle
+			    ).then(function(data) {
+			        var banTime = parseInt(data, 10),
+			            getTimeStampString = function (time) {
+			                var diff = time;
+			                var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+			                diff -= days * (1000 * 60 * 60 * 24);
+			                var hours = Math.floor(diff / (1000 * 60 * 60));
+			                diff -= hours * (1000 * 60 * 60);
+			                var minutes = Math.floor(diff / (1000 * 60));
+			                diff -= minutes * (1000 * 60);
+			                var seconds = Math.floor(diff / (1000));
+			                diff -= seconds * (1000);
+                            if (days > 0)
+                                return days + ' days ' + hours + ' hours';
+                            else if (hours > 0)
+                                return hours + ' hours ' + minutes + ' minutes';
+                            else
+                                return minutes + ' minutes ' + seconds + ' seconds';
+                            
+			            };
+			        if (!isNaN(banTime)) {
+			            commentsBanned = true;
+			            $('.popup-ban-time-counter').show();
+			            var banTimeCounter = banTime;
+			            $('.ban-time-count').html(getTimeStampString(banTimeCounter));
+			            var handler = setInterval(function() {
+			                if (banTimeCounter >= 1000) {
+			                    banTimeCounter -= 1000;
+			                    $('.ban-time-count').html(getTimeStampString(banTimeCounter));
+			                } else {
+			                    clearInterval(handler);
+			                }
+			            }, 1000);
+			            setTimeout(function() {
+			                commentsBanned = false;
+			                $('.popup-ban-time-counter').hide();
+			            }, banTime);
+			        } else {
+			            successCallback();
+			        }
+			        
+			    });
 			} else {
-				successCallback();
 				$('.popup-ban-time-counter').show();
 			}
 		};
@@ -71,11 +85,16 @@ define('frame/discussion-controller', ['frame/app', 'services/comments', 'servic
           $scope.isAuthenticated = authService.isAuthenticated();
 
           $scope.sendAnswer = function sendAnswer() {
+              var text = null;
+              if ($scope.$$childTail.$$childTail)
+                  text = $scope.$$childTail.$$childTail.text;
+              else if ($scope.$$childHead.$$childHead)
+                  text = $scope.$$childHead.$$childHead.text;
           	addComment(
                   $rootScope.language,
                   $rootScope.thread,
                   null,
-                  $scope.$$childTail.$$childTail.text,
+                  text,
                   $scope.currenturl,
                   $rootScope.keywords,
                   $('#thread_box').select2('data').code,
@@ -273,10 +292,15 @@ define('frame/discussion-controller', ['frame/app', 'services/comments', 'servic
                 };
 
                 $scope.sendAnswer = function sendAnswer() {
+                    var text = null;
+                    if ($scope.$$childTail.$$childTail)
+                        text = $scope.$$childTail.$$childTail.text;
+                    else if ($scope.$$childHead.$$childHead)
+                        text = $scope.$$childHead.$$childHead.text;
                 	addComment($rootScope.language,
                         $rootScope.thread,
                         $scope.item.CommentId,
-                        $scope.$$childTail.$$childTail.text,
+                        text,
                         $scope.currenturl,
                         $rootScope.keywords,
                         $('#thread_box').select2('data').code,

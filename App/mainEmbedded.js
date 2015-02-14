@@ -451,7 +451,6 @@
                 stopWords = localStorage['CI_stopwords_' + location.host],
                 stopWordsUpdated = new Date(localStorage['CI_stopwords_last_update_' + location.host]),
                 now = new Date();
-            debugger;
             if ((stopWords != null && stopWords != "") || (now - stopWordsUpdated > 1000 * 60 * 60 * 24)) {
                 callback(stopWords);
             } else {

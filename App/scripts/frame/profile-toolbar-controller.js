@@ -23,7 +23,7 @@
                             $scope.score = "+" + tRaiting;
                             $(".CI_score").removeClass("red");
                         } else {
-                            $scope.score = "-" + tRaiting;
+                            $scope.score = tRaiting;
                             $(".CI_score").addClass("red");
                         }
                     }
@@ -84,7 +84,16 @@
                 });
             };
 
-            update();
+            if ($rootScope.threadRaiting != null) {
+                update();
+            } else {
+                var watchDestroyer = $rootScope.$watch('threadRaiting', function(newValue) {
+                    if (newValue != null) {
+                        update();
+                        watchDestroyer(); //This unbinds watch
+                    }
+                });
+            }
         }
     ]);
 })
