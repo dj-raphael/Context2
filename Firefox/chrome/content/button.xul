@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/css"
+  href="chrome://contextcomment/content/button.css"?>
+
+<!DOCTYPE overlay >
+<overlay id="custombutton-overlay"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<script type="application/javascript"
+  src="chrome://contextcomment/content/button.js"/>
+
+<!-- Firefox -->
+<toolbarpalette id="BrowserToolbarPalette">
+  <toolbarbutton id="contextcomment-button"/>
+  </toolbarpalette>
+
+<!-- button details -->
+<toolbarbutton id="contextcomment-button"
+  label="Custom"
+  tooltiptext="My custom toolbar button"
+  oncommand="contextcomment[1]()"
+  class="toolbarbutton-1 chromeclass-toolbar-additional"
+  />
+
+</overlay>
