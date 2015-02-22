@@ -1,9 +1,31 @@
-﻿define('frame/options-controller', ['jquery', 'services/auth', 'services/languages', 'jquery-ui', 'jquery-lwMultiSelect'],
-    function ($, authService, langService) {
+﻿define('frame/options-controller', ['frame/app', 'jquery', 'services/auth', 'services/languages', 'services/config', 'jquery-ui', 'jquery-lwMultiSelect'],
+    function (app, $, authService, langService, configService) {
         "use strict";
 
         var fullLanguagesArray = [];
         var selectedItemsInList = [];
+
+        app.controller('optionsController', [
+            '$scope', '$rootScope',
+            function ($scope, $rootScope) {
+                var domainConfig = configService.getDomainConfig(decodeURIComponent(location.search.substr(5)));
+                
+                $scope.manageEnabled = domainConfig.getValue('showManageTab') == "true";
+                if (authService.isAuthenticated()) {
+                    $scope.visible = true;
+                } else {
+                    $scope.visible = false;
+                }
+
+                $scope.isVisible = function() {
+                    return $scope.visible;
+                };
+
+                $scope.onChange = function() {
+                    domainConfig.setValue('showManageTab', $scope.manageEnabled);
+                };
+            }
+        ]);
 
         jQuery.fn.filterByText = function (textbox, selectSingleMatch) {
             return this.each(function () {

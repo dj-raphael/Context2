@@ -55,9 +55,11 @@
     </div>
     
     <!-- Popup: settings -->
-    <div class="CI_popup popup-settings" style="display: none">
+    <div class="CI_popup popup-settings" style="display: none" ng-controller="optionsController">
         <div class="CI_popup_messagebox" align="center">
             <i class="pull-right close">X</i>
+            <input type="checkbox" id="switch_manage_tab" ng-show="isVisible()" ng-model="manageEnabled" ng-change="onChange()">
+            <label for="switch_manage_tab" ng-show="isVisible()"> Show manage tab </label>
             <p>Filter: <input type="text" id="lang-textbox" /> </p>
             <select id="lang-select" multiple>
             

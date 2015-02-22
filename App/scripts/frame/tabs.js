@@ -94,7 +94,7 @@ define('frame/tabs', ['frame/app', 'services/config', 'services/auth', 'services
                     if (faqCheckDone && wikiCheckDone) {
                         if (isAuthenticated) {
                             $scope.tabs.push(tabPlus);
-                            if (domainConfig.getValue('showManageTab')) {
+                            if (domainConfig.getValue('showManageTab') == "true") {
                                 $scope.tabs.push(tabManage);
                             }
                         };
