@@ -39,7 +39,7 @@
         <div class="CI_popup_messagebox">
             <p><span style="font-size: larger">Attention!</span> </p>
             <p>You need to authorize to perform this action.</p>
-            <p><a href="login.html" target="_blank" style="font-size: larger" id="CI_popup_login_link">Login</a> <a href='#' class="CI_popup_close">Abort</a>
+            <p><a href="/login" target="_blank" style="font-size: larger" id="CI_popup_login_link">Login</a> <a href='#' class="CI_popup_close">Abort</a>
             </p>
         </div>
     </div>
@@ -108,7 +108,7 @@
             </div>
             <a href="options.html" target="_blank" ng-click="click('settings', $event)"  ng-show="showSettingsBtn">Settings</a>
             <a href="#" ng-click="click('account', $event)" ng-show="showAccountBtn">Account</a>
-            <a href="login.html" target="_blank" ng-click="click('login', $event)" ng-show="showLoginBtn">Sign In</a>
+            <a href="/login" target="_blank" ng-click="click('login', $event)" ng-show="showLoginBtn">Sign In</a>
             <a href="#" ng-click="click('logout', $event)" ng-show="showLogoutBtn">Sign Out</a>
         </div>
     </script>
@@ -256,7 +256,7 @@
 
     <script type="text/ng-template" id="answerForm.html">
         <textarea class="CI_CommentTextArea" style="width: 100%" ng-model="text" ng-attr-placeholder="{{isAuthenticated && 'Write comment here...' || 'You must log in before write comment.' }}" id="{{item.CommentId}}_CommentTextArea"></textarea>
-        <a ng-hide="isAuthenticated" class="sendAnswer" href="login.html" target="_blank" ng-click="isAuthenticated = true">Sign In</a>
+        <a ng-hide="isAuthenticated" class="sendAnswer" href="/login" target="_blank" ng-click="isAuthenticated = true">Sign In</a>
         <button ng-show="isAuthenticated" class="sendAnswer" ng-click="sendAnswer()">Send</button>
         <button ng-show="isAuthenticated" ng-click="close()">Close</button>
     </script>
