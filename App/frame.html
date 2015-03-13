@@ -226,11 +226,11 @@
                         <label id="date">{{item.Created | date:'dd MMMM yyyy H:mm'}}</label>
                     </div>
                     <div class=right>
-                        <a class="left-div-count" ng-click="vote(true)">
+                        <a class="left-div-count" ng-click="vote(true)" ng-show="voteAvaliable()">
                             <b>▲</b>
                         </a>
                         <label id="count" title="{{item.VoteUp + item.VoteDown}}: ↑{{item.VoteUp}} ↓{{item.VoteDown}} ">{{item.VoteUp - item.VoteDown}}</label>
-                        <a class="right-div-count" ng-click="vote(false)">
+                        <a class="right-div-count" ng-click="vote(false)" ng-show="voteAvaliable()">
                             <b>▼</b>
                         </a>
                     </div>

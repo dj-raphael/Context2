@@ -259,6 +259,12 @@ define('frame/discussion-controller', ['frame/app', 'services/comments', 'servic
             },
             controller: function ($scope, $rootScope, $sce) {
                 $scope.isAuthenticated = authService.isAuthenticated();
+                var diff = new Date() - new Date($scope.item.Created);
+                $scope.days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                
+                $scope.voteAvaliable = function () {
+                    return $scope.days < 7 && $scope.isAuthenticated;
+                };
 
                 function getMessagesTrusted(data) {
                     for (var i = 0; i < data.length; i++) {
