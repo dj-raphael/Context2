@@ -1,6 +1,6 @@
 ﻿(function () {
-    var //context2Url = 'http://www.context2.com/',
-        context2Url = 'http://localhost:2341/',
+    var context2Url = 'https://context2.com/',
+        //context2Url = 'http://localhost:2341/',
         panelWrapperId = 'context2-panel-wrapper',
         panelToggleCheckBoxId = 'context2-panel-toggle-checkbox',
         panelToggleLabelId = 'context2-panel-toggle-label',

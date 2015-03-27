@@ -50,7 +50,7 @@
 
                     for (var i = 0; i < selectLength; i++) {
                         if (selectedItemsInList.some(function (item) {
-                            return array[i].text === item.Title;
+                            return array[i].text === item.NativeTitle;
                         }) == false) {
                             $('select option[value=' + i + ']').remove();
                         }
@@ -65,7 +65,7 @@
                         if ((option.text.match(regex) != null
                             || arrayTitles[i].toString().match(regex) != null || arrayUniCodes[i].toString().match(regex) != null)
                             && selectedItemsInList.some(function (item) {
-                                return option.text == item.Title;
+                                return option.text == item.NativeTitle;
                         }) == false) {
                             $(select).append(
                                 $('<option>').text(option.text).val(option.value).attr('data-title', arrayTitles[i]).attr('data-unicode', arrayUniCodes[i])
@@ -102,16 +102,17 @@
                         for (var index = 0; index < options.length; index++) {
                             var lang = {
                                 Title: $(options[index]).attr('data-title'),
-                                UniCode: $(options[index]).attr('data-unicode'),
+                                uniCode: $(options[index]).attr('data-unicode'),
                                 NativeTitle: $(options[index]).text()
                             };
                             selectedLangs.push(lang);
                         }
+                        
                         langService.setSelectedLanguages(selectedLangs);
                     }
                 });
                 for (var i = 0; i < selectedItemsInList.length; i++) {
-                    $("li:contains('" + selectedItemsInList[i].Title + "')").click();
+                    $("li:contains('" + selectedItemsInList[i].NativeTitle + "')").click();
                 }
                 $(function () {
                     $('#lang-select').filterByText($('#lang-textbox'), false);

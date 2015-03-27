@@ -2,7 +2,7 @@
     app.controller('bannerCtrl', [
         '$scope', '$sce',
         function($scope, $sce) {
-            $scope.Height = "width: 100%;height:30px;background:beige;float:left";
+            $scope.Style = "display: none;";
 
             function init() {
                 $scope.urlBanners = 'banners.html';
@@ -18,7 +18,7 @@
                     bannerService.getBanners(keywords).done(function (data) {
                         if (data == null || data.length === 0) {
                             $('.CI_scrollable').height($(window).height() - 77);
-                            $scope.Height = "width: 100%;height:0px;background:beige;float:left";
+                            $scope.Style = "width: 100%;height:0px;background:beige;float:left";
                             $scope.contentBanners = null;
                         } else {
                             data.forEach(function(entry) {

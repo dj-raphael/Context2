@@ -28,6 +28,7 @@
                         $rootScope.keywords = keywords;
                     });
 
+                    /**** Create ThreadBox start ****/
                     $("#thread_box").select2({
                         width: '100%',
                         placeholder: 'Loading...',
@@ -37,7 +38,9 @@
                     });
                     $("#thread_box").select2("enable", false);
                     getThreads(currentlang, currenturl, keywords, pageTitle);
+                    /* ^^^ Create ThreadBox end ^^^ */
 
+                    /**** Create LanguageBox start ****/
                     $("#language_box").select2({
                         width: '100%',
                         placeholder: 'Loading...',
@@ -47,7 +50,29 @@
                     });
                     $("#language_box").select2("enable", false);
 
-                    createLanguageBox();
+                    var data = [];
+                    var langs = langService.getSelectedLanguages();
+                    if (langs.length > 0) {
+                        for (var i = 0; i < langs.length; i++) {
+                            data.push({ id: langs[i].uniCode, text: langs[i].NativeTitle });
+                        };
+                        $("#language_box").select2("enable", true);
+                        $("#language_box").val(currentlang).trigger("change");
+                    } else {
+                        langService.getLanguages().done(function () {
+                            langService.initSelectedLanguages();
+                            langs = langService.getSelectedLanguages();
+                            for (var i = 0; i < langs.length; i++) {
+                                data.push({ id: langs[i].uniCode, text: langs[i].NativeTitle });
+                            };
+                            $("#language_box").select2("enable", true);
+                            $("#language_box").val(currentlang).trigger("change");
+                        });;
+                    }
+
+                    createLanguageBox(data);
+                    /* ^^^ Create LanguageBox end ^^^ */
+
                     $(".CI_icon-refresh").click(function () {
                         location.reload();
                     });
@@ -195,28 +220,11 @@
                 $(".CI_thread-selector .select2-chosen").text("Service unavailable");
             });
         }
-        function createLanguageBox() {
+        function createLanguageBox(data) {
             $("#language_box").select2({
                 width: '100%',
 
                 data: function () {
-                    var data = [];
-                    var langs = langService.getSelectedLanguages();
-                    if (langs.length > 0) {
-                        langs.forEach(function (entry) {
-                            data.push({ id: entry.uniCode, text: entry.NativeTitle });
-                        });
-                    } else {
-                        langService.getLanguages().done(function () {
-                            langService.initSelectedLanguages();
-                            langs = langService.getSelectedLanguages();
-                            langs.forEach(function (entry) {
-                                data.push({ id: entry.uniCode, text: entry.NativeTitle });
-                            });
-                            $("#language_box").select2("enable", true);
-                            $("#language_box").val(currentlang).trigger("change");
-                        });;
-                    }
                     return { results: data };
                 },
                 placeholder: 'Select language...',

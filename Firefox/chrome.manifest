@@ -1,6 +1,0 @@
-content contextcomment chrome/content/
-style chrome://global/content/customizeToolbar.xul chrome://contextcomment/content/button.css
-
-# Firefox
-overlay	chrome://browser/content/browser.xul chrome://contextcomment/content/button.xul
-

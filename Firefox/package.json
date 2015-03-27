@@ -1,0 +1,13 @@
+{
+  "name": "contextcomment",
+  "title": "Context Comment",
+  "id": "jid1-uAgY3pYSvJEHFKWQQ",
+  "description": "A new way to communicate",
+  "author": "http://context2.com",
+  "license": "MPL 2.0",
+  "version": "1.0",
+  "homepage": "http://context2.com",
+  "permissions": {
+		"private-browsing": true
+	}
+}
