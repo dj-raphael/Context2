@@ -4,7 +4,7 @@
         "use strict";
         var _keywords;
 
-        function getBanners(keywords) {
+        function getBanners(keywords, threadId) {
             var promize;
             if (_keywords) {
                 promize = {
@@ -25,7 +25,7 @@
                     {
                         keywords: keywords,
                         Language: languages.getCurrentLanguage(),
-                        ThreadId: null//TODO get threadId
+                        ThreadId: threadId
                     }
                 ).done(function(data) { _keywords = data; });
                 return promize;

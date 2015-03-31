@@ -21,6 +21,10 @@ define("services/auth",
             return res;
         }
 
+        function getUsername() {
+            return localStorage["username"];
+        }
+
         function login(userName, password, rememberMe) {
             var promize = transport.request("POST",
                 configuration.urls.login,
@@ -77,7 +81,8 @@ define("services/auth",
             login: login,
             logoff: logoff,
             register: register,
-            setCookie: setCookie
+            setCookie: setCookie,
+            getUsername: getUsername
         };
         return service;
     }

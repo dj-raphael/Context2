@@ -1,8 +1,9 @@
 ﻿define('frame/banner-controller', ['frame/app', 'services/banner'], function(app, bannerService) {
     app.controller('bannerCtrl', [
-        '$scope', '$sce',
-        function($scope, $sce) {
-            $scope.Style = "display: none;";
+        '$scope', '$sce', "$rootScope",
+        function($scope, $sce, $rootScope) {
+            $scope.Style = "width: 100%;height:0px;background:beige;float:left";
+            //$scope.Style = "display: none;";
 
             function init() {
                 $scope.urlBanners = 'banners.html';
@@ -14,8 +15,9 @@
 
             function getBanners(keywords) {
                 var banners = [];
-                if (Array.isArray(keywords)) {
-                    bannerService.getBanners(keywords).done(function (data) {
+                var threadId = $rootScope.thread;
+                if (Array.isArray(keywords) && threadId != null) {
+                    bannerService.getBanners(keywords, threadId).done(function (data) {
                         if (data == null || data.length === 0) {
                             $('.CI_scrollable').height($(window).height() - 77);
                             $scope.Style = "width: 100%;height:0px;background:beige;float:left";
@@ -24,7 +26,7 @@
                             data.forEach(function(entry) {
                                 banners.push(entry);
                             });
-
+                            $scope.Style = "width: 100%;height:32px;background:beige;float:left;line-height:30px;white-space:nowrap;";
                             $('.CI_scrollable').height($(window).height() - 107);
                             $scope.contentBanners = banners;
                         }

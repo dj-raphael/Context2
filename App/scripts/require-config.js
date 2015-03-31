@@ -60,7 +60,7 @@
             deps: ['tinymce']
         },
         'infinite-scroll': {
-            deps: ['jquery']
+            deps: ['angular','jquery']
         },
         'jquery-lwMultiSelect': {
             deps: ['jquery']

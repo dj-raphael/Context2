@@ -185,6 +185,7 @@
 .CI_tabset {
     width: 100%;
     height: -webkit-calc(100% - 40px);
+    clear: both;
 }
 
 .CI_iframe {
