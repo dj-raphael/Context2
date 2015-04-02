@@ -93,10 +93,11 @@ define('frame/tabs', ['frame/app', 'services/config', 'services/auth', 'services
                 var addPlus = function () {
                     if (faqCheckDone && wikiCheckDone) {
                         if (isAuthenticated) {
-                            $scope.tabs.push(tabPlus);
                             if (domainConfig.getValue('showManageTab') == "true") {
                                 $scope.tabs.push(tabManage);
                             }
+                            if ($scope.tabs.length >= tabsCount) return;
+                            $scope.tabs.push(tabPlus);
                         };
                     }
                 };
@@ -104,10 +105,11 @@ define('frame/tabs', ['frame/app', 'services/config', 'services/auth', 'services
                 if ($rootScope.thread && $rootScope.language) {
                     faqService.getList($rootScope.thread, $rootScope.language, 0, 1).done(function(data) {
                         if (data != null && data.totalRecords != null && data.totalRecords > 0) {
-                            $scope.tabs.unshift(tabFaq);
+                            $scope.tabs.splice($scope.tabs.indexOf(tabDiscussion) + 1, 0, tabFaq);
                         }
                         faqCheckDone = true;
                         addPlus();
+
                     });
                     wikiService.getWiki($rootScope.thread, $rootScope.language).done(function(data) {
                         if (data != null && data != "<div>No Wiki Avaliable</div>") {
@@ -118,7 +120,7 @@ define('frame/tabs', ['frame/app', 'services/config', 'services/auth', 'services
                     });
                 };
 
-                if ($scope.tabs.length > tabsCount) removePlus();
+                
 
             }]);
 
