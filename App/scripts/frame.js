@@ -129,14 +129,17 @@
         }
 
         /********************************** \/ Define functions \/ *************************************/
-
+        
         function noMatch(term) {
             wasNoMatch = true;
             var newdata = [];
             var selectedData = $("#thread_box").select2("data");
             threadService.searchThreads(term, currentlang).done(function (response) {
+                
                 response.forEach(function (entry) {
-                    newdata.push({ id: entry.ThreadId, code: entry.Code, text: entry.Title, raiting: entry.Raiting, fromAnotherUrl: true });
+                    if (!(threads.some(function (tr) {return tr.id == entry.ThreadId }))) {
+                        newdata.push({ id: entry.ThreadId, code: entry.Code, text: entry.Title, raiting: entry.Raiting, fromAnotherUrl: true });
+                    }
                 });
 
                 threads = threads.concat(newdata);
@@ -209,7 +212,7 @@
                 var addPageTitleEnabled = true;
                 data.forEach(function (entry) {
                     threads.push({ id: entry.ThreadId, code: entry.Code, text: entry.Title, raiting: entry.Raiting });
-                    if (entry.Title == pageTitle || entry.Weight >= maxAutoThreadRaiting) {
+                    if (entry.IsDiscussedHere === true) {
                         addPageTitleEnabled = false;
                     }
                 });
@@ -235,7 +238,7 @@
                 langService.setCurrentLanguage(e.val);
                 currentlang = e.val;
                 threads = [];
-                getThreads(currentlang, currenturl, keywords);
+                getThreads(currentlang, currenturl, keywords, pageTitle);
             }).on("select2-opening", function (e) {
                 if (wasNoMatch) {
                     wasNoMatch = false;
