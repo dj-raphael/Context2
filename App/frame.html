@@ -26,10 +26,6 @@
         </div>
     </div>
     
-    <div ng-controller="bannerCtrl" >
-        <ng-include src="urlBanners"></ng-include>
-    </div>
-
     <div class="CI_tabset" ng-controller="TabsCtrl">
         <ng-include src="threadTemplate"></ng-include>
     </div>
@@ -58,8 +54,6 @@
     <div class="CI_popup popup-settings" style="display: none" ng-controller="optionsController">
         <div class="CI_popup_messagebox" align="center">
             <i class="pull-right close">X</i>
-            <input type="checkbox" id="switch_manage_tab" ng-show="isVisible()" ng-model="manageEnabled" ng-change="onChange()">
-            <label for="switch_manage_tab" ng-show="isVisible()"> Show manage tab </label>
             <p>Filter: <input type="text" id="lang-textbox" /> </p>
             <select id="lang-select" multiple>
             
@@ -68,10 +62,6 @@
     </div>
 
     <!-- Templates -->
-
-    <script type="text/ng-template" id="banners.html">
-        <div style="{{Style}}">{{contentBanners[0].Text}}</div>
-    </script>
 
     <script type="text/ng-template" id="tabs.html">
         <div ng-controller="TabsCtrl" class="CI_main-tabs">
@@ -114,7 +104,6 @@
         <div ng-controller="plusController_toolbar" ng-click="click('', $event)" ng-mouseenter="mEnter()" ng-mouseleave="mLeave()">
             <a href="#" ng-show="show_wiki" ng-click="click('wiki', $event)">Wiki</a>
             <a href="#" ng-show="show_faq" ng-click="click('faq', $event)">FAQ</a>
-            <a href="#" ng-show="show_manage" ng-click="click('manage', $event)">Manage</a>
         </div>
     </script>
 
@@ -272,69 +261,7 @@
         <br />
     </script>
 
-    <script type="text/ng-template" id="thread-manage.html">
-        <div ng-controller="manageController" class="faq">
-            <tabset>
-                <tab heading="Wiki History">
-                    Static content
-                </tab>
-                <tab heading="Rename Thread">
-                    New name of Thread: <input type="text" /><button>Rename</button><br /><br />
-                    Renames history:<br />
-                    <table class="ci-vote">
-                        <tr>
-                            <th>New Name</th>
-                            <th>Old Name</th>
-                            <th>User</th>
-                            <th>Pro</th>
-                            <th>Con</th>
-                            <th>Date</th>
-                        </tr>
-                        <tr>
-                            <td>My new name</td>
-                            <td>My old name</td>
-                            <td>Raphael</td>
-                            <td class="vote-for">32, 66%, 41%</td>
-                            <td class="vote-against">12, 34%, 26%</td>
-                            <td>12 days</td>
-                        </tr>
-                    </table>
-                </tab>
-                <tab heading="Merge Thread">
-                    ThreadId: {{thread}}<br />
-                    Merge threads: <input type="text" placeholder="ThreadId" /><button>Merge</button><br />
-                    <br />
-                    Merges history:<br />
-                    <table class="ci-vote">
-                        <tr>
-                            <th>Thread1</th>
-                            <th>Thread2</th>
-                            <th>User</th>
-                            <th>For</th>
-                            <th>Con</th>
-                            <th>Date</th>
-                        </tr>
-                        <tr>
-                            <td>My new name</td>
-                            <td>My old name</td>
-                            <td class="vote-for">32, 66%, 41%</td>
-                            <td class="vote-against">12, 34%, 26%</td>
-                            <td>12 days</td>
-                        </tr>
-                    </table>
-                </tab>
-                <tab heading="Moderators">
-                    List of thread moderators:<br />
-                    <button>I want to become moderator</button>
-                    <button>Withdraw my candidacy</button>
-                </tab>
-                <tab heading="Thread">
-                    Static content
-                </tab>
-            </tabset>
-
-        </div>
-    </script>
+    
 
 </body>
 </html>
