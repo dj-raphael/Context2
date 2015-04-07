@@ -191,7 +191,13 @@
                     if (entry.fromAnotherUrl) return '<div style="opacity: 0.7">' + entry.text + '</div>';
                     return entry.text;
                 },
-                escapeMarkup: function (m) { return m; }
+                escapeMarkup: function (m) { return m; },
+                sortResults: function (results, container, query) {
+                    if (query.term && results.length < 3) {
+                        noMatch(query.term);
+                    }
+                    return results;
+                }
             }).on("select2-open", function () {
                 $('#select2-drop > div.select2-search > input.select2-input.select2-focused').attr('placeholder', 'Search thread or type New Thread Name here');
             });

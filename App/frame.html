@@ -129,12 +129,15 @@
     </script>
 
 
-    <script type="text/ng-template" id="discussion.html">
+<script type="text/ng-template" id="discussion.html">
         <div ng-controller="discussionController">
             <div class="CI_toolbar">
                 <a href="#" ng-click="clickNewComment()">Write new comment</a>
+                <!-- -comments search- -->
+                <!--
                 <button class="pull-right">search</button>
                 <input type="search" class="pull-right" />
+                -->
             </div>
 
             <input type="checkbox" style="display:none" data-ng-model="answerIsExpanded" id="answer_{{item.CommentId}}" />
