@@ -1,0 +1,14 @@
+﻿{
+   "app_name": {
+      "description": "Automatic login to selected sites.",
+      "message": "Комментарии для Хабра"
+   },
+   "app_description": {
+      "description": "Application Description",
+      "message": "Внешние комментарии для Хабра для readonly и незарегистрированных пользователей"
+   },
+   "title_comments": {
+      "description": "Title for anchor",
+      "message": "Комментарии"
+   }
+}

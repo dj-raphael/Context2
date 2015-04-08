@@ -1,4 +1,4 @@
-﻿#context2-panel-wrapper {
+#context2-panel-wrapper {
     position: fixed;
     top: 0;
     padding: 0 0 0 3px;
@@ -54,7 +54,7 @@
     display: block;
     position: absolute;
     left: -29px;
-    top: 45%;
+    top: 40%;
     width: 20px;
     height: 16px;
     background: white;
@@ -87,9 +87,12 @@
 
     #context2-panel-toggle-label > span {
         height: 20px;
-        background: url('images/icon.png');
+        background-size: 20px;
+        background-repeat: no-repeat;    
+        background-position: 100% 50%;
+        text-align: left;
+        background-image: url('images/icon.png');
         display: block;
-        background-size: cover;
         cursor: pointer;
     }
 
@@ -100,8 +103,8 @@
         -o-transition: .9s all;
         transition: .9s all;
         cursor: pointer;
-        vertical-align: central;
-        top: 50%;
+        position: absolute;
+        bottom: 3px;
     }
 
 #context2-panel-toggle-checkbox {
