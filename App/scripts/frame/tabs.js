@@ -1,4 +1,4 @@
-define('frame/tabs', ['frame/app', 'services/config', 'services/auth', 'services/faq', 'services/wiki', 'frame/wiki-controller', 'frame/faq-controller', 'frame/discussion-controller', 'frame/manage-controller', 'frame/banner-controller', 'frame/profile-toolbar-controller', 'frame/plus-toolbar-controller', 'frame/options-controller'],
+define('frame/tabs', ['frame/app', 'services/config', 'services/auth', 'services/faq', 'services/wiki', 'frame/wiki-controller', 'frame/faq-controller', 'frame/discussion-controller', 'frame/profile-toolbar-controller', 'frame/plus-toolbar-controller', 'frame/options-controller'],
     function (app, configService, authService, faqService, wikiService) {
 
         app.controller('mainCtrl', function ($scope, $rootScope) {
@@ -41,15 +41,13 @@ define('frame/tabs', ['frame/app', 'services/config', 'services/auth', 'services
             function ($scope, $rootScope) {
 
                 var activeTab = configService.getDefaultTab();
-                var tabsCount = 5;
+                var tabsCount = 4;
                 var isAuthenticated = authService.isAuthenticated();
-                var domainConfig = configService.getDomainConfig(decodeURIComponent(location.search.substr(5)));
                 var faqCheckDone, wikiCheckDone = false;
 
                 var
                     tabWiki =       { id: "wiki", title: "Wiki", template: 'wiki.html', toolbar: 'toolbar-wiki.html', active: (activeTab == 'wiki'), updated: false, },
                     tabFaq =        { id: "faq", title: "FAQ", template: 'faq.html', active: (activeTab == 'faq'), updated: false, },
-                    tabManage =     { id: "manage", title: "Manage", template: 'thread-manage.html', active: (activeTab == 'manage'), updated: false, className: "pull-right" },
                     tabPlus =       { id: "plus", title: "+", toolbar: 'toolbar-plus.html', active: false, updated: false, className: "tab-plus" },
                     tabDiscussion = { id: "discussion", title: "Discussion", template: 'discussion.html', active: (activeTab == 'discussion'), updated: false },
                     tabProfile =    { id: "profile", title: "", toolbar: 'toolbar-profile.html', active: false, updated: false, className: "pull-right tab-profile" };
@@ -79,11 +77,6 @@ define('frame/tabs', ['frame/app', 'services/config', 'services/auth', 'services
                             tabFaq.active = true;
                             $scope.tabs.splice($scope.tabs.indexOf(tabDiscussion) + 1, 0, tabFaq);
                             break;
-                        case 'manage':
-                            tabManage.active = true;
-                            $scope.tabs.push(tabManage);
-                            domainConfig.setValue('showManageTab', true);
-                            break;
                         default:
                             break;
                     }
@@ -93,9 +86,6 @@ define('frame/tabs', ['frame/app', 'services/config', 'services/auth', 'services
                 var addPlus = function () {
                     if (faqCheckDone && wikiCheckDone) {
                         if (isAuthenticated) {
-                            if (domainConfig.getValue('showManageTab') == "true") {
-                                $scope.tabs.push(tabManage);
-                            }
                             if ($scope.tabs.length >= tabsCount) return;
                             $scope.tabs.push(tabPlus);
                         };

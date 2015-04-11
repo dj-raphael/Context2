@@ -60,8 +60,8 @@ define("services/auth",
         function logoff() {
             var promize = transport.request("GET", configuration.urls.logoff)
                 .done(function (data) {
-                    localStorage["uid"] = undefined;
-                    localStorage["username"] = undefined;
+                    localStorage.removeItem("uid");
+                    localStorage.removeItem("username");
                     localStorage.removeItem(configuration.authCookieName);
                 });
             return promize;

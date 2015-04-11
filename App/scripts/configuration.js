@@ -2,8 +2,8 @@ define('configuration',
     [],
     function() {
         "use strict";
-        //var baseUrl = '/';
-        var baseUrl = 'https://context2.com/';
+        var baseUrl = '/';
+        //var baseUrl = 'https://context2.com/';
         var configuration = {
             authCookieName: '.ASPXAUTH',
             urls: {

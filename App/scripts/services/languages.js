@@ -60,17 +60,17 @@ define('services/languages',
             localStorage['selectedLanguages'] = JSON.stringify(languages);
         }
 
-        function getCurrentLanguage() {   
-            if (localStorage['currentlang'] == null)
-                return window.navigator.language;
-            else {
-                return localStorage['currentlang'];
-            }
-        }
-
         function setCurrentLanguage(value) {
             localStorage['currentlang'] = value;
         }
+
+        function getCurrentLanguage() {   
+            if (localStorage['currentlang'] == null)
+                setCurrentLanguage(window.navigator.language.substring(0, 2));
+            return localStorage['currentlang'];
+        }
+
+       
 
         var service = {
             getLanguages: getLanguages,

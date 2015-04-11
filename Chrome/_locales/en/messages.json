@@ -1,0 +1,15 @@
+﻿{
+   "app_name": {
+      "description": "Application name.",
+      "message": "External comments for Habrahabr"
+   },
+   "app_description": {
+      "description": "Application Description",
+      "message": "Extension for external comments on Habrahabr for unregistered users."
+   },
+   "title_comments": {
+      "description": "Title for anchor",
+      "message": "Comments"
+   }
+
+}
