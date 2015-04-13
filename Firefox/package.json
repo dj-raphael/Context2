@@ -1,8 +1,8 @@
 {
   "name": "contextcomment",
-  "title": "Context Comment",
+  "title": "External comments for Habrahabr",
   "id": "jid1-uAgY3pYSvJEHFKWQQ",
-  "description": "A new way to communicate",
+  "description": "plugin for external comments",
   "author": "http://context2.com",
   "license": "MPL 2.0",
   "version": "1.0",

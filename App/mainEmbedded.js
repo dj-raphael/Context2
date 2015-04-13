@@ -1,6 +1,6 @@
 (function () {
-    var //context2Url = 'https://context2.com/',
-        context2Url = 'http://localhost:2341/',
+    var context2Url = 'https://context2.com/',
+        //context2Url = 'http://localhost:2341/',
         panelWrapperId = 'context2-panel-wrapper',
         panelToggleCheckBoxId = 'context2-panel-toggle-checkbox',
         panelToggleLabelId = 'context2-panel-toggle-label',
@@ -106,7 +106,7 @@
                     strong: 4,
                 },
                 stopLangs: [], // used stopwords from selected langs ['en','es','de'], empty - all, ['none'] - none of dictionary
-                stopWords: [], // place here addition stopwords for merge with langs
+                stopWords: ["-", "/", "|", "\\", "–"], // place here addition stopwords for merge with langs
             };
             // https://github.com/6/stopwords
 
@@ -516,14 +516,19 @@
             panelToggleLabel.setAttribute('for', panelToggleCheckBoxId);
             var title = document.body.dataset.context2title ? document.body.dataset.context2title : defaultLabelTitle;
             panelToggleLabel.innerHTML = '<span>'+title+'</span><div>&#9668</div>';
-            window.setTimeout(function() {
-                    var span = panelToggleLabel.childNodes[0].tagName == "SPAN" ? panelToggleLabel.childNodes[0] : panelToggleLabel.childNodes[1];
+            var initLabel = function () {
+                var span = panelToggleLabel.childNodes[0].tagName == "SPAN" ? panelToggleLabel.childNodes[0] : panelToggleLabel.childNodes[1];
+                if (span.scrollWidth == 0) {
+                    window.setTimeout(initLabel, 100);
+                } else {
                     var textWidth = span.scrollWidth + 24;
-                    panelToggleLabel.style.height = (textWidth-15) + "px";
+                    panelToggleLabel.style.height = (textWidth - 15) + "px";
                     span.style.width = (textWidth) + "px";
                     span.style.transform = "rotate(-90deg)";
-                    span.style.transformOrigin = (textWidth/2-2) + "px " + (textWidth/2-3) + "px";
-            },100);
+                    span.style.transformOrigin = (textWidth / 2 - 2) + "px " + (textWidth / 2 - 3) + "px";
+                }
+            }
+            window.setTimeout(initLabel, 100);
             panelWrapper.appendChild(panelToggleLabel);
             document.body.appendChild(panelToggleCheckBox);
             document.body.appendChild(panelWrapper);

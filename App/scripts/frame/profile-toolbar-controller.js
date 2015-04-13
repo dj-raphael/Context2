@@ -38,7 +38,7 @@
                 event.stopImmediatePropagation();
                 switch (parameter) {
                     case 'login':
-                        //Do default action
+                        //Do default link action
                         break;
                     case 'logout':
                         event.preventDefault();
@@ -52,8 +52,7 @@
                         $(".popup-settings").show();
                         break;
                     case 'account':
-                        event.preventDefault();
-                        alert('account');
+                        //Do default link action
                         break;
                     default:
                         event.preventDefault();
