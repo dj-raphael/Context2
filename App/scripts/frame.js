@@ -13,8 +13,6 @@
         var pageTitle = null;
         var maxAutoThreadRaiting = 1;
 
-        
-
         function init() {
             var onSendKeywords = function (e) {
                 if (e.data.type2 == "keywords") {
@@ -67,7 +65,7 @@
                             };
                             $("#language_box").select2("enable", true);
                             $("#language_box").val(currentlang).trigger("change");
-                        });;
+                        });
                     }
 
                     createLanguageBox(data);
@@ -130,6 +128,14 @@
 
         /********************************** \/ Define functions \/ *************************************/
         
+        function weightComparator(a, b) {
+            if (a.fromAnotherUrl && !b.fromAnotherUrl) return 1;
+            if (!a.fromAnotherUrl && b.fromAnotherUrl) return -1;
+            if (a.weight > b.weight) return -1;
+            if (a.weight < b.weight) return 1;
+            return 0;
+        }
+
         function noMatch(term) {
             wasNoMatch = true;
             var newdata = [];
@@ -184,10 +190,10 @@
                 placeholder: 'Search or New Thread Name type here',
                 formatNoMatches: noMatch,
                 formatSelection: function (entry) {
-                    if (entry.fromAnotherUrl) return '<div style="opacity: 0.7">' + entry.text + '</div>';
+                    if (entry.fromAnotherUrl) return '<div style="color: #630; background-color:#ffd;">' + entry.text + '</div>';
                     return entry.text;
                 },
-                formatResult: function (entry) {
+                formatResult: function (entry, container, query) {
                     if (entry.fromAnotherUrl) return '<div style="opacity: 0.7">' + entry.text + '</div>';
                     return entry.text;
                 },
@@ -217,13 +223,14 @@
             threadService.getThreads(currurl, currlang, keywords).done(function (data) {
                 var addPageTitleEnabled = true;
                 data.forEach(function (entry) {
-                    threads.push({ id: entry.ThreadId, code: entry.Code, text: entry.Title, raiting: entry.Raiting });
+                    threads.push({ id: entry.ThreadId, code: entry.Code, text: entry.Title, raiting: entry.Raiting, weight: entry.Weight, fromAnotherUrl: !entry.IsDiscussedHere });
                     if (entry.IsDiscussedHere === true) {
                         addPageTitleEnabled = false;
                     }
                 });
                 if (addPageTitleEnabled)
-                    threads.push({ id: '00000000-0000-0000-0000-000000000000', code: pageTitle, text: pageTitle, raiting: 0, fromAnotherUrl: true });
+                    threads.push({ id: '00000000-0000-0000-0000-000000000000', code: pageTitle, text: pageTitle, raiting: 0, weight: 1, fromAnotherUrl: true });
+                threads.sort(weightComparator);
                 createThreadBox(threads);
             }).error(function () {
                 $(".CI_thread-selector .select2-chosen").text("Service unavailable");

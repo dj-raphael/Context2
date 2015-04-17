@@ -25,8 +25,13 @@
             <input id="language_box" type="text" name="language" ng-model="language" ng-change="onThreadSelect()" />
         </div>
     </div>
-    
-    <div class="CI_tabset" ng-controller="TabsCtrl">
+
+    <div ng-controller="bannerCtrl">
+               <ng-include src="urlBanners"></ng-include>
+        
+    </div>
+
+<div class="CI_tabset" ng-controller="TabsCtrl">
         <ng-include src="threadTemplate"></ng-include>
     </div>
 
@@ -63,7 +68,13 @@
 
     <!-- Templates -->
 
-    <script type="text/ng-template" id="tabs.html">
+    <script type="text/ng-template" id="banners.html">
+        <a href="{{contentBanners[0].Href}}" target="_blank">
+            <div style="{{Style}}">{{contentBanners[0].Text}}</div>
+        </a>
+    </script>
+
+<script type="text/ng-template" id="tabs.html">
         <div ng-controller="TabsCtrl" class="CI_main-tabs">
             <tabset>
                 <tab id="tab_{{tab.id}} "ng-repeat="tab in tabs" select="foo(tab)" active="tab.active" disabled="tab.disabled" class="{{tab.className}}">
@@ -94,7 +105,7 @@
                 <span class="CI_score">{{score}}</span>
             </div>
             <a href="options.html" target="_blank" ng-click="click('settings', $event)"  ng-show="showSettingsBtn">Settings</a>
-            <a href="#" ng-click="click('account', $event)" ng-show="showAccountBtn">Account</a>
+            <a href="/account" target="_blank" ng-click="click('account', $event)" ng-show="showAccountBtn">Account</a>
             <a href="/login" target="_blank" ng-click="click('login', $event)" ng-show="showLoginBtn">Sign In</a>
             <a href="#" ng-click="click('logout', $event)" ng-show="showLogoutBtn">Sign Out</a>
         </div>

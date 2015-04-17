@@ -1,7 +1,6 @@
-self.port.on("ContextCommentExecute", function() {
-  var panelToggleLabelId = 'context2-panel-toggle-label';
-	var scriptSource = 'https://context2.com/app/mainEmbedded.js';
-	//var scriptSource = 'http://localhost:2341/app/mainEmbedded.js';
+self.port.on("ContextCommentExecute", function(localizedStrings) {
+    var panelToggleLabelId = 'context2-panel-toggle-label';
+	var scriptSource = 'http://context2.com/app/mainEmbedded.js';
 	var panelToggle = function(){
 		var panelLabel = document.getElementById(panelToggleLabelId);
 		var y = window.scrollY;
@@ -50,4 +49,5 @@ self.port.on("ContextCommentExecute", function() {
 	} else if (isScriptLoaded()){
 		panelToggle();
 	}
+	document.body.setAttribute('data-context2title', localizedStrings.title_comments);
 });

@@ -1,5 +1,4 @@
-﻿
-define('frame/discussion-controller', ['frame/app', 'services/comments', 'services/auth'], function (app, commentService, authService) {
+﻿define('frame/discussion-controller', ['frame/app', 'services/comments', 'services/auth'], function (app, commentService, authService) {
 	var	commentsBanned = false,
 		addComment = function (language, threadId, parentId, message, url, keywords, threadCode, threadTitle, successCallback) {
 			if (!commentsBanned) {
@@ -281,7 +280,7 @@ define('frame/discussion-controller', ['frame/app', 'services/comments', 'servic
 
                 $scope.expandClick = function expandClick() {
                     if ($scope.item.HasChildren && (!$scope.item.Children || $scope.item.Children.length == 0)) {
-                        commentService.getCommentsByParent($scope.item.CommentId, 3)
+                        commentService.getCommentsByParent($scope.item.CommentId, 8)
                             .done(function (data) {
                                 data.comments = getMessagesTrusted(data.comments);
                                 $scope.item.Children = data.comments;

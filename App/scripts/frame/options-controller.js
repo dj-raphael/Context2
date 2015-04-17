@@ -83,7 +83,7 @@
             });
         };
 
-        $(document).ready(function () {
+        $(".popup-settings").one('settingsOpenedEvent', function () {
 
             langService.getLanguages().done(function (data) {
                 fullLanguagesArray = data;
