@@ -50,6 +50,7 @@
                     case 'settings':
                         event.preventDefault();
                         $(".popup-settings").show();
+                        $(".popup-settings").trigger('settingsOpenedEvent');
                         break;
                     case 'account':
                         //Do default link action

@@ -94,6 +94,7 @@
         background-image: url('images/icon.png');
         display: block;
         cursor: pointer;
+        white-space:nowrap;
     }
 
     #context2-panel-toggle-label > div {

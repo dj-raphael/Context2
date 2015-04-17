@@ -21,9 +21,32 @@ define('services/languages',
                 window.setTimeout(function () { promize.doneCalback(_languages) }, 1);
                 return promize;
             } else {
+                var
+                languages = localStorage['allLanguages'],
+                languagesUpdated = new Date(localStorage['allLanguagesUpdated']),
+                now = new Date();
+                if ((languages != null && languages != "") || (now - languagesUpdated < 1000 * 60 * 60 * 24)) {
+                    _languages = languages;
+                    promize = {
+                        done: function (callback) {
+                            this.doneCalback = callback;
+                            return this;
+                        },
+                        error: function (callback) {
+                            this.errorCalback = callback;
+                            return this;
+                        }
+                    };
+                    window.setTimeout(function () { promize.doneCalback(_languages) }, 1);
+                    return promize;
+                }
                 promize = transport.request('POST',
                     configuration.urls.getLanguages
-                ).done(function (data) { _languages = data; });
+                ).done(function (data) {
+                    _languages = data;
+                    localStorage['allLanguages'] = data;
+                    localStorage['allLanguagesUpdated'] = new Date();
+                });
                 return promize;
             }
         }

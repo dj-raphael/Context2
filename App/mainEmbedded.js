@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
     var context2Url = 'https://context2.com/',
         //context2Url = 'http://localhost:2341/',
         panelWrapperId = 'context2-panel-wrapper',
@@ -106,7 +106,7 @@
                     strong: 4,
                 },
                 stopLangs: [], // used stopwords from selected langs ['en','es','de'], empty - all, ['none'] - none of dictionary
-                stopWords: ["-", "/", "|", "\\", "–"], // place here addition stopwords for merge with langs
+                stopWords: ["-", "/", "|", "\\", "–", "→", "–"], // place here addition stopwords for merge with langs
             };
             // https://github.com/6/stopwords
 
@@ -452,7 +452,7 @@
                 stopWords = localStorage['CI_stopwords_' + location.host],
                 stopWordsUpdated = new Date(localStorage['CI_stopwords_last_update_' + location.host]),
                 now = new Date();
-            if ((stopWords != null && stopWords != "") || (now - stopWordsUpdated > 1000 * 60 * 60 * 24)) {
+            if ((stopWords != null && stopWords != "") || (now - stopWordsUpdated < 1000 * 60 * 60 * 24)) {
                 callback(stopWords);
             } else {
                 getStopWordsFromServer(callback);
