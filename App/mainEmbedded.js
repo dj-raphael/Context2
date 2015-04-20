@@ -244,13 +244,13 @@
             }
             return results;
         },
-        extractTitle = function (el, domainStopWords) {
+        extractTitle = function(el, domainStopWords) {
             "use strict";
-            
+
             // extract text from all elements in required tag,
             // ignore links
             function extractText(tagName) {
-                
+
                 var res = [];
                 var tags = el.querySelectorAll(tagName);
                 for (var i = 0; i < tags.length; i++) {
@@ -263,11 +263,12 @@
                 if (array.length == 0) return '';
                 if (array.length == 1) return array[0];
                 var scores = []
-                for (var index in array) {
-                    var words = array[index].split(' ');
-                    scores[index] = 0;
-                    for (var w_index in words) 
-                        if (docTitle.indexOf(words[w_index]) > -1) scores[index]++;
+                for (var i = 0; i < array.length; i++) {
+                    var words = array[i].split(' ');
+                    scores[i] = 0;
+                    for (var j = 0; j < words.length; j++) {
+                        if (docTitle.indexOf(words[j]) > -1) scores[i]++;
+                    }
                 }
                 var maxIndex = scores.indexOf(Math.max.apply(null, scores));
                 if (scores[maxIndex] > 0) {
@@ -276,6 +277,7 @@
                     return '';
                 }
             }
+
             var
                 title = document.title,
                 h1 = extractText('h1'),
@@ -286,14 +288,14 @@
             } else if (h2.length > 0) {
                 result = extractTitleFromArray(h2, title);
             }
-            if (result == ''){
+            if (result == '') {
                 var l = document.location;
                 var stopWordsArray = domainStopWords.split(", ");
                 result = document.title
                 for (var i in stopWordsArray)
                     result = result.replace(stopWordsArray[i], "");
             }
-            
+
             return result;
         },
         loadCss = function () {
