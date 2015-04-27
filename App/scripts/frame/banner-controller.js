@@ -8,14 +8,14 @@
             function init() {
                 $scope.urlBanners = 'banners.html';
                 $scope.$watch('keywords', function () {
-                    if (!chrome) {
+                    if (window.chrome == null) {
                         getBanners($scope.keywords, true);
                     } else {
                         // The ID of the extension we want to talk to.
                         var contextCommentExtensionId = "ngplihjnnmnmhalcelmeojjedmmbhpan";
 
                         // Make a simple request:
-                        chrome.runtime.sendMessage(contextCommentExtensionId, { message: 'contextcomment' },
+                        window.chrome.runtime.sendMessage(contextCommentExtensionId, { message: 'contextcomment' },
                           function (response) {
                               if (response == 'contextcomment') {
                                   getBanners($scope.keywords, true);
@@ -35,8 +35,8 @@
                 if (!extentionInstalled) {
                     banners.push({
                         BannerId: 0,
-                        Text: navigator.language == "ru" ? "Хотите такие комментари везде? Установите рассширение в браузер!" : "Like comments? install extension! ->",
-                        Href: "/download"
+                        Text: navigator.language.substr(0,2) == "ru" ? "Хотите иметь возможность комментировать везде? Установите рассширение в браузер!" : "Like comments? install extension! ->",
+                        Href: "https://chrome.google.com/webstore/detail/external-comments-for-hab/ngplihjnnmnmhalcelmeojjedmmbhpan"
                     });
                     $scope.Style = "width: 100%; height:32px; background:#ffc; color:#320; float:left; line-height:30px; white-space:nowrap; padding-left: 20px;text-overflow: ellipsis;overflow: hidden;";
                     $('.CI_scrollable').height($(window).height() - 107);

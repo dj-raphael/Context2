@@ -26,7 +26,7 @@ define('services/languages',
                 languagesUpdated = new Date(localStorage['allLanguagesUpdated']),
                 now = new Date();
                 if ((languages != null && languages != "") || (now - languagesUpdated < 1000 * 60 * 60 * 24)) {
-                    _languages = languages;
+                    _languages = JSON.parse(languages);
                     promize = {
                         done: function (callback) {
                             this.doneCalback = callback;
@@ -44,7 +44,7 @@ define('services/languages',
                     configuration.urls.getLanguages
                 ).done(function (data) {
                     _languages = data;
-                    localStorage['allLanguages'] = data;
+                    localStorage['allLanguages'] = JSON.stringify(data);
                     localStorage['allLanguagesUpdated'] = new Date();
                 });
                 return promize;
@@ -59,12 +59,13 @@ define('services/languages',
         }
 
         function initSelectedLanguages() {
+            var res = [];
             if (Array.isArray(_languages)) {
                 var current = getCurrentLanguage();
                 var nav = window.navigator.languages;
+                if (nav == null) nav = [];
                 nav.push(current);
-                var res = [];
-                _languages.forEach(function (item) {
+                _languages.forEach(function(item) {
                     for (var i = 0; i < nav.length; i++) {
                         if (nav[i].indexOf(item.uniCode) === 0) {
                             res.push(item);
@@ -72,11 +73,12 @@ define('services/languages',
                         }
                     }
                 });
-                if (res.length > 0 ) {
-                    localStorage['selectedLanguages'] = JSON.stringify(res);
-                    return [res];
-                }
             }
+            if (res.length > 0) {
+                localStorage['selectedLanguages'] = JSON.stringify(res);
+                return [res];
+            }
+
         }
 
         function setSelectedLanguages(languages) {
