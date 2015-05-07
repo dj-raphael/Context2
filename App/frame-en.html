@@ -1,7 +1,7 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html ng-csp="">
 <head>
-    <title>ContextInfo - Frame</title>
+    <title>Context2</title>
     <link rel="stylesheet" href="content/css/select2.css" />
     <link rel="stylesheet" href="content/css/bootstrap.min.css" />
     <link rel="stylesheet" href="content/css/frame.css" />
@@ -40,7 +40,7 @@
         <div class="CI_popup_messagebox">
             <p><span style="font-size: larger">Attention!</span> </p>
             <p>You need to authorize to perform this action.</p>
-            <p><a href="/login" target="_blank" style="font-size: larger" id="CI_popup_login_link">Login</a> <a href='#' class="CI_popup_close">Abort</a>
+            <p><a href="/login" target="_blank" style="font-size: larger" id="CI_popup_login_link">Sign In</a> <a href='#' class="CI_popup_close">CAncel</a>
             </p>
         </div>
     </div>
@@ -51,7 +51,7 @@
             <p><span style="font-size: larger">Attention!</span> </p>
             <p>Please wait before posting new comment:</p>
             <p class="ban-time-count"></p>
-            <p><a href='#' class="CI_popup_close">OK</a></p>
+            <p><a href='#' class="CI_popup_close">Ok</a></p>
         </div>
     </div>
     
@@ -123,7 +123,7 @@
             <tabset ng-show="editmode" class="edit-wiki light-tabs">
                 <tab heading="Set link">
                     <input type="text" ng-model="$parent.link" />
-                    <button ng-click="submitUrl()">Submit</button>
+                    <button ng-click="submitUrl()">Sabmit</button>
                     <button ng-click="cancel()">
                         Cancel
                     </button>
@@ -131,8 +131,8 @@
                 </tab>
                 <tab heading="Edit text">
                     <textarea class="tinymce-editor" ui-tinymce="tinymceOptions" ng-model="$parent.editorcontent" id="wiki_edit"></textarea>
-                    <button ng-click="submitEditor()">Submit</button>
-                    <button ng-click="cancel()">Cancel</button>
+                    <button ng-click="submitEditor()">Sabmit</button>
+                    <button ng-click="cancel()">CAncel</button>
                 </tab>
             </tabset>
             <div ng-bind-html="htmlcode" ng-show="!editmode" style="{{StyleForWiki}}"></div>
@@ -196,7 +196,7 @@
                     </div>
                     <label for="edit_{{item.id}}" data-ng-switch on="editorIsExpanded" style="margin-bottom:-10px;margin-top:15px">
                         <span data-ng-switch-when="undefined">Edit</span>
-                        <span data-ng-switch-when="true" ng-click='update(item)'>Submit</span>
+                        <span data-ng-switch-when="true" ng-click='update(item)'>Sabmit</span>
                         <span data-ng-switch-when="false">Edit</span>
                     </label>
                 </accordion-group>
@@ -255,7 +255,7 @@
     </script>
 
     <script type="text/ng-template" id="answerForm.html">
-        <textarea class="CI_CommentTextArea" style="width: 100%" ng-model="text" ng-attr-placeholder="{{isAuthenticated && 'Write comment here...' || 'You must log in before write comment.' }}" id="{{item.CommentId}}_CommentTextArea"></textarea>
+        <textarea class="CI_CommentTextArea" style="width: 100%" ng-model="text" ng-attr-placeholder="{{isAuthenticated && 'Write comment here...' || 'You must log in before write comment' }}" id="{{item.CommentId}}_CommentTextArea"></textarea>
         <a ng-hide="isAuthenticated" class="sendAnswer" href="/login" target="_blank" ng-click="isAuthenticated = true">Sign In</a>
         <button ng-show="isAuthenticated" class="sendAnswer" ng-click="sendAnswer()">Send</button>
         <button ng-show="isAuthenticated" ng-click="close()">Close</button>
@@ -267,7 +267,7 @@
         <input type="text" ng-model="question" placeholder="Question" class="CI_faqTitleEditor" />
         <textarea style="width: 100%" ng-model="answer" placeholder="Answer" class="tinymce-editor" ui-tinymce="tinymceOptions"></textarea>
         <br />
-        <button class="sendAnswer" ng-click="add()">Submit</button>
+        <button class="sendAnswer" ng-click="add()">Sabmit</button>
 
     </script>
     <script type="text/ng-template" id="faqTextEditor.html">
@@ -275,7 +275,16 @@
         <br />
     </script>
 
-    
+    <script>
+        window.localization = {
+            "tabDisscussionTiitle": "Disscussion",
+            "tabWikiTiitle": "Wiki",
+            "tabFAQTiitle": "FAQ",
+            "userGuest": "Guest",
+            "tabManageTiitle": "Manage",
+            "noWikiAvaliable": "No Wiki Avaliable"
+        }
+    </script>
 
 </body>
 </html>

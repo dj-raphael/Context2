@@ -46,10 +46,10 @@ define('frame/tabs', ['frame/app', 'services/config', 'services/auth', 'services
                 var faqCheckDone, wikiCheckDone = false;
 
                 var
-                    tabWiki =       { id: "wiki", title: "Wiki", template: 'wiki.html', toolbar: 'toolbar-wiki.html', active: (activeTab == 'wiki'), updated: false, },
-                    tabFaq =        { id: "faq", title: "FAQ", template: 'faq.html', active: (activeTab == 'faq'), updated: false, },
+                    tabWiki =       { id: "wiki", title: window.localization.tabWikiTiitle, template: 'wiki.html', toolbar: 'toolbar-wiki.html', active: (activeTab == 'wiki'), updated: false, },
+                    tabFaq =        { id: "faq", title: window.localization.tabFAQTiitle, template: 'faq.html', active: (activeTab == 'faq'), updated: false, },
                     tabPlus =       { id: "plus", title: "+", toolbar: 'toolbar-plus.html', active: false, updated: false, className: "tab-plus" },
-                    tabDiscussion = { id: "discussion", title: "Discussion", template: 'discussion.html', active: (activeTab == 'discussion'), updated: false },
+                    tabDiscussion = { id: "discussion", title: window.localization.tabDisscussionTiitle, template: 'discussion.html', active: (activeTab == 'discussion'), updated: false },
                     tabProfile =    { id: "profile", title: "", toolbar: 'toolbar-profile.html', active: false, updated: false, className: "pull-right tab-profile" };
 
                 var removePlus = function () {
@@ -102,7 +102,7 @@ define('frame/tabs', ['frame/app', 'services/config', 'services/auth', 'services
 
                     });
                     wikiService.getWiki($rootScope.thread, $rootScope.language).done(function(data) {
-                        if (data != null && data != "<div>No Wiki Avaliable</div>") {
+                        if (data != null && data != "<div>" + window.localization.noWikiAvaliable + "</div>") {
                             $scope.tabs.unshift(tabWiki);
                         }
                         wikiCheckDone = true;

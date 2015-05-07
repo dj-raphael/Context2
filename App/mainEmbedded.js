@@ -1,6 +1,7 @@
 ﻿(function () {
     var context2Url = 'https://context2.com/',
         //context2Url = 'http://localhost:2341/',
+        avialableUI = ["en", "ru"]
         panelWrapperId = 'context2-panel-wrapper',
         panelToggleCheckBoxId = 'context2-panel-toggle-checkbox',
         panelToggleLabelId = 'context2-panel-toggle-label',
@@ -472,7 +473,12 @@
                     eventer = window[eventMethod],
                     messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
                 frame.id = frameId;
-                frame.src = context2Url + 'app/frame.html?url=' + encodeURIComponent(window.location.href);
+                var language = avialableUI[0];
+                if (navigator.language) {
+                    var tlang = navigator.language.substr(0, 2).toLocaleLowerCase();
+                    if (avialableUI.indexOf(tlang) >= 0) language = tlang
+                }
+                frame.src = context2Url + 'app/frame-'+language+'.html?url=' + encodeURIComponent(window.location.href);
                 panelWrapper.appendChild(frame);
 
                 getStopWords(function(stopWords) {

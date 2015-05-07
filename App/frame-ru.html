@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html ng-csp="">
+<head>
+    <title>Context2 - Комментарии</title>
+    <link rel="stylesheet" href="content/css/select2.css" />
+    <link rel="stylesheet" href="content/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="content/css/frame.css" />
+    <link rel="stylesheet" href="content/css/comments.css" />
+    <link rel="stylesheet" href="content/css/jquery.lwMultiSelect.css" />
+    
+    <script type="text/javascript" src="scripts/require-config.js"></script>
+    <script type="text/javascript" data-main="frame" src="scripts/lib/require.js"></script>
+</head>
+<body ng-controller="mainCtrl">
+    <div id="recivedData"></div>
+    <div class="CI_panel">
+        <div class="CI_panel-buttons">
+            <a href="/help" target="_blank" class="CI_icon-help CI_icon"></a>
+            <i class="CI_icon-refresh CI_icon"></i>
+        </div>
+        <div class="CI_thread-selector">
+            <input id="thread_box" type="text" name="thread" ng-model="thread" ng-change="onThreadSelect()" />
+        </div>
+        <div class="CI_language-selector">
+            <input id="language_box" type="text" name="language" ng-model="language" ng-change="onThreadSelect()" />
+        </div>
+    </div>
+
+    <div ng-controller="bannerCtrl">
+               <ng-include src="urlBanners"></ng-include>
+        
+    </div>
+
+<div class="CI_tabset" ng-controller="TabsCtrl">
+        <ng-include src="threadTemplate"></ng-include>
+    </div>
+
+    <!-- Popup: unauthorized -->
+    <div class="CI_popup popup-authorize" style="display: none">
+        <div class="CI_popup_messagebox">
+            <p><span style="font-size: larger">Внимание!</span> </p>
+            <p>Вам нужно авторизоваться!</p>
+            <p><a href="/login" target="_blank" style="font-size: larger" id="CI_popup_login_link">Войти</a> <a href='#' class="CI_popup_close">Отмена</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Popup: ban time counter-->
+    <div class="CI_popup popup-ban-time-counter" style="display: none">
+        <div class="CI_popup_messagebox">
+            <p><span style="font-size: larger">Внимание!</span> </p>
+            <p>подождите перед написанием нового комментария:</p>
+            <p class="ban-time-count"></p>
+            <p><a href='#' class="CI_popup_close">Ok</a></p>
+        </div>
+    </div>
+    
+    <!-- Popup: settings -->
+    <div class="CI_popup popup-settings" style="display: none" ng-controller="optionsController">
+        <div class="CI_popup_messagebox" align="center">
+            <i class="pull-right close">X</i>
+            <p>Filter: <input type="text" id="lang-textbox" /> </p>
+            <select id="lang-select" multiple>
+            
+            </select>
+        </div>
+    </div>
+
+    <!-- Templates -->
+
+    <script type="text/ng-template" id="banners.html">
+        <a href="{{contentBanners[0].Href}}" target="_blank" title="{{contentBanners[0].Text}}">
+            <div style="{{Style}}">{{contentBanners[0].Text}}</div>
+        </a>
+    </script>
+
+<script type="text/ng-template" id="tabs.html">
+        <div ng-controller="TabsCtrl" class="CI_main-tabs">
+            <tabset>
+                <tab id="tab_{{tab.id}} "ng-repeat="tab in tabs" select="foo(tab)" active="tab.active" disabled="tab.disabled" class="{{tab.className}}">
+                    <tab-heading>
+                        {{tab.title}}
+                        <div class="tab-toolbar" ng-include="tab.toolbar"></div>
+                    </tab-heading>
+
+                    <div class="CI_tab CI_scrollable" >
+                        <ng-include src="tab.templateUrl"></ng-include>
+                    </div>
+                </tab>
+            </tabset>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="toolbar-wiki.html">
+        <div ng-controller="wikiController_toolbar">
+            <a href="#" ng-click="click('edit')"><span class="icon">&#9999;</span><span class="text">Редактировать</span></a>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="toolbar-profile.html">
+        <div ng-controller="profileController_toolbar" ng-click="click('', $event)" ng-mouseenter="mEnter()" ng-mouseleave="mLeave()">
+            <div class="profile-info">
+                <i class="CI_icon-user"></i>
+                <span class="CI_username">{{username}}</span>
+                <span class="CI_score">{{score}}</span>
+            </div>
+            <a href="options.html" target="_blank" ng-click="click('settings', $event)"  ng-show="showSettingsBtn">Настройки</a>
+            <a href="/account" target="_blank" ng-click="click('account', $event)" ng-show="showAccountBtn">Учетная запись</a>
+            <a href="/login" target="_blank" ng-click="click('login', $event)" ng-show="showLoginBtn">Войти</a>
+            <a href="#" ng-click="click('logout', $event)" ng-show="showLogoutBtn">Выйти</a>
+        </div>
+    </script>
+    
+    <script type="text/ng-template" id="toolbar-plus.html">
+        <div ng-controller="plusController_toolbar" ng-click="click('', $event)" ng-mouseenter="mEnter()" ng-mouseleave="mLeave()">
+            <a href="#" ng-show="show_wiki" ng-click="click('wiki', $event)">Вики</a>
+            <a href="#" ng-show="show_faq" ng-click="click('faq', $event)">ЧАВО</a>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="wiki.html">
+        <div ng-controller="wikiController" class="CI_controller_container">
+            <tabset ng-show="editmode" class="edit-wiki light-tabs">
+                <tab heading="Установить ссылку">
+                    <input type="text" ng-model="$parent.link" />
+                    <button ng-click="submitUrl()">Отправить</button>
+                    <button ng-click="cancel()">
+                        Cancel
+                    </button>
+                    <span style="color:red;" ng-show="$parent.wikiTypeIsLink">{{$parent.linkInvalid}}</span>
+                </tab>
+                <tab heading="Редактировать текст">
+                    <textarea class="tinymce-editor" ui-tinymce="tinymceOptions" ng-model="$parent.editorcontent" id="wiki_edit"></textarea>
+                    <button ng-click="submitEditor()">Отправить</button>
+                    <button ng-click="cancel()">Отмена</button>
+                </tab>
+            </tabset>
+            <div ng-bind-html="htmlcode" ng-show="!editmode" style="{{StyleForWiki}}"></div>
+        </div>
+    </script>
+
+
+<script type="text/ng-template" id="discussion.html">
+        <div ng-controller="discussionController">
+            <div class="CI_toolbar">
+                <a href="#" ng-click="clickNewComment()">Написать новый комментарий</a>
+                <!-- -comments search- -->
+                <!--
+                <button class="pull-right">search</button>
+                <input type="search" class="pull-right" />
+                -->
+            </div>
+
+            <input type="checkbox" style="display:none" data-ng-model="answerIsExpanded" id="answer_{{item.CommentId}}" />
+            <div ng-if="answerIsExpanded" ng-include="'answerForm.html'" style="margin: 0 15px"></div>
+            <treeview></treeview>
+        </div>
+
+    </script>
+
+
+    <script type="text/ng-template" id="faq.html">
+        <div ng-controller="faqController" class="faq">
+            <input type="checkbox" style="display:none" data-ng-model="editorIsExpanded" id="edit_" />
+            <label for="edit_" data-ng-switch on="editorIsExpanded" ng-click='clickEditor()'>
+                <span data-ng-switch-when="undefined">Add</span>
+                <span data-ng-switch-when="true">Close</span>
+                <span data-ng-switch-when="false">Add</span>
+            </label>
+            <div ng-if="editorIsExpanded" ng-include="'addForm.html'"></div>
+
+            <accordion>
+                <accordion-group is-open="isopen" ng-repeat="item in faqList" id="question_{{item.id}}">
+                    <input type="checkbox" style="display:none" data-ng-model="editorIsExpanded" id="edit_{{item.id}}" />
+                    <accordion-heading>
+                        <div ng-show='editorIsExpanded'>
+                            <input type="text" ng-model="item.question" placeholder="Question" class="CI_faqTitleEditor" ng-click="stopProp($event)" />
+                        </div>
+                        <div ng-show='!editorIsExpanded'>
+                            <b>{{item.question}}</b>
+                            <div class="CI_faqRaiting" ngclick="stopProp($event)">
+                                <a class="left-div-count" ng-click="vote(true, item, $event)">
+                                    <b>▲</b>
+                                </a>
+                                <span>{{item.weight | number:0}}</span>
+                                <a class="right-div-count" ng-click="vote(false, item, $event)">
+                                    <b>▼</b>
+                                </a>
+                            </div>
+                        </div>
+                    </accordion-heading>
+                    <div ng-bind-html="item.answerHtml" ng-show='!editorIsExpanded'>
+                    </div>
+                    <div ng-show='editorIsExpanded'>
+                        <div ng-if="editorIsExpanded" ng-include="'faqTextEditor.html'"></div>
+                    </div>
+                    <label for="edit_{{item.id}}" data-ng-switch on="editorIsExpanded" style="margin-bottom:-10px;margin-top:15px">
+                        <span data-ng-switch-when="undefined">Редактировать</span>
+                        <span data-ng-switch-when="true" ng-click='update(item)'>Отправить</span>
+                        <span data-ng-switch-when="false">Редактировать</span>
+                    </label>
+                </accordion-group>
+            </accordion>
+            <br />
+            <pagination total-items="bigTotalItems" page="bigCurrentPage" items-per-page="itemsPerPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" on-select-page="onSelectPage(page)"></pagination>
+        </div>
+    </script>
+
+
+
+    <script type="text/ng-template" id="tree.html">
+        <div class="sl-treeview">
+            <div class="clear" infinite-scroll="addMoreItems()" infinite-scroll-distance="0" infinite-scroll-immediate-check="immediateCheck" infinite-scroll-disabled="scrollDisabled">
+                <treeview-item ng-repeat="item in items" item="item"></treeview-item>
+            </div>
+        </div>
+    </script>
+
+
+    <script type="text/ng-template" id="item.html">
+        <div id="{{item.CommentId}}" class="comment-container" ng-class="{'is-new': item.isNew}" ng-mouseenter="item.isNew = false;">
+            <div class="item">
+                <div class="top-line">
+                    <div class="left">
+                        <a href="#" id="userName">{{item.UserName}}</a>
+                        <label id="date">{{item.Created | date:'dd MMMM yyyy H:mm'}}</label>
+                    </div>
+                    <div class=right>
+                        <a class="left-div-count" ng-click="vote(true)" ng-show="voteAvaliable()">
+                            <b>▲</b>
+                        </a>
+                        <label id="count" title="{{item.VoteUp + item.VoteDown}}: ↑{{item.VoteUp}} ↓{{item.VoteDown}} ">{{item.VoteUp - item.VoteDown}}</label>
+                        <a class="right-div-count" ng-click="vote(false)" ng-show="voteAvaliable()">
+                            <b>▼</b>
+                        </a>
+                    </div>
+                </div>
+                <div class="message-container" ng-bind-html="item.Message"></div>
+                <div class="bottom-line">
+                    <div>
+                        <span data-ng-show="item.HasChildren!=false">
+                            <input type="checkbox" data-ng-model="isCollapsed" id="showAll{{item.CommentId}}" />
+                            <label for="showAll{{item.CommentId}}" data-ng-switch on="isCollapsed" ng-click="expandClick()">
+                                <span data-ng-switch-when="undefined">[&#x2013;] Свернуть ↑</span>
+                                <span data-ng-switch-when="true">[+] Развернуть&nbsp; ↓</span>
+                                <span data-ng-switch-when="false">[&#x2013;] Свернуть ↑</span>
+                            </label>
+                        </span>
+                        <label ng-click="clickAnswer()" class="right">Ответить</label>
+                    </div>
+                </div>
+                <div ng-if="answerIsExpanded" ng-include="'answerForm.html'"></div>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="answerForm.html">
+        <textarea class="CI_CommentTextArea" style="width: 100%" ng-model="text" ng-attr-placeholder="{{isAuthenticated && 'Напишите комментарий здесь...' || 'Вы должны войти перед написанием комментария' }}" id="{{item.CommentId}}_CommentTextArea"></textarea>
+        <a ng-hide="isAuthenticated" class="sendAnswer" href="/login" target="_blank" ng-click="isAuthenticated = true">Войти</a>
+        <button ng-show="isAuthenticated" class="sendAnswer" ng-click="sendAnswer()">Отправить</button>
+        <button ng-show="isAuthenticated" ng-click="close()">Закрыть</button>
+    </script>
+
+    <script type="text/ng-template" id="addForm.html">
+        <strong>Add question</strong>
+        <br />
+        <input type="text" ng-model="question" placeholder="Question" class="CI_faqTitleEditor" />
+        <textarea style="width: 100%" ng-model="answer" placeholder="Answer" class="tinymce-editor" ui-tinymce="tinymceOptions"></textarea>
+        <br />
+        <button class="sendAnswer" ng-click="add()">Отправить</button>
+
+    </script>
+    <script type="text/ng-template" id="faqTextEditor.html">
+        <textarea style="width: 100%" class="tinymce-editor" ui-tinymce="tinymceOptions" ng-model="item.answer" placeholder="Ответить"></textarea>
+        <br />
+    </script>
+
+    <script>
+        window.localization = {
+            "tabDisscussionTiitle": "Обсуждение",
+            "tabWikiTiitle": "Вики",
+            "tabFAQTiitle": "ЧАВО",
+            "userGuest": "Гость",
+            "tabManageTiitle": "Управление",
+            "noWikiAvaliable": "Нету Вики"
+        }
+    </script>
+
+</body>
+</html>

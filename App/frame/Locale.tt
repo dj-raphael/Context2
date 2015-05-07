@@ -1,0 +1,30 @@
+<#@ template language="C#" debug="True" #>
+<#@ include file="T4Toolbox.tt" #>
+<#@ assembly name="EnvDTE" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="EnvDTE" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="System.IO"#>
+<#@ assembly name="$(SolutionDir)packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll"#>
+<#@ import namespace="Newtonsoft.Json" #>
+
+<#@ output extension=".txt" #>
+
+<#
+string template = File.ReadAllText( Host.ResolvePath("_template.html"));
+string[] jsonFiles = Directory.GetFiles(Host.ResolvePath(""), "*.json");
+foreach(string jsonFilePath in jsonFiles) {
+    string language = jsonFilePath.Substring(jsonFilePath.Length - 7, 2);
+    string json = File.ReadAllText(jsonFilePath);
+    Dictionary<string, string> localData = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
+    string compiled = template;
+    foreach(var pair in localData) {
+        compiled = compiled.Replace("[[" + pair.Key + "]]", pair.Value);
+        File.WriteAllText(Host.ResolvePath("..") + "/frame-" + language + ".html", compiled);
+    }
+}
+#>
+

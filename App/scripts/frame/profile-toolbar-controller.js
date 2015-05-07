@@ -5,7 +5,7 @@
             $scope.showAccountBtn = false;
             $scope.showLoginBtn = false;
             $scope.showLogoutBtn = false;
-            $scope.username = "Guest";
+            $scope.username = window.localization.userGuest;
             $scope.score = "";
 
             var update = function () {
