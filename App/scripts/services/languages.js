@@ -25,8 +25,16 @@ define('services/languages',
                 languages = localStorage['allLanguages'],
                 languagesUpdated = new Date(localStorage['allLanguagesUpdated']),
                 now = new Date();
-                if ((languages != null && languages != "") || (now - languagesUpdated < 1000 * 60 * 60 * 24)) {
-                    _languages = JSON.parse(languages);
+                if (languages != null && languages != "") {
+                    try {
+                        _languages = JSON.parse(languages);
+                    } catch (e) {
+                        _languages = null;
+                        languages == null;
+                        localStorage.removeItem('allLanguages');
+                    }
+                }
+                if ((_languages != null && languages != "") || (now - languagesUpdated < 1000 * 60 * 60 * 24)) {
                     promize = {
                         done: function (callback) {
                             this.doneCalback = callback;

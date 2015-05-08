@@ -163,9 +163,9 @@
         <div ng-controller="faqController" class="faq">
             <input type="checkbox" style="display:none" data-ng-model="editorIsExpanded" id="edit_" />
             <label for="edit_" data-ng-switch on="editorIsExpanded" ng-click='clickEditor()'>
-                <span data-ng-switch-when="undefined">Add</span>
-                <span data-ng-switch-when="true">Close</span>
-                <span data-ng-switch-when="false">Add</span>
+                <span data-ng-switch-when="undefined">[[Add]]</span>
+                <span data-ng-switch-when="true">[[Close]]</span>
+                <span data-ng-switch-when="false">[[Add]]</span>
             </label>
             <div ng-if="editorIsExpanded" ng-include="'addForm.html'"></div>
 

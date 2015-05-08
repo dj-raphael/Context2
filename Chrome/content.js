@@ -1,6 +1,5 @@
 var panelToggleLabelId = 'context2-panel-toggle-label';
-//var scriptSource = 'http://localhost:2341/app/mainEmbedded.js';
-var scriptSource = 'https://context2.com/app/mainEmbedded.js';
+var scriptSource = 'http://localhost:2341/app/mainEmbedded.js';
 var panelToggle = function(){
     var panelLabel = document.getElementById(panelToggleLabelId);
     var y = window.scrollY;

@@ -1,5 +1,4 @@
-<#@ template language="C#" debug="True" #>
-<#@ include file="T4Toolbox.tt" #>
+<#@ template language="C#" debug="True" hostspecific="true" #>
 <#@ assembly name="EnvDTE" #>
 <#@ assembly name="System.Core" #>
 <#@ import namespace="EnvDTE" #>
@@ -10,7 +9,6 @@
 <#@ import namespace="System.IO"#>
 <#@ assembly name="$(SolutionDir)packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll"#>
 <#@ import namespace="Newtonsoft.Json" #>
-
 <#@ output extension=".txt" #>
 
 <#
