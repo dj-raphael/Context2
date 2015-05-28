@@ -267,17 +267,25 @@ li.tab-plus a.ng-binding .tab-toolbar, li.tab-profile a.ng-binding .tab-toolbar 
     }
 
     li.tab-plus a.ng-binding .tab-toolbar a, li.tab-profile a.ng-binding .tab-toolbar a {
-        width: 70px;
+        width: 140px;
         background: #eee;
         border-bottom: 1px solid lightgray;
         margin-left: -2px;
         padding: 0 10px
     }
 
-    li.tab-profile a.ng-binding .tab-toolbar a {
+    li.tab-profile .profile-info + .profile-menu {
         float: right;
         margin-right: -2px;
         width: 140px;
+        display: none;
+    }
+    li.tab-profile .profile-info + .profile-menu a {
+        width: 100%;
+        display: block
+    }
+    li.tab-profile .profile-info:hover + .profile-menu, li.tab-profile .profile-menu:hover {
+        display: block
     }
 
 li.active a.ng-binding:hover .tab-toolbar a .icon {
@@ -468,3 +476,15 @@ h1, h2, h3, strong {
         .ci-vote .vote-against.my {
             background-color: pink;
         }
+
+a.social, a:hover.social {
+    cursor: pointer;
+    margin: 0 2px;
+    border-radius: 3px;
+    color: white;
+    background: blue;
+    min-width: 1.5em;
+    text-align: right;
+    padding: 2px;
+    text-decoration: none;
+}

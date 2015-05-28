@@ -1,8 +1,8 @@
-﻿define('frame/discussion-controller', ['frame/app', 'services/comments', 'services/auth'], function (app, commentService, authService) {
-	var	commentsBanned = false,
+﻿define("frame/discussion-controller", ["frame/app", "services/comments", "services/auth", "directives/social-login-buttons", "directives/answer-form"], function (app, commentService, authService) {
+    var commentsBanned = false,
 		addComment = function (language, threadId, parentId, message, url, keywords, threadCode, threadTitle, successCallback) {
-			if (!commentsBanned) {
-			    commentService.addComment(
+		    if (!commentsBanned) {
+		        commentService.addComment(
 			        language,
 			        threadId,
 			        parentId,
@@ -11,7 +11,7 @@
 			        keywords,
 			        threadCode,
 			        threadTitle
-			    ).then(function(data) {
+			    ).then(function (data) {
 			        var banTime = parseInt(data, 10),
 			            getTimeStampString = function (time) {
 			                var diff = time;
@@ -23,20 +23,20 @@
 			                diff -= minutes * (1000 * 60);
 			                var seconds = Math.floor(diff / (1000));
 			                diff -= seconds * (1000);
-                            if (days > 0)
-                                return days + ' days ' + hours + ' hours';
-                            else if (hours > 0)
-                                return hours + ' hours ' + minutes + ' minutes';
-                            else
-                                return minutes + ' minutes ' + seconds + ' seconds';
-                            
+			                if (days > 0)
+			                    return days + ' days ' + hours + ' hours';
+			                else if (hours > 0)
+			                    return hours + ' hours ' + minutes + ' minutes';
+			                else
+			                    return minutes + ' minutes ' + seconds + ' seconds';
+
 			            };
 			        if (!isNaN(banTime)) {
 			            commentsBanned = true;
 			            $('.popup-ban-time-counter').show();
 			            var banTimeCounter = banTime;
 			            $('.ban-time-count').html(getTimeStampString(banTimeCounter));
-			            var handler = setInterval(function() {
+			            var handler = setInterval(function () {
 			                if (banTimeCounter >= 1000) {
 			                    banTimeCounter -= 1000;
 			                    $('.ban-time-count').html(getTimeStampString(banTimeCounter));
@@ -44,18 +44,18 @@
 			                    clearInterval(handler);
 			                }
 			            }, 1000);
-			            setTimeout(function() {
+			            setTimeout(function () {
 			                commentsBanned = false;
 			                $('.popup-ban-time-counter').hide();
 			            }, banTime);
 			        } else {
 			            successCallback();
 			        }
-			        
+
 			    });
-			} else {
-				$('.popup-ban-time-counter').show();
-			}
+		    } else {
+		        $('.popup-ban-time-counter').show();
+		    }
 		};
 
     app.controller('discussionController', ['$scope', '$rootScope',
@@ -89,35 +89,32 @@
                   text = $scope.$$childTail.$$childTail.text;
               else if ($scope.$$childHead.$$childHead)
                   text = $scope.$$childHead.$$childHead.text;
-          	addComment(
-                  $rootScope.language,
-                  $rootScope.thread,
-                  null,
-                  text,
-                  $scope.currenturl,
-                  $rootScope.keywords,
-                  $('#thread_box').select2('data').code,
-                  $('#thread_box').select2('data').text,
-              function () {
-	              
-                  if ($rootScope.thread == "00000000-0000-0000-0000-000000000000") {
-                      location.reload();
-                  } else {
-                      $scope.answerIsExpanded = false;
-                      $rootScope.$broadcast('commentAdded');
-                  }
-              });
+              addComment(
+                    $rootScope.language,
+                    $rootScope.thread,
+                    null,
+                    text,
+                    $scope.currenturl,
+                    $rootScope.keywords,
+                    $('#thread_box').select2('data').code,
+                    $('#thread_box').select2('data').text,
+                function () {
+
+                    if ($rootScope.thread == "00000000-0000-0000-0000-000000000000") {
+                        location.reload();
+                    } else {
+                        $scope.answerIsExpanded = false;
+                        $rootScope.$broadcast('commentAdded');
+                    }
+                });
           };
 
           $scope.clickNewComment = function () {
-              if (authService.isAuthenticated()) {
-                  $scope.answerIsExpanded = !$scope.answerIsExpanded;
-                  window.setTimeout(function() {
-                      $('#' + $scope.item.CommentId + '_CommentTextArea').focus();
-                  });
-              } else {
-                  $('.popup-authorize').show();
-              }
+              $rootScope.isAuthenticated = authService.isAuthenticated();
+              $scope.answerIsExpanded = !$scope.answerIsExpanded;
+              window.setTimeout(function () {
+                  $('#' + $scope.item.CommentId + '_CommentTextArea').focus();
+              });
           };
 
           $scope.close = function close() {
@@ -126,7 +123,6 @@
                   $('#' + $scope.item.CommentId + '_CommentTextArea').blur();
               });
           };
-
 
       }
     ]);
@@ -257,10 +253,10 @@
                 element.append($compile('<div collapse="isCollapsed" class="collapse treeview-item"><treeview-item ng-repeat="Child in item.Children" item="Child"></treeview-item></div>')(scope));
             },
             controller: function ($scope, $rootScope, $sce) {
-                $scope.isAuthenticated = authService.isAuthenticated();
-                
+                $scope.user = $rootScope.user;
+
                 $scope.voteAvaliable = function () {
-                    return authService.getUsername() != $scope.item.UserName;
+                    return authService.getUsername() != $scope.item.UserName && $rootScope.user.isAuthenticated;
                 };
 
                 function getMessagesTrusted(data) {
@@ -300,7 +296,7 @@
                         text = $scope.$$childTail.$$childTail.text;
                     else if ($scope.$$childHead.$$childHead)
                         text = $scope.$$childHead.$$childHead.text;
-                	addComment($rootScope.language,
+                    addComment($rootScope.language,
                         $rootScope.thread,
                         $scope.item.CommentId,
                         text,

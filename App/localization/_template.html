@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="content/css/frame.css" />
     <link rel="stylesheet" href="content/css/comments.css" />
     <link rel="stylesheet" href="content/css/jquery.lwMultiSelect.css" />
+    <link rel="stylesheet" href="/content/font-awesome.min.css" />
     
-    <script type="text/javascript" src="scripts/require-config.js"></script>
-    <script type="text/javascript" data-main="frame" src="scripts/lib/require.js"></script>
+    <script type="text/javascript" src="compiled.js"></script>
 </head>
 <body ng-controller="mainCtrl">
     <div id="recivedData"></div>
@@ -97,17 +97,19 @@
         </div>
     </script>
 
-    <script type="text/ng-template" id="toolbar-profile.html">
+<script type="text/ng-template" id="toolbar-profile.html">
         <div ng-controller="profileController_toolbar" ng-click="click('', $event)" ng-mouseenter="mEnter()" ng-mouseleave="mLeave()">
             <div class="profile-info">
                 <i class="CI_icon-user"></i>
-                <span class="CI_username">{{username}}</span>
+                <span class="CI_username">{{user.username}}</span>
                 <span class="CI_score">{{score}}</span>
             </div>
-            <a href="options.html" target="_blank" ng-click="click('settings', $event)"  ng-show="showSettingsBtn">[[Settings]]</a>
-            <a href="/account" target="_blank" ng-click="click('account', $event)" ng-show="showAccountBtn">[[Account]]</a>
-            <a href="/login" target="_blank" ng-click="click('login', $event)" ng-show="showLoginBtn">[[SignIn]]</a>
-            <a href="#" ng-click="click('logout', $event)" ng-show="showLogoutBtn">[[SignOut]]</a>
+            <div class="profile-menu">
+                <a href="options.html" target="_blank" ng-click="click('settings', $event)">[[Settings]]</a>
+                <a href="/account" target="_blank" ng-click="click('account', $event)" ng-show="user.isAuthenticated">[[Account]]</a>
+                <a href="/login" target="_blank" ng-click="click('login', $event)" ng-show="!user.isAuthenticated">[[SignIn]]</a>
+                <a href="#" ng-click="click('logout', $event)" ng-show="user.isAuthenticated">[[SignOut]]</a>
+            </div>
         </div>
     </script>
     
@@ -249,42 +251,50 @@
                         <label ng-click="clickAnswer()" class="right">[[Answer]]</label>
                     </div>
                 </div>
-                <div ng-if="answerIsExpanded" ng-include="'answerForm.html'"></div>
+                <answer-form ng-if="answerIsExpanded"></answer-form>
             </div>
         </div>
     </script>
 
-    <script type="text/ng-template" id="answerForm.html">
-        <textarea class="CI_CommentTextArea" style="width: 100%" ng-model="text" ng-attr-placeholder="{{isAuthenticated && '[[Write comment here...]]' || '[[You must log in before write comment]]' }}" id="{{item.CommentId}}_CommentTextArea"></textarea>
-        <a ng-hide="isAuthenticated" class="sendAnswer" href="/login" target="_blank" ng-click="isAuthenticated = true">[[SignIn]]</a>
-        <button ng-show="isAuthenticated" class="sendAnswer" ng-click="sendAnswer()">[[Send]]</button>
-        <button ng-show="isAuthenticated" ng-click="close()">[[Close]]</button>
-    </script>
+<script type="text/ng-template" id="answerForm.html">
+    <div ng-if="!user.isAuthenticated">
+        <input type="text" ng-model="username" name="username" placeholder="[[Your name]]" />
+        <a class="sendAnswer" href="/login" target="_blank" ng-click="isAuthenticated = true">[[SignIn]]</a>
+        <social-login-buttons></social-login-buttons>
+    </div>
+        <textarea class="CI_CommentTextArea" style="width: 100%" ng-model="text" placeholder="[[Write comment here...]]" id="{{item.CommentId}}_CommentTextArea"></textarea>
+        <button class="sendAnswer" ng-click="sendAnswer()">[[Send]]</button>
+        <button ng-click="close()">[[Close]]</button>
+</script>
 
-    <script type="text/ng-template" id="addForm.html">
-        <strong>Add question</strong>
-        <br />
-        <input type="text" ng-model="question" placeholder="Question" class="CI_faqTitleEditor" />
-        <textarea style="width: 100%" ng-model="answer" placeholder="Answer" class="tinymce-editor" ui-tinymce="tinymceOptions"></textarea>
-        <br />
-        <button class="sendAnswer" ng-click="add()">[[Submit]]</button>
+<script type="text/ng-template" id="social-login-buttons.html">
+    <a ng-repeat="provider in externalLoginList" ng-click="socialLogin( provider.name)" class="social fa {{provider.cssClass}} hand" style="background-color:{{provider.bg}}">&nbsp;</a>
+</script>
 
-    </script>
-    <script type="text/ng-template" id="faqTextEditor.html">
-        <textarea style="width: 100%" class="tinymce-editor" ui-tinymce="tinymceOptions" ng-model="item.answer" placeholder="[[Answer]]"></textarea>
-        <br />
-    </script>
+        <script type="text/ng-template" id="addForm.html">
+            <strong>Add question</strong>
+            <br />
+            <input type="text" ng-model="question" placeholder="Question" class="CI_faqTitleEditor" />
+            <textarea style="width: 100%" ng-model="answer" placeholder="Answer" class="tinymce-editor" ui-tinymce="tinymceOptions"></textarea>
+            <br />
+            <button class="sendAnswer" ng-click="add()">[[Submit]]</button>
 
-    <script>
-        window.localization = {
-            "tabDisscussionTiitle": "[[Disscussion]]",
-            "tabWikiTiitle": "[[Wiki]]",
-            "tabFAQTiitle": "[[FAQ]]",
-            "userGuest": "[[Guest]]",
-            "tabManageTiitle": "[[Manage]]",
-            "noWikiAvaliable": "[[NoWikiAvaliable]]"
-        }
-    </script>
+        </script>
+        <script type="text/ng-template" id="faqTextEditor.html">
+            <textarea style="width: 100%" class="tinymce-editor" ui-tinymce="tinymceOptions" ng-model="item.answer" placeholder="[[Answer]]"></textarea>
+            <br />
+        </script>
+
+        <script>
+            window.localization = {
+                "tabDisscussionTiitle": "[[Disscussion]]",
+                "tabWikiTiitle": "[[Wiki]]",
+                "tabFAQTiitle": "[[FAQ]]",
+                "userGuest": "[[Guest]]",
+                "tabManageTiitle": "[[Manage]]",
+                "noWikiAvaliable": "[[NoWikiAvaliable]]"
+            }
+        </script>
 
 </body>
 </html>

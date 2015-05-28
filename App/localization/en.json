@@ -7,7 +7,7 @@
     "SignIn":  "Sign In",
     "SignOut":  "Sign Out",
     "Abort":  "Abort",
-    "Cancel":  "CAncel",
+    "Cancel":  "Cancel",
     "Edit":  "Edit",
     "Settings":  "Settings",
     "Account":  "Account",
@@ -29,6 +29,6 @@
     "Manage":  "Manage",
     "NoWikiAvaliable":  "No Wiki Avaliable",
     "Add":  "Add",
-    "":  "",
+    "Your name":  "Your name",
     "":  "",
 }

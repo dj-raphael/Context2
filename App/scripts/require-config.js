@@ -8,7 +8,6 @@
         'validate': 'lib/jquery.validate',
         'showPassword': 'lib/hide-show-password',
         'angular': 'lib/angular.min',
-        'angular-route': 'lib/angular-route',
         'select2': 'lib/select2',
         'angular-ui-select2': 'lib/angular-ui-select2',
         'ui-bootstrap': 'lib/ui-bootstrap-tpls-0.9.0.min',
@@ -39,10 +38,6 @@
         },
         'angular': {
             exports: 'angular'
-        },
-        'angular-route':
-        {
-            deps: ['angular']
         },
         'ui-bootstrap':
         {

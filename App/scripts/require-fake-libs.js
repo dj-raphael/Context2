@@ -1,0 +1,12 @@
+﻿define('jquery', [], function () { return window.jQuery; });
+define('angular', [], function () { return window.angular; });
+define('jquery-ui', [], function () { });
+define('combobox', [], function () { });
+//define('validate', [], function () { });
+//define('showPassword', [], function () { });
+define('select2', [], function () { });
+define('angular-ui-select2', [], function () { });
+define('ui-bootstrap', [], function () { });
+define('ui-tinymce', [], function () { });
+define('infinite-scroll', [], function () { });
+define('jquery-lwMultiSelect', [], function () { });

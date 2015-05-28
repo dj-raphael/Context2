@@ -12,6 +12,7 @@
 <#@ output extension=".txt" #>
 
 <#
+
 string template = File.ReadAllText( Host.ResolvePath("_template.html"));
 string[] jsonFiles = Directory.GetFiles(Host.ResolvePath(""), "*.json");
 foreach(string jsonFilePath in jsonFiles) {
@@ -24,5 +25,63 @@ foreach(string jsonFilePath in jsonFiles) {
         File.WriteAllText(Host.ResolvePath("..") + "/frame-" + language + ".html", compiled);
     }
 }
+
+// build js
+
+string[] configData = new [] {
+    "require-config.js",
+    "lib/jquery.min.js",
+    "lib/jquery-ui.min.js",
+    "lib/jquery.lwMultiSelect.min.js",
+    "lib/angular.min.js",
+    "lib/select2.js",
+    "lib/combobox.js",
+    "lib/angular-ui-select2.js",
+    "lib/ui-bootstrap-tpls-0.9.0.min.js",
+    "lib/ng-infinite-scroll.min.js",
+    "lib/tinymce.js",
+    "lib/tinymce/tinymce.min.js",
+
+    "lib/require.js",
+
+    "services/auth.js",
+    "services/threads.js",
+    "services/languages.js",
+    "services/config.js",
+    "services/faq.js",
+    "services/wiki.js",
+    "services/comments.js",
+    "services/transport.js",
+    "services/banner.js",
+
+    "frame/app.js",
+    "frame/tabs.js",
+    "frame/wiki-controller.js",
+    "frame/faq-controller.js",
+    "frame/discussion-controller.js",
+    "frame/profile-toolbar-controller.js",
+    "frame/plus-toolbar-controller.js",
+    "frame/options-controller.js",
+    "frame/banner-controller.js",
+
+    "directives/social-login-buttons.js",
+
+    "configuration.js",
+
+    //".js",
+
+};
+var js = "";
+var res = "";
+foreach(var fileName in configData) {
+    js = File.ReadAllText(Host.ResolvePath("../scripts/"+fileName));
+    res += js + "\r\n";
+}
+js = File.ReadAllText(Host.ResolvePath("../scripts/require-fake-libs.js"));
+res += js;
+js = File.ReadAllText(Host.ResolvePath("../scripts/frame.js"));
+res += js;
+File.WriteAllText(Host.ResolvePath("..") + "/compiled.js", res);
+
 #>
 

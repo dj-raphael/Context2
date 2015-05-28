@@ -15,21 +15,37 @@
 
         function init() {
             var onSendKeywords = function (e) {
-                if (e.data.type2 == "keywords") {
+                if (e.data.type2 === "keywords") {
                     keywords = e.data.data;
                     pageTitle = e.data.title;
                 }
 
-                if (keywords && e.data.type2 == "keywords") {
+                if (keywords && e.data.type2 === "keywords") {
                     var injector = ng.bootstrap(document, ['app']);
-                    injector.invoke(function ($rootScope) {
+                    injector.invoke(function($rootScope) {
                         $rootScope.keywords = keywords;
+                        $rootScope.user = { isAuthenticated: false, username: window.localization.userGuest };
+                        $rootScope.isAuthenticatedCalback = function (isAuthenticated, username) {
+                            $rootScope.user.isAuthenticated = isAuthenticated;
+                            if (isAuthenticated) {
+                                $rootScope.user.username = username;
+                            } else {
+                                $rootScope.user.username = window.localization.userGuest;
+                            }
+                            if ($rootScope.$$phase !== "$apply" && $rootScope.$$phase !== "$digest") {
+                                $rootScope.$apply();
+                            }
+                        };
+                        authService.isAuthenticated($rootScope.isAuthenticatedCalback);
+                        $(window).on("focus", function () {
+                            authService.isAuthenticated($rootScope.isAuthenticatedCalback);
+                        });
                     });
 
                     /**** Create ThreadBox start ****/
                     $("#thread_box").select2({
-                        width: '100%',
-                        placeholder: 'Loading...',
+                        width: "100%",
+                        placeholder: "Loading...",
                         data: function () {
                             return { results: { text: 'LOADING...' } };
                         },
@@ -40,8 +56,8 @@
 
                     /**** Create LanguageBox start ****/
                     $("#language_box").select2({
-                        width: '100%',
-                        placeholder: 'Loading...',
+                        width: "100%",
+                        placeholder: "Loading...",
                         data: function () {
                             return { results: { text: 'LOADING...' } };
                         },
@@ -123,7 +139,7 @@
                 messageEvent = eventMethod === "attachEvent" ? "onmessage" : "message";
             eventer(messageEvent, onSendKeywords, false);
             window.parent.postMessage('context2-frameready', currenturl);
-            authService.isAuthenticated(function (r) { });
+
         }
 
         /********************************** \/ Define functions \/ *************************************/

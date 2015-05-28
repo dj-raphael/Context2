@@ -9,7 +9,7 @@
             $scope.score = "";
 
             var update = function () {
-                var isAuthenticated = authService.isAuthenticated();
+                var isAuthenticated = authService.isAuthenticated($rootScope.isAuthenticatedCalback);
                 if (isAuthenticated) {
                     $scope.username = localStorage['username'];
                     var tRaiting = $rootScope.threadRaiting;
@@ -28,7 +28,7 @@
                         }
                     }
                 } else {
-                    $scope.username = "Guest";
+                    $scope.username = window.localization.userGuest;
                     $scope.score = "";
                 }
             };
