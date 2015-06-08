@@ -40,7 +40,6 @@ string[] configData = new [] {
     "lib/ui-bootstrap-tpls-0.9.0.min.js",
     "lib/ng-infinite-scroll.min.js",
     "lib/tinymce.js",
-    "lib/tinymce/tinymce.min.js",
 
     "lib/require.js",
 
@@ -63,8 +62,10 @@ string[] configData = new [] {
     "frame/plus-toolbar-controller.js",
     "frame/options-controller.js",
     "frame/banner-controller.js",
+    "frame/authorization-controller.js",
 
     "directives/social-login-buttons.js",
+    "directives/answer-form.js",
 
     "configuration.js",
 

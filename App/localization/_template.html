@@ -8,8 +8,21 @@
     <link rel="stylesheet" href="content/css/comments.css" />
     <link rel="stylesheet" href="content/css/jquery.lwMultiSelect.css" />
     <link rel="stylesheet" href="/content/font-awesome.min.css" />
-    
+    <script>
+    window.localization = {
+        "tabDisscussionTiitle": "[[Disscussion]]",
+        "tabWikiTiitle": "[[Wiki]]",
+        "tabFAQTiitle": "[[FAQ]]",
+        "userGuest": "[[Guest]]",
+        "tabManageTiitle": "[[Manage]]",
+        "noWikiAvaliable": "[[NoWikiAvaliable]]",
+        "Registration": "[[Registration]]",
+        "userExists": "[[userExists]]",
+        "SearchPlaceholder": "[[SearchPlaceholder]]"
+    }
+    </script>
     <script type="text/javascript" src="compiled.js"></script>
+    <script src="scripts/lib/tinymce/tinymce.min.js"></script>
 </head>
 <body ng-controller="mainCtrl">
     <div id="recivedData"></div>
@@ -36,12 +49,27 @@
     </div>
 
     <!-- Popup: unauthorized -->
-    <div class="CI_popup popup-authorize" style="display: none">
+    <div class="CI_popup popup-authorize" style="display: none" ng-controller="authorizationController">
         <div class="CI_popup_messagebox">
-            <p><span style="font-size: larger">[[Attention]]</span> </p>
-            <p>[[ErrorAuthorizeRequired]]</p>
-            <p><a href="/login" target="_blank" style="font-size: larger" id="CI_popup_login_link">[[SignIn]]</a> <a href='#' class="CI_popup_close">[[Cancel]]</a>
-            </p>
+            <i class="pull-right close CI_popup_close">X</i>
+            <p><span style="font-size: larger">[[Authorization]]</span> </p>
+            <table>
+                <tr>
+                    <td align="right">[[Username]]:</td>
+                    <td><input type="text" ng-model="username" ng-change="authError=false;"/></td>
+                </tr>
+                <tr>
+                    <td align="right">[[Password]]:</td>
+                    <td><input type="password" ng-model="password" ng-change="authError=false;"/></td>
+                </tr>
+            </table>
+            <p class="red" ng-style="{'visibility': authError ? 'visible' : 'hidden'}">[[Invalid username or password]]</p>
+            <div>
+                <a class="pull-left" href="/ru/Account/Register">[[Registration]]</a>
+                <button ng-click="login()">[[SignIn]]</button>
+                <button class="CI_popup_close">[[Cancel]]</button>
+            </div>
+            <social-login-buttons style="margin-top: 8px; display: block"></social-login-buttons>
         </div>
     </div>
 
@@ -154,7 +182,9 @@
             </div>
 
             <input type="checkbox" style="display:none" data-ng-model="answerIsExpanded" id="answer_{{item.CommentId}}" />
-            <div ng-if="answerIsExpanded" ng-include="'answerForm.html'" style="margin: 0 15px"></div>
+            <div ng-if="answerIsExpanded" style="margin: 0 15px">
+                <answer-form show="$parent.answerIsExpanded"></answer-form>
+            </div>
             <treeview></treeview>
         </div>
 
@@ -219,7 +249,7 @@
     </script>
 
 
-    <script type="text/ng-template" id="item.html">
+<script type="text/ng-template" id="item.html">
         <div id="{{item.CommentId}}" class="comment-container" ng-class="{'is-new': item.isNew}" ng-mouseenter="item.isNew = false;">
             <div class="item">
                 <div class="top-line">
@@ -251,25 +281,26 @@
                         <label ng-click="clickAnswer()" class="right">[[Answer]]</label>
                     </div>
                 </div>
-                <answer-form ng-if="answerIsExpanded"></answer-form>
+                <div  ng-if="answerIsExpanded"><answer-form show="$parent.answerIsExpanded" parent-comment-id="item.CommentId"></answer-form></div>
             </div>
         </div>
     </script>
 
-<script type="text/ng-template" id="answerForm.html">
-    <div ng-if="!user.isAuthenticated">
-        <input type="text" ng-model="username" name="username" placeholder="[[Your name]]" />
-        <a class="sendAnswer" href="/login" target="_blank" ng-click="isAuthenticated = true">[[SignIn]]</a>
-        <social-login-buttons></social-login-buttons>
-    </div>
-        <textarea class="CI_CommentTextArea" style="width: 100%" ng-model="text" placeholder="[[Write comment here...]]" id="{{item.CommentId}}_CommentTextArea"></textarea>
-        <button class="sendAnswer" ng-click="sendAnswer()">[[Send]]</button>
-        <button ng-click="close()">[[Close]]</button>
-</script>
+    <script type="text/ng-template" id="social-login-buttons.html">
+        <a ng-repeat="provider in externalLoginList" ng-click="socialLogin( provider.name)" class="social fa {{provider.cssClass}} hand" style="background-color:{{provider.bg}}">&nbsp;</a>
+    </script>
 
-<script type="text/ng-template" id="social-login-buttons.html">
-    <a ng-repeat="provider in externalLoginList" ng-click="socialLogin( provider.name)" class="social fa {{provider.cssClass}} hand" style="background-color:{{provider.bg}}">&nbsp;</a>
-</script>
+<script type="text/ng-template" id="answer-form.html">
+        <div ng-if="(!user.isAuthenticated)">
+            <input type="text" ng-model="$parent.username" name="username" placeholder="[[Your name]]" ng-class="{red : $parent.username_error }" title="{{$parent.username_tooltip}}"/> [[or]]
+            <a class="sendAnswer" href="" target="_blank" ng-click="login()">[[SignIn]]</a>
+            <social-login-buttons></social-login-buttons>
+            <div ng-if="(!user.username_error)" class="red">{{$parent.username_tooltip}}</div>
+        </div>
+            <textarea class="CI_CommentTextArea" style="width: 100%" ng-model="text" placeholder="[[Write comment here...]]" id="{{item.CommentId}}_CommentTextArea"></textarea>
+            <button class="sendAnswer" ng-click="sendAnswer()">[[Send]]</button>
+            <button ng-click="close()">[[Close]]</button>
+    </script>
 
         <script type="text/ng-template" id="addForm.html">
             <strong>Add question</strong>
@@ -284,17 +315,7 @@
             <textarea style="width: 100%" class="tinymce-editor" ui-tinymce="tinymceOptions" ng-model="item.answer" placeholder="[[Answer]]"></textarea>
             <br />
         </script>
-
-        <script>
-            window.localization = {
-                "tabDisscussionTiitle": "[[Disscussion]]",
-                "tabWikiTiitle": "[[Wiki]]",
-                "tabFAQTiitle": "[[FAQ]]",
-                "userGuest": "[[Guest]]",
-                "tabManageTiitle": "[[Manage]]",
-                "noWikiAvaliable": "[[NoWikiAvaliable]]"
-            }
-        </script>
-
+    <!-- Yandex.Metrika counter -->
+<script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter25354751 = new Ya.Metrika({id:25354751, webvisor:true, ut:"noindex"}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="//mc.yandex.ru/watch/25354751?ut=noindex" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter -->
 </body>
 </html>

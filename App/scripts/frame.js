@@ -4,7 +4,7 @@
 
         //Initialize
 
-        var currenturl = decodeURIComponent(location.search.substr(5));
+        var currenturl = decodeURIComponent(window.location.search.substr(5));
         var currentlang = langService.getCurrentLanguage();
         var threads = [];
         var wasNoMatch = false;
@@ -14,132 +14,144 @@
         var maxAutoThreadRaiting = 1;
 
         function init() {
-            var onSendKeywords = function (e) {
+            var onSendKeywords = function(e) {
                 if (e.data.type2 === "keywords") {
                     keywords = e.data.data;
                     pageTitle = e.data.title;
-                }
 
-                if (keywords && e.data.type2 === "keywords") {
-                    var injector = ng.bootstrap(document, ['app']);
-                    injector.invoke(function($rootScope) {
-                        $rootScope.keywords = keywords;
-                        $rootScope.user = { isAuthenticated: false, username: window.localization.userGuest };
-                        $rootScope.isAuthenticatedCalback = function (isAuthenticated, username) {
-                            $rootScope.user.isAuthenticated = isAuthenticated;
-                            if (isAuthenticated) {
-                                $rootScope.user.username = username;
-                            } else {
-                                $rootScope.user.username = window.localization.userGuest;
-                            }
-                            if ($rootScope.$$phase !== "$apply" && $rootScope.$$phase !== "$digest") {
-                                $rootScope.$apply();
-                            }
-                        };
-                        authService.isAuthenticated($rootScope.isAuthenticatedCalback);
-                        $(window).on("focus", function () {
+                    if (Array.isArray(keywords)) {
+                        var injector = ng.bootstrap(document, ['app']);
+                        injector.invoke(function($rootScope) {
+                            $rootScope.keywords = keywords;
+                            $rootScope.user = { isAuthenticated: false, username: window.localization.userGuest };
+                            $rootScope.currentUrl = decodeURIComponent(location.search.substr(5));
+                            $rootScope.isAuthenticatedCalback = function(isAuthenticated, username) {
+                                $rootScope.user.isAuthenticated = isAuthenticated;
+                                if (isAuthenticated) {
+                                    $rootScope.user.username = username;
+                                } else {
+                                    $rootScope.user.username = window.localization.userGuest;
+                                }
+                                if ($rootScope.$$phase !== "$apply" && $rootScope.$$phase !== "$digest") {
+                                    $rootScope.$apply();
+                                }
+                            };
                             authService.isAuthenticated($rootScope.isAuthenticatedCalback);
+                            $(window).on("focus", function() {
+                                authService.isAuthenticated($rootScope.isAuthenticatedCalback);
+                            });
                         });
-                    });
 
-                    /**** Create ThreadBox start ****/
-                    $("#thread_box").select2({
-                        width: "100%",
-                        placeholder: "Loading...",
-                        data: function () {
-                            return { results: { text: 'LOADING...' } };
-                        },
-                    });
-                    $("#thread_box").select2("enable", false);
-                    getThreads(currentlang, currenturl, keywords, pageTitle);
-                    /* ^^^ Create ThreadBox end ^^^ */
+                        /**** Create ThreadBox start ****/
+                        $("#thread_box").select2({
+                            width: "100%",
+                            placeholder: "Loading...",
+                            data: function() {
+                                return { results: { text: 'LOADING...' } };
+                            },
+                        });
+                        $("#thread_box").select2("enable", false);
+                        getThreads(currentlang, currenturl, keywords, pageTitle);
+                        /* ^^^ Create ThreadBox end ^^^ */
 
-                    /**** Create LanguageBox start ****/
-                    $("#language_box").select2({
-                        width: "100%",
-                        placeholder: "Loading...",
-                        data: function () {
-                            return { results: { text: 'LOADING...' } };
-                        },
-                    });
-                    $("#language_box").select2("enable", false);
+                        /**** Create LanguageBox start ****/
+                        $("#language_box").select2({
+                            width: "100%",
+                            placeholder: "Loading...",
+                            data: function() {
+                                return { results: { text: 'LOADING...' } };
+                            },
+                        });
+                        $("#language_box").select2("enable", false);
 
-                    var data = [];
-                    var langs = langService.getSelectedLanguages();
-                    if (langs.length > 0) {
-                        for (var i = 0; i < langs.length; i++) {
-                            data.push({ id: langs[i].uniCode, text: langs[i].NativeTitle });
-                        };
-                        $("#language_box").select2("enable", true);
-                        $("#language_box").val(currentlang).trigger("change");
-                    } else {
-                        langService.getLanguages().done(function () {
-                            langService.initSelectedLanguages();
-                            langs = langService.getSelectedLanguages();
+                        var data = [];
+                        var langs = langService.getSelectedLanguages();
+                        if (langs.length > 0) {
                             for (var i = 0; i < langs.length; i++) {
                                 data.push({ id: langs[i].uniCode, text: langs[i].NativeTitle });
                             };
                             $("#language_box").select2("enable", true);
                             $("#language_box").val(currentlang).trigger("change");
+                        } else {
+                            langService.getLanguages().done(function() {
+                                langService.initSelectedLanguages();
+                                langs = langService.getSelectedLanguages();
+                                for (var i = 0; i < langs.length; i++) {
+                                    data.push({ id: langs[i].uniCode, text: langs[i].NativeTitle });
+                                };
+                                $("#language_box").select2("enable", true);
+                                $("#language_box").val(currentlang).trigger("change");
+                            });
+                        }
+
+                        createLanguageBox(data);
+                        /* ^^^ Create LanguageBox end ^^^ */
+
+                        $(".CI_icon-refresh").click(function() {
+                            location.reload();
                         });
-                    }
+                        $('body').on('DOMMouseScroll mousewheel', '.CI_scrollable', function(ev) {
+                            var $this = $(this),
+                                scrollTop = this.scrollTop,
+                                scrollHeight = this.scrollHeight,
+                                height = $this.height(),
+                                delta = ev.originalEvent.wheelDelta,
+                                up = delta > 0;
 
-                    createLanguageBox(data);
-                    /* ^^^ Create LanguageBox end ^^^ */
-
-                    $(".CI_icon-refresh").click(function () {
-                        location.reload();
-                    });
-                    $('body').on('DOMMouseScroll mousewheel', '.CI_scrollable', function (ev) {
-                        var $this = $(this),
-                            scrollTop = this.scrollTop,
-                            scrollHeight = this.scrollHeight,
-                            height = $this.height(),
-                            delta = ev.originalEvent.wheelDelta,
-                            up = delta > 0;
-
-                        var prevent = function () {
-                            ev.stopPropagation();
-                            ev.preventDefault();
-                            ev.returnValue = false;
-                            return false;
-                        };
+                            var prevent = function() {
+                                ev.stopPropagation();
+                                ev.preventDefault();
+                                ev.returnValue = false;
+                                return false;
+                            };
 
 
-                        if (!up && -delta > scrollHeight - height - scrollTop) {
-                            // Scrolling down, but this will take us past the bottom.
-                            $this.scrollTop(scrollHeight);
-                            return prevent();
-                        } else if (up && delta > scrollTop) {
-                            // Scrolling up, but this will take us past the top.
-                            $this.scrollTop(0);
-                            return prevent();
-                        }
-                    });
+                            if (!up && -delta > scrollHeight - height - scrollTop) {
+                                // Scrolling down, but this will take us past the bottom.
+                                $this.scrollTop(scrollHeight);
+                                return prevent();
+                            } else if (up && delta > scrollTop) {
+                                // Scrolling up, but this will take us past the top.
+                                $this.scrollTop(0);
+                                return prevent();
+                            }
+                        });
 
-                    $(window).on('resize', function () {
-                        if ($('.CI_scrollable') !== undefined) {
-                            //$('.CI_scrollable').width($(window).width());
-                            $('.CI_scrollable').height($(window).height() - 107);
-                        }
-                    });
+                        $(window).on('resize', function() {
+                            if ($('.CI_scrollable') !== undefined) {
+                                //$('.CI_scrollable').width($(window).width());
+                                $('.CI_scrollable').height($(window).height() - 107);
+                            }
+                        });
 
-                    $('#CI_popup_login_link, .CI_popup_close').on('click', function () {
-                    	$(this).closest('.CI_popup').hide();
-                    });
+                        $('#CI_popup_login_link, .CI_popup_close').on('click', function() {
+                            $(this).closest('.CI_popup').hide();
+                        });
 
 
-                } else {
-                    if (keywords == null)
+                    } else {
                         window.parent.postMessage('context2-frameready', '/');
+                    }
                 }
             }
             var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent",
                 eventer = window[eventMethod],
                 messageEvent = eventMethod === "attachEvent" ? "onmessage" : "message";
             eventer(messageEvent, onSendKeywords, false);
-            window.parent.postMessage('context2-frameready', currenturl);
-
+            if (window.location.origin.indexOf(".mtproxy.yandex.net") > 0) {
+                window.setTimeout(function() {
+                    var e = {
+                        data: {
+                            type2: "keywords",
+                            data: [[], [], [], []],
+                            title: "metrika"
+                        }
+                    }
+                    onSendKeywords(e);
+                }, 100);
+            } else {
+                window.parent.postMessage('context2-frameready', currenturl);
+            }
         }
 
         /********************************** \/ Define functions \/ *************************************/
@@ -221,7 +233,7 @@
                     return results;
                 }
             }).on("select2-open", function () {
-                $('#select2-drop > div.select2-search > input.select2-input.select2-focused').attr('placeholder', 'Search thread or type New Thread Name here');
+                $('#select2-drop > div.select2-search > input.select2-input.select2-focused').attr('placeholder', window.localization.SearchPlaceholder);
             });
             var selection = data[0].id;
             for (var k = 0; k < threads.length; k++) {
@@ -245,7 +257,7 @@
                     }
                 });
                 if (addPageTitleEnabled)
-                    threads.push({ id: '00000000-0000-0000-0000-000000000000', code: pageTitle, text: pageTitle, raiting: 0, weight: 1, fromAnotherUrl: true });
+                    threads.push({ id: '00000000-0000-0000-0000-000000000000', code: pageTitle, text: pageTitle, raiting: 0, weight: 100, fromAnotherUrl: true });
                 threads.sort(weightComparator);
                 createThreadBox(threads);
                 if (threads[0].fromAnotherUrl == true) {

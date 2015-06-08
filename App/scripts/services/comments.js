@@ -50,7 +50,7 @@ define('services/comments',
         	return promize;
         }
 
-        function addComment(language, threadId, parentId, message, url, keywords, threadCode, threadTitle) {
+        function addComment(language, threadId, parentId, message, url, keywords, threadCode, threadTitle, username) {
             var promize = transport.request('POST',
                 configuration.urls.addComment,
             {
@@ -61,7 +61,8 @@ define('services/comments',
                 Url: url,
                 Keywords: keywords,
                 ThreadCode: threadCode,
-                ThreadTitle: threadTitle
+                ThreadTitle: threadTitle,
+                UserName: username
             }
             );
             return promize;
