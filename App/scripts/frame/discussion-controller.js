@@ -111,6 +111,9 @@
                 commentService.getCommentsByThread($rootScope.thread, $rootScope.language, 0, 10)
                     .done(function (data) {
                         data.comments = getMessagesTrusted(data.comments);
+                        if (data.comments.length === 0) {
+                            $scope.$parent.answerIsExpanded = true;
+                        }
                         $scope.items = data.comments;
                         $scope.lastTimeLoaded = data.time;
                         $scope.itemsInited = true;

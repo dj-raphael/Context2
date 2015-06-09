@@ -55,14 +55,14 @@
                     }
 
                 }).fail(function (e) {
-                    if (e.responseJSON != null) {
-                        if (e.responseJSON.ExceptionType === "System.Web.Security.MembershipCreateUserException") {
-                            $localScope.username_tooltip = window.localization.userExists;
-                            $localScope.username_error = true;
+                    if (e.status === 409) {
+                        $localScope.username_tooltip = window.localization.userExists;
+                        $localScope.username_error = true;
+                        if (!$localScope.$$phase) {
+                            $localScope.$apply();
                         }
                     }
                 });
-                ;
             } else {
                 $('.popup-ban-time-counter').show();
             }

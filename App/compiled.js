@@ -6541,21 +6541,21 @@ define('services/comments',
             return promize;
         }
         function getNewCommentsByThread(threadId, language, dateFrom) {
-        	if (threadId === undefined || language === undefined) {
-        		console.log('getComments aborted: language=' + language + ' threadId=' + threadId);
-        		var nullFunc = function () {
-        		};
-        		return { done: nullFunc, success: nullFunc, error: nullFunc };
-        	}
-        	var promize = transport.request('GET',
+            if (threadId === undefined || language === undefined) {
+                console.log('getComments aborted: language=' + language + ' threadId=' + threadId);
+                var nullFunc = function () {
+                };
+                return { done: nullFunc, success: nullFunc, error: nullFunc };
+            }
+            var promize = transport.request('GET',
                 configuration.urls.getComments,
                 {
-                	threadId: threadId,
-                	language: language,
-                	dateFrom: dateFrom
+                    threadId: threadId,
+                    language: language,
+                    dateFrom: dateFrom
                 }
             );
-        	return promize;
+            return promize;
         }
 
         function addComment(language, threadId, parentId, message, url, keywords, threadCode, threadTitle, username) {
@@ -6809,7 +6809,7 @@ define('frame/tabs', ['frame/app', 'services/config', 'services/auth', 'services
 
                     });
                     wikiService.getWiki($rootScope.thread, $rootScope.language).done(function(data) {
-                        if (data != null && data != "<div>" + window.localization.noWikiAvaliable + "</div>") {
+                        if (data != null && data !== "<div>No Wiki Avaliable</div>") {
                             $scope.tabs.unshift(tabWiki);
                         }
                         wikiCheckDone = true;
@@ -7193,6 +7193,9 @@ define("frame/discussion-controller", ["frame/app", "services/comments", "servic
                 commentService.getCommentsByThread($rootScope.thread, $rootScope.language, 0, 10)
                     .done(function (data) {
                         data.comments = getMessagesTrusted(data.comments);
+                        if (data.comments.length === 0) {
+                            $scope.$parent.answerIsExpanded = true;
+                        }
                         $scope.items = data.comments;
                         $scope.lastTimeLoaded = data.time;
                         $scope.itemsInited = true;
@@ -7830,14 +7833,14 @@ define("directives/answer-form", ["frame/app", "services/comments"], function (a
                     }
 
                 }).fail(function (e) {
-                    if (e.responseJSON != null) {
-                        if (e.responseJSON.ExceptionType === "System.Web.Security.MembershipCreateUserException") {
-                            $localScope.username_tooltip = window.localization.userExists;
-                            $localScope.username_error = true;
+                    if (e.status === 409) {
+                        $localScope.username_tooltip = window.localization.userExists;
+                        $localScope.username_error = true;
+                        if (!$localScope.$$phase) {
+                            $localScope.$apply();
                         }
                     }
                 });
-                ;
             } else {
                 $('.popup-ban-time-counter').show();
             }
@@ -8194,7 +8197,7 @@ require(['jquery', 'services/auth', 'services/threads', 'services/languages', 'a
                     return results;
                 }
             }).on("select2-open", function () {
-                $('#select2-drop > div.select2-search > input.select2-input.select2-focused').attr('placeholder', window.SearchPlaceholder);
+                $('#select2-drop > div.select2-search > input.select2-input.select2-focused').attr('placeholder', window.localization.SearchPlaceholder);
             });
             var selection = data[0].id;
             for (var k = 0; k < threads.length; k++) {
@@ -8221,9 +8224,9 @@ require(['jquery', 'services/auth', 'services/threads', 'services/languages', 'a
                     threads.push({ id: '00000000-0000-0000-0000-000000000000', code: pageTitle, text: pageTitle, raiting: 0, weight: 100, fromAnotherUrl: true });
                 threads.sort(weightComparator);
                 createThreadBox(threads);
-                if (threads[0].fromAnotherUrl == true) {
-                    $("#thread_box").select2("open");
-                }
+                //if (threads[0].fromAnotherUrl == true) {
+                //    $("#thread_box").select2("open");
+                //}
             }).error(function () {
                 $(".CI_thread-selector .select2-chosen").text("Service unavailable");
             });

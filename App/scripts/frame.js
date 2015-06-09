@@ -260,9 +260,9 @@
                     threads.push({ id: '00000000-0000-0000-0000-000000000000', code: pageTitle, text: pageTitle, raiting: 0, weight: 100, fromAnotherUrl: true });
                 threads.sort(weightComparator);
                 createThreadBox(threads);
-                if (threads[0].fromAnotherUrl == true) {
-                    $("#thread_box").select2("open");
-                }
+                //if (threads[0].fromAnotherUrl == true) {
+                //    $("#thread_box").select2("open");
+                //}
             }).error(function () {
                 $(".CI_thread-selector .select2-chosen").text("Service unavailable");
             });

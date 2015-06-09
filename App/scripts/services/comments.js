@@ -33,21 +33,21 @@ define('services/comments',
             return promize;
         }
         function getNewCommentsByThread(threadId, language, dateFrom) {
-        	if (threadId === undefined || language === undefined) {
-        		console.log('getComments aborted: language=' + language + ' threadId=' + threadId);
-        		var nullFunc = function () {
-        		};
-        		return { done: nullFunc, success: nullFunc, error: nullFunc };
-        	}
-        	var promize = transport.request('GET',
+            if (threadId === undefined || language === undefined) {
+                console.log('getComments aborted: language=' + language + ' threadId=' + threadId);
+                var nullFunc = function () {
+                };
+                return { done: nullFunc, success: nullFunc, error: nullFunc };
+            }
+            var promize = transport.request('GET',
                 configuration.urls.getComments,
                 {
-                	threadId: threadId,
-                	language: language,
-                	dateFrom: dateFrom
+                    threadId: threadId,
+                    language: language,
+                    dateFrom: dateFrom
                 }
             );
-        	return promize;
+            return promize;
         }
 
         function addComment(language, threadId, parentId, message, url, keywords, threadCode, threadTitle, username) {
