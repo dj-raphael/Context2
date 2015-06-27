@@ -7674,7 +7674,7 @@ define('frame/banner-controller', ['frame/app', 'services/banner'], function(app
                 if (!extentionInstalled) {
                     banners.push({
                         BannerId: 0,
-                        Text: navigator.language.substr(0,2) == "ru" ? "Хотите иметь возможность комментировать везде? Установите рассширение в браузер!" : "Like comments? install extension! ->",
+                        Text: navigator.language.substr(0,2) == "ru" ? "Хотите иметь возможность комментировать везде? Установите расширение в браузер!" : "Like comments? install extension! ->",
                         Href: "https://chrome.google.com/webstore/detail/external-comments-for-hab/ngplihjnnmnmhalcelmeojjedmmbhpan"
                     });
                     $scope.Style = "width: 100%; height:32px; background:#ffc; color:#320; float:left; line-height:30px; white-space:nowrap; padding-left: 20px;text-overflow: ellipsis;overflow: hidden;";

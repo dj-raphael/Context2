@@ -1,6 +1,6 @@
 self.port.on("ContextCommentExecute", function(localizedStrings) {
     var panelToggleLabelId = 'context2-panel-toggle-label';
-	var scriptSource = 'http://context2.com/app/mainEmbedded.js';
+	var scriptSource = 'https://context2.com/app/mainEmbedded.js';
 	var panelToggle = function(){
 		var panelLabel = document.getElementById(panelToggleLabelId);
 		var y = window.scrollY;
