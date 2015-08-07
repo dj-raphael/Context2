@@ -440,7 +440,30 @@
                 panelWrapper.className = panelWrapper.className.replace(new RegExp('(?:^|\\s)' + panelResizedClass + '(?!\\S)', 'g'), '');
             };
         },
-        getStopWordsFromServer = function(callback) {
+        getThreadCount = function () {
+            var language = getLanguage();
+            var url = context2Url + "api/Thread/GetThreadsCount";
+            var params = "url=" + encodeURIComponent(location.href) + "&language=" + language + "&callback=?";
+            jsonp(url + "?" + params,
+                    function (response) {
+                        if (response == 0) return;
+                        var label = document.getElementById(panelToggleLabelId);
+                        var b = document.createElement("b");
+                        b.innerText = "+" + response;
+                        b.style.width = "16px";
+                        b.style.height = "16px";
+                        b.style.display = "block";
+                        b.style.marginBottom = "6px";
+                        b.style.color = "green";
+                        b.style.fontSize = "16px";
+                        b.style.fontWeight = "bold";
+                        b.style.lineHeight = "16px";
+                        b.style.textAlign = "center";
+                        label.insertBefore(b, label.firstChild);
+                        label.style.height = (label.clientHeight-10) + "px";
+                    });
+        },
+        getStopWordsFromServer = function (callback) {
             var url = context2Url + "api/StopWords/Get";
             var params = 'domain=' + encodeURIComponent(location.host) + "&callback=?";
             jsonp(url + "?" + params,
@@ -461,6 +484,14 @@
                 getStopWordsFromServer(callback);
            }
         },
+        getLanguage = function() {
+            var language = avialableUI[0];
+            if (navigator.language) {
+                var tlang = navigator.language.substr(0, 2).toLocaleLowerCase();
+                if (avialableUI.indexOf(tlang) >= 0) language = tlang
+            }
+            return language;
+        }
         addPanelLabelClickEvent = function () {
             document.getElementById(panelToggleLabelId).onclick = panelOpen
         },
@@ -473,11 +504,7 @@
                     eventer = window[eventMethod],
                     messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
                 frame.id = frameId;
-                var language = avialableUI[0];
-                if (navigator.language) {
-                    var tlang = navigator.language.substr(0, 2).toLocaleLowerCase();
-                    if (avialableUI.indexOf(tlang) >= 0) language = tlang
-                }
+                var language = getLanguage();
                 frame.src = context2Url + 'app/frame-'+language+'.html?url=' + encodeURIComponent(window.location.href);
                 panelWrapper.appendChild(frame);
 
@@ -554,6 +581,7 @@
             window.CONTEXT_PANEL = true;
             loadCss();
             createPanel();
+            getThreadCount()
         };
 
     init();
