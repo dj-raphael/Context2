@@ -1,0 +1,2 @@
+﻿<span ng-if="!vm.cdIsModerator" ng-class="{'text-success': vm.cdValue > 0, 'text-danger': vm.cdValue < 0}" ng-bind="vm.cdValue === 0? '' : vm.cdValue > 0? '+' + vm.cdValue : vm.cdValue"></span>
+<span ng-if="vm.cdIsModerator" class="text-danger">M</span>

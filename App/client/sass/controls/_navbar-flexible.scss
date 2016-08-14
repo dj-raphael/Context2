@@ -1,0 +1,29 @@
+﻿.navbar-flexible {
+    display: table;
+    width: 100%;
+    padding: 0;
+    border: none;
+    height: $navbar-height;
+
+    & > .navbar-nav-flexible {
+        display: table-cell;
+        float: none !important;
+        vertical-align: top;
+
+        &.two-buttons {
+            min-width: ($padding-base-horizontal * 2 + $fa-icon-width) * 2 + 3px;
+        }
+
+        &.three-buttons {
+            min-width: ($padding-base-horizontal * 2 + $fa-icon-width) * 3 + 4px;
+        }
+
+        &.nav-flex {
+            width: 100%;
+        }
+
+        & .form-control {
+            height: $navbar-height;
+        }
+    }
+}

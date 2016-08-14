@@ -1,0 +1,37 @@
+﻿<div class="row" ng-if="comment.isDeleted">
+    <div class="col-sm-12">
+        <b>
+            <span>{{'MESSAGEDELETEDBY' | translate}}</span>
+            <span>{{comment.moderatedByName}}</span>
+            <span>{{comment.moderatedDate | amDateFormat: 'LLL'}}</span>
+        </b>
+    </div>
+</div>
+<div ng-if="!comment.isDeleted">
+    <div ng-include="'/app/client/views/comment-item.html'"></div>
+</div>
+<cd-moderate-comment cd-show="comment.showModerate"
+                     cd-message="comment.originalMessage"
+                     cd-moderator-message="comment.moderatorMessage"
+                     cd-on-moderate-comment="vm.updateComment(comment, moderateCommentModel)"
+                     cd-on-remove-comment="vm.removeComment(comment)"></cd-moderate-comment>
+<div class="row">
+    <div class="col-xs-6">
+        <a class="btn btn-link" ng-if="!comment.showChildren && comment.hasChildren" ng-click="vm.expandComment(comment)">[+] <span>{{ 'EXPAND' | translate }}</span> ↓(<span>{{comment.childrenCount}}</span>)</a>
+        <a class="btn btn-link" ng-if="comment.showChildren" ng-click="vm.collapseComment(comment)">[–] <span>{{ 'COLLAPSE' | translate }}</span> ↑(<span>{{comment.childrenCount}}</span>)</a>
+    </div>
+    <div class="col-xs-6 text-right">
+        <a class="btn btn-link" ng-if="vm.authUser.isModerator && !comment.showModerate" ng-click="vm.toggleModerate(comment)">{{ 'DOMODERATE' | translate }}</a>
+        <a class="btn btn-link" ng-click="vm.toggleAddComment(comment)">{{ 'DOANSWER' | translate }}</a>
+    </div>
+</div>
+<cd-add-comment cd-show="comment.showAddComment"
+                cd-hide-login="vm.authUser.isAuthenticated"
+                cd-on-add-comment="vm.addComment(comment, addCommentModel)"
+                cd-on-login="vm.showLogin()">
+</cd-add-comment>
+<ul class="list-group" uib-collapse="!(comment.showChildren && comment.hasChildren)">
+    <li class="list-group-item" ng-repeat="comment in comment.children">
+        <div ng-include="'/app/client/views/comment-tree-item.html'"></div>
+    </li>
+</ul>

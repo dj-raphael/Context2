@@ -1,0 +1,33 @@
+﻿.threads-list {
+    & .list-group-item {
+        @include text-overflow();
+        padding-right: $thread-info-width * 2;
+        &:hover{
+            background: $gray-lighter;
+        }
+        & .thread-title{
+            color: $brand-primary;
+        }
+        & .thread-info {
+            & .thread-info-comments {
+                font-size: 10px;
+                position: absolute;
+                right: $thread-info-width;
+                top: $padding-base-vertical;
+            }
+
+            & .thread-info-rating {
+                font-size: 10px;
+                position: absolute;
+                right: $thread-info-width;
+                bottom: $padding-base-vertical;
+            }
+
+            & .thread-info-width {
+                position: absolute;
+                right: $thread-info-right;
+                top: $thread-info-top;
+            }
+        }
+    }
+}

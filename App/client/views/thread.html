@@ -1,0 +1,147 @@
+﻿<div ng-include="'/app/client/views/top-menu.html'" ng-class="{'top-menu-with-banner': vm.topMenu.showBanners && !vm.topMenu.extInstalled}"></div>
+<div class="thread-content">
+    <div class="pull-right" uib-dropdown>
+        <button id="profileOptionsSelector" type="button" class="btn btn-default" uib-dropdown-toggle>
+            <span class="fa fa-user"></span>
+            <span class="hidden-xs" ng-if="vm.authUser.isAuthenticated">{{vm.authUser.name}}</span>
+            <span class="hidden-xs" ng-if="!vm.authUser.isAuthenticated">{{'GUEST' | translate}}</span>
+            <cd-rating cd-value="vm.authUser.rating" cd-is-moderator="vm.authUser.isModerator"></cd-rating>
+        </button>
+        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="profileOptionsSelector">
+            <li role="menuitem" ng-click="vm.showSettings()">
+                <a>{{'SETTINGS' | translate}}</a>
+            </li>
+            <li role="menuitem" ng-if="!vm.authUser.isAuthenticated" ng-click="vm.showLogin()">
+                <a>{{'DOLOGIN' | translate}}</a>
+            </li>
+            <li role="menuitem" ng-if="vm.authUser.isAuthenticated" ng-click="vm.showAccount()">
+                <a>{{'PROFILE' | translate}}</a>
+            </li>
+            <li role="menuitem" ng-if="vm.authUser.isAuthenticated" ng-click="vm.logout()">
+                <a>{{'LOGOUT' | translate}}</a>
+            </li>
+        </ul>
+    </div>
+    <div class="pull-right" uib-dropdown ng-if="!vm.tabs.showWiki || !vm.tabs.showFaq">
+        <button id="tabsSelector" type="button" class="btn btn-default" uib-dropdown-toggle>
+            <span class="fa fa-plus"></span>
+        </button>
+        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="tabsSelector">
+            <li role="menuitem" ng-click="vm.setShowWiki()" ng-if="!vm.tabs.showWiki">
+                <a>{{'WIKI' | translate}}</a>
+            </li>
+            <li role="menuitem" ng-click="vm.setShowFaq()" ng-if="!vm.tabs.showFaq">
+                <a>{{'FAQ' | translate}}</a>
+            </li>
+        </ul>
+    </div>
+    <uib-tabset active="vm.tabs.active">
+        <uib-tab index="vm.commentsTabsEnum.wiki" ng-show="vm.tabs.showWiki">
+            <uib-tab-heading>
+                <span>{{'WIKI' | translate}}</span>
+                <i class="fa fa-pencil can-click" ng-click="vm.wikiEditMode()" ng-if="vm.authUser.isAuthenticated"></i>
+            </uib-tab-heading>
+            <div class="form-horizontal" ng-if="vm.wiki.editMode !== vm.wikiModeEnum.none">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <a class="btn btn-link no-padding-left" ng-click="vm.wikiEditMode(vm.wikiModeEnum.url)">{{'SETLINK' | translate}}</a>
+                        <a class="btn btn-link" ng-click="vm.wikiEditMode(vm.wikiModeEnum.text)">{{'EDITTEXT' | translate}}</a>
+                    </div>
+                </div>
+                <div class="row" ng-if="vm.wiki.editMode === vm.wikiModeEnum.url">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <input class="form-control" type="text" ng-model="vm.wiki.url" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <button type="button" class="btn btn-default" ng-click="vm.saveWikiUrl()">{{'SEND' | translate}}</button>
+                                <button type="button" class="btn btn-default" ng-click="vm.wikiEditMode(vm.wikiModeEnum.none)">{{'CANCEL' | translate}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-if="vm.wiki.editMode === vm.wikiModeEnum.text">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <text-angular ng-model="vm.wiki.text"></text-angular>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <button type="button" class="btn btn-default" ng-click="vm.saveWikiText()">{{'SEND' | translate}}</button>
+                                <button type="button" class="btn btn-default" ng-click="vm.wikiEditMode(vm.wikiModeEnum.none)">{{'CANCEL' | translate}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="vm.wiki.editMode === vm.wikiModeEnum.none">
+                <div class="row" ng-if="vm.wiki.viewMode === vm.wikiModeEnum.none">
+                    <div class="col-sm-12">
+                        No Wiki Avaliable
+                    </div>
+                </div>
+                <div ng-if="vm.wiki.viewMode === vm.wikiModeEnum.url">
+                    <iframe class="wiki-frame" ng-src="{{ vm.wiki.url | trustResourceUrl }}" frameborder="0"></iframe>
+                </div>
+                <div class="row" ng-if="vm.wiki.viewMode === vm.wikiModeEnum.text">
+                    <div ta-bind class="col-sm-12" ng-model="vm.wiki.text"></div>
+                </div>
+            </div>
+        </uib-tab>
+        <uib-tab index="vm.commentsTabsEnum.discussion" heading="{{'DISCUSSION' | translate}}">
+            <div class="tab-content-wrapper" cd-infinite-scroll="vm.loadMoreComments()" infinite-scroll-immediate-check="vm.comments.list.length > 0">
+                <a class="btn btn-link no-padding-left" ng-click="vm.toggleAddComment(vm.newComment)">{{'ADDCOMMENT' | translate}}</a>
+                <cd-add-comment cd-show="vm.newComment.showAddComment"
+                                cd-hide-login="vm.authUser.isAuthenticated"
+                                cd-on-add-comment="vm.addComment(vm.newComment, addCommentModel)"
+                                cd-on-login="vm.showLogin()">
+                </cd-add-comment>
+                <ul class="list-group thread-comments">
+                    <li class="list-group-item" ng-repeat="comment in vm.comments.list">
+                        <div ng-include="'/app/client/views/comment-tree-item.html'"></div>
+                    </li>
+                </ul>
+            </div>
+        </uib-tab>
+        <uib-tab index="vm.commentsTabsEnum.faq" heading="{{'FAQ' | translate}}" ng-show="vm.tabs.showFaq">
+            <div ng-if="vm.authUser.isAuthenticated">
+                <div class="row" ng-if="!vm.newQuestion.editMode">
+                    <div class="col-sm-12">
+                        <a class="btn btn-link no-padding-left" ng-click="vm.showEditQuestion(vm.newQuestion)">{{'ADD' | translate}}</a>
+                    </div>
+                </div>
+                <cd-edit-question cd-model="vm.newQuestion" cd-on-save="vm.addQuestion(faqModel)"></cd-edit-question>
+            </div>
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="faq in vm.faq.list">
+                    <div ng-include="'/app/client/views/faq-item.html'"></div>
+                </li>
+            </ul>
+            <div class="row" ng-if="vm.faq.length > 0 && vm.faq.paginationModel.pagesCount > 1">
+                <div class="col-sm-12 text-center">
+                    <cd-pagination cd-model="vm.faq.paginationModel" cd-on-change="vm.faqChangePage()"></cd-pagination>
+                </div>
+            </div>
+        </uib-tab>
+        <uib-tab index="vm.commentsTabsEnum.moderate" heading="{{'MODERATE' | translate}}" ng-show="vm.authUser.isModerator">
+            <div class="row">
+                <div class="col-sm-12">
+                    {{'RENAMETHREAD' | translate}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-8">
+                    <input class="form-control" name="newthreadtitle" ng-model="vm.moderate.title"/>
+                </div>
+                <div class="col-sm-4">
+                    <button type="button" class="btn btn-default btn-block" ng-click="vm.renameThread()">{{'RENAME' | translate}}</button>
+                </div>
+            </div>
+        </uib-tab>
+    </uib-tabset>
+</div>

@@ -1,0 +1,46 @@
+﻿<div class="navbar navbar-fixed-top">
+    <div class="container-fluid navbar-flexible">
+        <div class="nav navbar-nav-flexible" ng-class="{'two-buttons': !vm.topMenu.showBack, 'three-buttons': vm.topMenu.showBack}">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default" ng-if="vm.topMenu.showBack" ng-click="vm.close()">
+                    <i class="fa fa-arrow-left"></i>
+                </button>
+                <a class="btn btn-default" href="https://context2.com/help" target="_blank">
+                    <i class="fa fa-question-circle"></i>
+                </a>
+                <button type="button" class="btn btn-default" ng-click="vm.reloadPage()">
+                    <i class="fa fa-refresh"></i>
+                </button>
+            </div>
+        </div>
+        <div class="nav navbar-nav-flexible nav-flex">
+            <div class="input-group" ng-if="vm.topMenu.showSearch">
+                <input type="text" class="form-control" placeholder="{{'SEARCHPLACEHOLDER' | translate}}" ng-model="vm.topMenu.search" ng-change="vm.search()" ng-model-options="{debounce: 1000}">
+                <div class="input-group-addon btn btn-default" ng-click="vm.search()">
+                    <i class="fa fa-search"></i>
+                </div>
+            </div>
+            <a ui-sref="root.threadsList" class="btn btn-default btn-block" ng-if="!vm.topMenu.showSearch">{{vm.topMenu.threadTitle}}</a>
+        </div>
+        <div class="nav navbar-nav-flexible">
+            <div class="btn-group" uib-dropdown>
+                <button id="languageSelector" type="button" class="btn btn-default" uib-dropdown-toggle>
+                    <span>{{vm.topMenu.language.label}}</span><span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu language-menu" uib-dropdown-menu role="menu" aria-labelledby="languageSelector">
+                    <li role="menuitem" ng-repeat="lang in vm.topMenu.languages" ng-click="vm.selectLanguage(lang)">
+                        <a>{{lang.label}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row banner" ng-if="vm.topMenu.showBanners && !vm.topMenu.extInstalled">
+    <div class="col-sm-12 alert alert-warning no-margin-bottom">
+        <a href="https://chrome.google.com/webstore/detail/external-comments-for-hab/ngplihjnnmnmhalcelmeojjedmmbhpan" target="_blank" title="{{'DEFAULTBANNER' | translate}}">
+            <span>{{'DEFAULTBANNER' | translate}}</span>
+        </a>
+    </div>
+</div>
+

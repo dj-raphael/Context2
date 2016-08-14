@@ -1,0 +1,33 @@
+﻿<div class="form-horizontal" ng-if="vm.cdModel.editMode" ng-form="editQuestionForm">
+    <div class="form-group has-error" ng-if="vm.model.saveFail">
+        <div class="col-sm-12">
+            <div class="help-block">{{ 'SAVEQUESTIONFAILED' | translate }}</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <b>{{ 'QUESTION' | translate }}</b>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-12">
+            <input class="form-control" type="text" ng-model="vm.cdModel.question" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <b>{{ 'ANSWER' | translate }}</b>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-12">
+            <text-angular ng-model="vm.cdModel.answer"></text-angular>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-12">
+            <button type="button" class="btn btn-default" ng-click="vm.save()">{{ 'SEND' | translate }}</button>
+            <button type="button" class="btn btn-default" ng-click="vm.close()">{{ 'CLOSE' | translate }}</button>
+        </div>
+    </div>
+</div>

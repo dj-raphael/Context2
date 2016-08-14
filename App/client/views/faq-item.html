@@ -1,0 +1,25 @@
+﻿<cd-edit-question cd-model="faq" cd-on-save="vm.updateQuestion(faqModel)"></cd-edit-question>
+<div ng-if="!faq.editMode">
+    <div class="row">
+        <div class="col-xs-8">
+            <b class="can-click" ng-click="vm.toggleQuestion(faq)">{{faq.question}}</b>
+        </div>
+        <div class="col-xs-4 text-right">
+            <i class="fa fa-thumbs-down can-click" ng-click="vm.voteQuestionDown(faq)"></i>
+            <span class="badge">{{faq.voteSum}}</span>
+            <i class="fa fa-thumbs-up can-click" ng-click="vm.voteQuestionUp(faq)"></i>
+        </div>
+    </div>
+    <div uib-collapse="!faq.expanded">
+        <div class="row">
+            <div class="col-sm-12">
+                <div ta-bind class="col-sm-12" ng-model="faq.answer"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <a class="btn btn-link" ng-click="vm.showEditQuestion(faq)">{{'EDIT' | translate}}</a>
+            </div>
+        </div>
+    </div>
+</div>

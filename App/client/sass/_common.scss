@@ -1,0 +1,50 @@
+﻿@include no-padding("left");
+@include no-padding("right");
+@include no-padding("top");
+@include no-padding("bottom");
+@include no-padding("vertical");
+@include no-padding("horizontal");
+@include no-padding("all");
+@include no-margin("left");
+@include no-margin("right");
+@include no-margin("top");
+@include no-margin("bottom");
+@include no-margin("vertical");
+@include no-margin("horizontal");
+@include no-margin("all");
+@include no-border("left");
+@include no-border("right");
+@include no-border("top");
+@include no-border("bottom");
+@include no-border("vertical");
+@include no-border("horizontal");
+@include no-border("all");
+
+.content-container {
+    padding-top: $navbar-height;
+}
+
+textarea {
+    resize: vertical;
+    min-height: $textarea-min-height;
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
+.can-click {
+    cursor: pointer;
+}
+
+.moderator-message {
+    background: $moderator-color;
+}
+
+.moderator-icon {
+    font-size: $moderator-icon-size;
+}
+
+ul.dropdown-menu > li {
+    cursor: pointer;
+}

@@ -1,0 +1,13 @@
+﻿<uib-pagination total-items="vm.cdModel.totalItems"
+                items-per-page="vm.cdModel.itemsPerPage"
+                ng-model="vm.cdModel.current"
+                max-size="vm.cdModel.maxSize"
+                class="pagination-sm"
+                boundary-links="true"
+                force-ellipses="true"
+                ng-change="vm.pageChange()"
+                first-text="<<"
+                last-text=">>"
+                next-text=">"
+                previous-text="<">
+</uib-pagination>

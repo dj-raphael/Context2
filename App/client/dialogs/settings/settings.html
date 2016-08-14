@@ -1,0 +1,35 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title">{{ 'SETTINGS' | translate }}</h3>
+</div>
+<div class="modal-body form-horizontal">
+    <div class="form-group">
+        <label class="control-label col-sm-4" for="langFilter">{{ 'FILTER' | translate }}</label>
+        <div class="col-sm-8">
+            <input class="form-control" type="text" id="langFilter" ng-change="vm.changeFilter()" ng-model="vm.langFilter" />
+        </div>
+    </div>
+    <div class="row language-selector">
+        <div class="col-xs-6">
+            <div class="well">
+                <ul class="list-group">
+                    <li class="list-group-item can-click" ng-repeat="lang in vm.filteredUnavailableLanguages track by lang.code" ng-click="vm.setAvailable(lang)">
+                        <span>{{lang.label}}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="well">
+                <ul class="list-group">
+                    <li class="list-group-item can-click" ng-repeat="lang in vm.availableLanguages track by lang.code" ng-click="vm.setUnavailable(lang)">
+                        <span>{{lang.label}}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="vm.ok()">{{ 'OK' | translate }}</button>
+    <button type="button" class="btn btn-default" ng-click="vm.cancel()">{{ 'CANCEL' | translate }}</button>
+</div>

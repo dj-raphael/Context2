@@ -1,11 +1,11 @@
 {
    "app_name": {
       "description": "Application Name",
-      "message": "Комментарии для Хабра"
+      "message": "Внешние комментарии"
    },
    "app_description": {
       "description": "Application Description",
-      "message": "Внешние комментарии для Хабра для readonly и незарегистрированных пользователей"
+      "message": "Внешние комментарии на сайтах для незарегистрированных пользователей"
    },
    "title_comments": {
       "description": "Title for anchor",

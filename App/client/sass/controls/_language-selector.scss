@@ -1,0 +1,13 @@
+﻿.language-selector {
+    & .well {
+        overflow-y: auto;
+        overflow-x: hidden;
+        height: $language-selector-width;
+        min-height: $language-selector-width;
+
+        & .list-group-item:hover {
+            background: lighten($btn-primary-color, 10%);
+            color: $btn-primary-bg;
+        }
+    }
+}

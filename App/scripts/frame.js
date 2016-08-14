@@ -11,21 +11,36 @@
         var lastThread;
         var keywords = null;
         var pageTitle = null;
+        var layout = 'desktop';
         var maxAutoThreadRaiting = 1;
 
         function init() {
-            var onSendKeywords = function(e) {
+            var onSendKeywords = function (e) {
+                layout = e.data.layout;
+
+                /**** Layout start ****/
+                if (layout === 'desktop') {
+                    var helpButton = $('<a href="/help" target="_blank" class="CI_icon-help CI_icon"></a>');
+                    $('.CI_panel-buttons').prepend(helpButton);
+                } else if (layout === 'mobile') {
+                    var backButton = $('<i class="CI_back-button">&#9668</i>').click(function () {
+                        window.parent.postMessage('context2-frameclose', '/');
+                    });
+                    $('.CI_panel-buttons').prepend(backButton);
+                }
+                /* ^^^ Layout end ^^^ */
+
                 if (e.data.type2 === "keywords") {
                     keywords = e.data.data;
                     pageTitle = e.data.title;
 
                     if (Array.isArray(keywords)) {
                         var injector = ng.bootstrap(document, ['app']);
-                        injector.invoke(function($rootScope) {
+                        injector.invoke(function ($rootScope) {
                             $rootScope.keywords = keywords;
                             $rootScope.user = { isAuthenticated: false, username: window.localization.userGuest };
                             $rootScope.currentUrl = decodeURIComponent(location.search.substr(5));
-                            $rootScope.isAuthenticatedCalback = function(isAuthenticated, username) {
+                            $rootScope.isAuthenticatedCalback = function (isAuthenticated, username) {
                                 $rootScope.user.isAuthenticated = isAuthenticated;
                                 if (isAuthenticated) {
                                     $rootScope.user.username = username;
@@ -37,7 +52,7 @@
                                 }
                             };
                             authService.isAuthenticated($rootScope.isAuthenticatedCalback);
-                            $(window).on("focus", function() {
+                            $(window).on("focus", function () {
                                 authService.isAuthenticated($rootScope.isAuthenticatedCalback);
                             });
                         });
@@ -46,7 +61,7 @@
                         $("#thread_box").select2({
                             width: "100%",
                             placeholder: "Loading...",
-                            data: function() {
+                            data: function () {
                                 return { results: { text: 'LOADING...' } };
                             },
                         });
@@ -58,7 +73,7 @@
                         $("#language_box").select2({
                             width: "100%",
                             placeholder: "Loading...",
-                            data: function() {
+                            data: function () {
                                 return { results: { text: 'LOADING...' } };
                             },
                         });
@@ -73,7 +88,7 @@
                             $("#language_box").select2("enable", true);
                             $("#language_box").val(currentlang).trigger("change");
                         } else {
-                            langService.getLanguages().done(function() {
+                            langService.getLanguages().done(function () {
                                 langService.initSelectedLanguages();
                                 langs = langService.getSelectedLanguages();
                                 for (var i = 0; i < langs.length; i++) {
@@ -87,10 +102,10 @@
                         createLanguageBox(data);
                         /* ^^^ Create LanguageBox end ^^^ */
 
-                        $(".CI_icon-refresh").click(function() {
+                        $(".CI_icon-refresh").click(function () {
                             location.reload();
                         });
-                        $('body').on('DOMMouseScroll mousewheel', '.CI_scrollable', function(ev) {
+                        $('body').on('DOMMouseScroll mousewheel', '.CI_scrollable', function (ev) {
                             var $this = $(this),
                                 scrollTop = this.scrollTop,
                                 scrollHeight = this.scrollHeight,
@@ -98,7 +113,7 @@
                                 delta = ev.originalEvent.wheelDelta,
                                 up = delta > 0;
 
-                            var prevent = function() {
+                            var prevent = function () {
                                 ev.stopPropagation();
                                 ev.preventDefault();
                                 ev.returnValue = false;
@@ -117,14 +132,14 @@
                             }
                         });
 
-                        $(window).on('resize', function() {
+                        $(window).on('resize', function () {
                             if ($('.CI_scrollable') !== undefined) {
                                 //$('.CI_scrollable').width($(window).width());
                                 $('.CI_scrollable').height($(window).height() - 107);
                             }
                         });
 
-                        $('#CI_popup_login_link, .CI_popup_close').on('click', function() {
+                        $('#CI_popup_login_link, .CI_popup_close').on('click', function () {
                             $(this).closest('.CI_popup').hide();
                         });
 
@@ -139,7 +154,7 @@
                 messageEvent = eventMethod === "attachEvent" ? "onmessage" : "message";
             eventer(messageEvent, onSendKeywords, false);
             if (window.location.origin.indexOf(".mtproxy.yandex.net") > 0) {
-                window.setTimeout(function() {
+                window.setTimeout(function () {
                     var e = {
                         data: {
                             type2: "keywords",
@@ -155,7 +170,7 @@
         }
 
         /********************************** \/ Define functions \/ *************************************/
-        
+
         function weightComparator(a, b) {
             if (a.fromAnotherUrl && !b.fromAnotherUrl) return 1;
             if (!a.fromAnotherUrl && b.fromAnotherUrl) return -1;
@@ -169,9 +184,9 @@
             var newdata = [];
             var selectedData = $("#thread_box").select2("data");
             threadService.searchThreads(term, currentlang).done(function (response) {
-                
+
                 response.forEach(function (entry) {
-                    if (!(threads.some(function (tr) {return tr.id == entry.ThreadId }))) {
+                    if (!(threads.some(function (tr) { return tr.id == entry.ThreadId }))) {
                         newdata.push({ id: entry.ThreadId, code: entry.Code, text: entry.Title, raiting: entry.Raiting, fromAnotherUrl: true });
                     }
                 });

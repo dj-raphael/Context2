@@ -1,0 +1,65 @@
+﻿@mixin no-padding($side) {
+  @if $side == 'all' {
+    .no-padding {
+      padding: 0 !important;
+    }
+  } @else if $side == 'horizontal' {
+    .no-padding-#{$side} {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+  } @else if $side == 'vertical' {
+    .no-padding-#{$side} {
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+    }
+  } @else {
+    .no-padding-#{$side} {
+      padding-#{$side}: 0 !important;
+    }
+  }
+}
+
+@mixin no-margin($side) {
+  @if $side == 'all' {
+    .no-margin {
+      margin: 0 !important;
+    }
+  } @else if $side == 'horizontal' {
+    .no-margin-#{$side} {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
+  } @else if $side == 'vertical' {
+    .no-margin-#{$side} {
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+    }
+  } @else {
+    .no-margin-#{$side} {
+      margin-#{$side}: 0 !important;
+    }
+  }
+}
+
+@mixin no-border($side) {
+  @if $side == 'all' {
+    .no-border {
+      border: 0 !important;
+    }
+  } @else if $side == 'horizontal' {
+    .no-border-#{$side} {
+      border-left: 0 !important;
+      border-right: 0 !important;
+    }
+  } @else if $side == 'vertical' {
+    .no-border-#{$side} {
+      border-top: 0 !important;
+      border-bottom: 0 !important;
+    }
+  } @else {
+    .no-border-#{$side} {
+      border-#{$side}: 0 !important;
+    }
+  }
+}

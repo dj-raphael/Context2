@@ -1,0 +1,18 @@
+﻿<div ng-include="'/app/client/views/top-menu.html'"></div>
+<div class="row">
+    <div class="col-sm-12 no-padding-horizontal">
+        <ul class="list-group threads-list">
+            <li class="list-group-item can-click" ng-click="vm.addThread()" ng-if="vm.showAddThread">
+                <span class="thread-title"><span>{{'ADDTHREAD' | translate}}</span><span>{{vm.newThreadTitle}}</span></span>
+            </li>
+            <li class="list-group-item can-click" ng-repeat="thread in vm.threads track by thread.id" ng-click="vm.openThread(thread.id)">
+                <span class="thread-title">{{thread.title}}</span>
+                <div class="thread-info">
+                    <div class="thread-info-comments"><span>{{thread.commentsQty | abbrNum: 0}}</span><span>{{thread.newCommentsQty > 0 ? '(+'+thread.newCommentsQty+')' : ''}}</span></div>
+                    <cd-rating class="thread-info-rating" cd-value="thread.rating" cd-is-moderator="thread.isModerator"></cd-rating>
+                    <b class="thread-info-width">{{thread.weight | percentage : 0}}</b>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

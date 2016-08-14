@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Context2</title>
+
+
+    <!-- rev-hash -->
+<link rel="stylesheet" href="/app/app-cerulean.css?v=07d4d5a447e5558683e55942f5d5e5c6"/>
+<!-- end -->
+</head>
+<body cd-window-focus>
+    <div ui-view="content-wrapper"></div>
+    <div class="loader-wrapper" ng-show="isLoading || isError">
+        <div class="loader-background"></div>
+        <div class="loader-content">
+            <i class="fa fa-spinner fa-spin fa-5x" ng-show="isLoading"></i>
+            <h2 style="display: none" ng-style="isError? {display:'block'}:{display:'none'}">Error</h2>
+        </div>
+    </div>
+
+    <!-- rev-hash -->
+<script src="/app/app.js?v=84ffb0d4294fbc0ea94a5a5627bd013a"></script>
+<!-- end -->
+</body>
+</html>

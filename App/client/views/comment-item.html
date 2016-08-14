@@ -1,0 +1,30 @@
+﻿<div class="row">
+    <div class="col-xs-8">
+        <b>{{comment.userName}}</b>
+        <span>{{comment.created | amDateFormat: 'LLL'}}</span>
+    </div>
+    <div class="col-xs-4 text-right">
+        <i class="fa fa-thumbs-down can-click" ng-if="vm.canVote(comment)" ng-click="vm.voteDown(comment)"></i>
+        <span class="badge" title="{{comment.voteSum}}: ↑{{comment.voteUp}} ↓{{comment.voteDown}}">{{comment.voteSum}}</span>
+        <i class="fa fa-thumbs-up can-click" ng-if="vm.canVote(comment)" ng-click="vm.voteUp(comment)"></i>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <span>{{comment.message}}</span>
+    </div>
+</div>
+<div ng-if="comment.moderatedBy != null && !comment.showModerate">
+    <div class="row moderator-message">
+        <div class="col-sm-12">
+            <b class="text-danger moderator-icon">M</b>
+            <b>{{comment.moderatedByName}}</b>
+            <span>{{comment.moderatedDate | amDateFormat: 'LLL'}}</span>
+        </div>
+    </div>
+    <div class="row moderator-message">
+        <div class="col-sm-12">
+            <span>{{comment.moderatorMessage}}</span>
+        </div>
+    </div>
+</div>

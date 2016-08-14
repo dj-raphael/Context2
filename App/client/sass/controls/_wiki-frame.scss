@@ -1,0 +1,5 @@
+﻿.wiki-frame {
+    position: absolute;
+    width: calc(100% - #{$grid-gutter-width});
+    height: calc(100% -  #{$tab-content-wrapper-top});
+}

@@ -1,0 +1,24 @@
+﻿.loader-wrapper {
+    z-index: $loader-z-index;
+    padding-top: $loader-padding-top;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    & .loader-background {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        opacity: $loader-background-opacity;
+        background: $loader-background-color;
+    }
+
+    & .loader-content {
+        margin: 0 auto;
+        width: $loader-width;
+    }
+}

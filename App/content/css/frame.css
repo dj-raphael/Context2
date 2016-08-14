@@ -27,6 +27,13 @@
     float: left;
 }
 
+.CI_back-button {
+    padding-top: 3px;
+    padding-left: 5px;
+    width: 26px;
+    height: 26px;
+    display: inline-block;
+}
 
 .CI_panel {
     width: 100%;

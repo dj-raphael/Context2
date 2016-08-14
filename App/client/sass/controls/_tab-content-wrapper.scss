@@ -1,0 +1,12 @@
+﻿.tab-content-wrapper {
+    overflow-y: scroll;
+    position: absolute;
+    right: $grid-gutter-width / 2;
+    left: $grid-gutter-width / 2;
+    bottom: 0;
+    top: $tab-content-wrapper-top;
+}
+
+.top-menu-with-banner ~ div .tab-content-wrapper{
+    top: $tab-content-wrapper-top + $banner-height;
+}
